@@ -6,6 +6,8 @@
 package GUI;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.JPanel;
 
 /**
@@ -19,6 +21,7 @@ public class fMain extends javax.swing.JFrame {
      */
     public fMain() {
         initComponents();
+        centerForm();
     }
 
     /**
@@ -101,6 +104,11 @@ public class fMain extends javax.swing.JFrame {
           btnQLPhieuNhap.setForeground(new Color(204, 204, 204));
           btnQLGiDo.setForeground(new Color(204, 204, 204));
      }
+     
+     private void centerForm(){
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+    }
      
     /**
      * @param args the command line arguments

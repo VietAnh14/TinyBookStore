@@ -5,6 +5,11 @@
  */
 package GUI;
 
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 /**
  *
  * @author Viet Anh
@@ -16,6 +21,13 @@ public class fQuanLySach extends javax.swing.JPanel {
      */
     public fQuanLySach() {
         initComponents();
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException e) {
+            JOptionPane.showMessageDialog(null, "Loi");
+        }
     }
 
     /**
