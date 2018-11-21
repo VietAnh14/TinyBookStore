@@ -22,6 +22,7 @@ public class fMain extends javax.swing.JFrame {
     public fMain() {
         initComponents();
         centerForm();
+        btnQLGiDo.setEnabled(false);
     }
 
     /**
@@ -71,6 +72,11 @@ public class fMain extends javax.swing.JFrame {
         btnQLPhieuNhap.setForeground(new java.awt.Color(204, 204, 204));
         btnQLPhieuNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/quill.png"))); // NOI18N
         btnQLPhieuNhap.setText("Quản lý phiếu nhập");
+        btnQLPhieuNhap.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnQLPhieuNhapMouseClicked(evt);
+            }
+        });
         sideBarPanel.add(btnQLPhieuNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 180, 45));
 
         containPanel.add(sideBarPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 540));
@@ -90,6 +96,11 @@ public class fMain extends javax.swing.JFrame {
         swichPanel(qlSach);
     }//GEN-LAST:event_btnQuanLySachMouseClicked
 
+    private void btnQLPhieuNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQLPhieuNhapMouseClicked
+        resetColor();
+        btnQLPhieuNhap.setForeground(Color.WHITE);
+    }//GEN-LAST:event_btnQLPhieuNhapMouseClicked
+
     // Change the panel in layered panel
      public void swichPanel(JPanel panel) {
        layeredPanelContain.removeAll();
@@ -107,7 +118,7 @@ public class fMain extends javax.swing.JFrame {
      
      private void centerForm(){
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
     }
      
     /**
