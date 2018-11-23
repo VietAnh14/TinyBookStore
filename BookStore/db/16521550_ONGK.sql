@@ -11,34 +11,30 @@ CREATE TABLE NXB(
 	Deleted BIT default 0
 )
 GO
+CREATE TABLE LOAISACH
+(
+	MaLoaiSach INT PRIMARY KEY IDENTITY,
+	TenLoaiSach NVARCHAR(70) NOT NULL
+)
+GO
+
 CREATE TABLE SACH
 (
 	MaSach INT  PRIMARY KEY,
 	MaNXB int NOT NULL,
 	TenSach NVARCHAR(70) NOT NULL,
 	TacGia NVARCHAR(70) NOT NULL,
-	TheLoai NVARCHAR(100),
+	MaLoaiSach INT NOT NULL,
 	GiaBan MONEY NOT NULL,
 	SoLuong INT NOT NULL,
 	Deleted bit default 0,
-	FOREIGN KEY (MaNXB) REFERENCES NXB(MaNXB)
+	FOREIGN KEY (MaNXB) REFERENCES NXB(MaNXB),
+	FOREIGN KEY (MaLoaiSach) REFERENCES LOAISACH(MaLoaiSach),
 )
 
-CREATE TABLE LOAISACH
-(
-	MaLoaiSach INT PRIMARY KEY IDENTITY,
-	TenLoaiSach NVARCHAR(70) NOT NULL
-)
 
-CREATE TABLE CONGTY
-(
-	MaCty INT PRIMARY KEY IDENTITY,
-	TenCty NVARCHAR(70),
-	DiaChi NVARCHAR(70),
-	SDT VARCHAR(20)
-)
 
-GO
+
 
 CREATE TABLE NHANVIEN
 (
@@ -60,6 +56,16 @@ CREATE TABLE ACCOUNT
 	MaNV INT NOT NULL,
 	FOREIGN KEY (MaNV) REFERENCES NHANVIEN(MaNV) 
 )
+GO
+
+CREATE TABLE CONGTY
+(
+	MaCty INT PRIMARY KEY IDENTITY,
+	TenCty NVARCHAR(70),
+	DiaChi NVARCHAR(70),
+	SDT VARCHAR(20)
+)
+
 GO
 
 CREATE TABLE PHIEUNHAP
@@ -172,29 +178,46 @@ SET DATEFORMAT DMY;
 GO  
 
 
+
 INSERT INTO NXB
                          (MaNXB,TenNXB, DiaChi, SDT)
 VALUES        (1,N'Nhà Xuất Bản Trẻ',N'ABC','012346789')
 
-INSERT INTO SACH
-                         (MaSach,MaNXB, TenSach, TacGia, TheLoai, GiaBan,SoLuong)
-VALUES        (1,'1',N'Forever 20','VA',N'Văn học phương Tây','100','100')
+INSERT INTO dbo.LOAISACH
+(
+    TenLoaiSach
+)
+VALUES
+(N'TIỂU THUYẾT' -- TenLoaiSach - nvarchar(70)
+    )
+
+INSERT INTO dbo.LOAISACH
+(
+    TenLoaiSach
+)
+VALUES
+(N'TRINH THÁM' -- TenLoaiSach - nvarchar(70)
+    )
 
 INSERT INTO SACH
-                         (MaSach,MaNXB, TenSach, TacGia, TheLoai, GiaBan,SoLuong)
-VALUES        (2,'1',N'City of stars','VB',N'Văn học phương Tây','200','50')
+                         (MaSach,MaNXB, TenSach, TacGia, MaLoaiSach, GiaBan,SoLuong)
+VALUES        (1,'1',N'Forever 20','VA','1','100','100')
 
 INSERT INTO SACH
-                         (MaSach,MaNXB, TenSach, TacGia, TheLoai, GiaBan,SoLuong)
-VALUES        (3,'1',N'Paper Cities','VC',N'Văn học phương Tây','150','150')
+                         (MaSach,MaNXB, TenSach, TacGia, MaLoaiSach, GiaBan,SoLuong)
+VALUES        (2,'1',N'City of stars','VB','2','200','50')
 
 INSERT INTO SACH
-                         (MaSach,MaNXB, TenSach, TacGia, TheLoai, GiaBan,SoLuong)
-VALUES        (4,'1',N'SGK Toán','VC',N'Sách giáo khoa','10','150')
+                         (MaSach,MaNXB, TenSach, TacGia, MaLoaiSach, GiaBan,SoLuong)
+VALUES        (3,'1',N'Paper Cities','VC','1','150','150')
 
 INSERT INTO SACH
-                         (MaSach,MaNXB, TenSach, TacGia, TheLoai, GiaBan,SoLuong)
-VALUES        (5,'1',N'SGK Lý 10','VC',N'Sách giáo khoa','15','150')
+                         (MaSach,MaNXB, TenSach, TacGia, MaLoaiSach, GiaBan,SoLuong)
+VALUES        (4,'1',N'SGK Toán','VC','2','10','150')
+
+INSERT INTO SACH
+                         (MaSach,MaNXB, TenSach, TacGia, MaLoaiSach, GiaBan,SoLuong)
+VALUES        (5,'1',N'SGK Lý 10','VC','1','15','150')
 
 INSERT INTO NHANVIEN
                          (MaNV,HoTen, SDT, CMND,NgaySinh, DiaChi)
@@ -214,6 +237,4 @@ INSERT INTO ACCOUNT
 VALUES        ('admin','admin','admin',1)
 
 
--- Loại sách
--- KhachHang có user password
--- Table Cty
+
