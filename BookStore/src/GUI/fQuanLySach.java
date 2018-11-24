@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import Common.BindingTableSach;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -21,6 +22,7 @@ public class fQuanLySach extends javax.swing.JPanel {
      */
     public fQuanLySach() {
         initComponents();
+       // bindingTableSach.binding(tblSach);
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 
@@ -60,7 +62,7 @@ public class fQuanLySach extends javax.swing.JPanel {
         btnSua = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblSach = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
 
         setPreferredSize(new java.awt.Dimension(870, 540));
@@ -178,7 +180,7 @@ public class fQuanLySach extends javax.swing.JPanel {
 
         jSeparator1.setForeground(new java.awt.Color(51, 102, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblSach.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -197,7 +199,7 @@ public class fQuanLySach extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblSach);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -258,7 +260,8 @@ public class fQuanLySach extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-
+private Common.BindingTableSach bindingTableSach  = new BindingTableSach();
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLuu;
     private javax.swing.JButton btnSua;
@@ -277,7 +280,7 @@ public class fQuanLySach extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblSach;
     private javax.swing.JTextField tbxTacGia;
     private javax.swing.JTextField txbGia;
     private javax.swing.JTextField txbMaSach;

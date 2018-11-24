@@ -18,20 +18,19 @@ import java.sql.SQLException;
 public class ConnectDB {
     private static String username = "sa";
     private static String password = "datchim147";
-    private static String url = "jdbc:sqlserver://localhost:1433;databaseName=yourDBname;";
+    private static String url = "jdbc:sqlserver://localhost:1433;databaseName=QLNS;";
     private static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-   public static Connection getConnection(){
+    protected Connection cn;
+   public void getConnection(){
        try {
            Class.forName(driver);
-           Connection cn = DriverManager.getConnection(url, username, password);
-           return cn;
+            cn = DriverManager.getConnection(url, username, password);
        } catch (ClassNotFoundException | SQLException e) {
            e.printStackTrace();
-           return null;
        }
    }
    
-   public static void closeCn(Connection cn, PreparedStatement ps, ResultSet rs){
+   public  void closeCn(Connection cn, PreparedStatement ps, ResultSet rs){
        try {
            if (rs != null && !rs.isClosed()) {
                rs.close();
