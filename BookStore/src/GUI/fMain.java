@@ -8,7 +8,10 @@ package GUI;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -121,8 +124,13 @@ public class fMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnQLPhieuNhapMouseClicked
 
     private void btnTaoDonHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTaoDonHangMouseClicked
-        fTaoDonHang taodon = new fTaoDonHang();
-        swichPanel(taodon);        // TODO add your handling code here:
+        fTaoDonHang donhang = null;
+        try {
+            donhang = new fTaoDonHang();
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(fMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        swichPanel(donhang);        // TODO add your handling code here:
     }//GEN-LAST:event_btnTaoDonHangMouseClicked
 
     // Change the panel in layered panel

@@ -50,7 +50,6 @@ public class fTaoDonHang extends javax.swing.JPanel {
         buttonGroup7 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jCheckBox2 = new javax.swing.JCheckBox();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -59,6 +58,8 @@ public class fTaoDonHang extends javax.swing.JPanel {
         jTextField3 = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jTextField8 = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
@@ -90,15 +91,6 @@ public class fTaoDonHang extends javax.swing.JPanel {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jCheckBox2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jCheckBox2.setForeground(new java.awt.Color(102, 102, 102));
-        jCheckBox2.setText("Thành Viên");
-        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox2ActionPerformed(evt);
-            }
-        });
-
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
         jLabel2.setText("Mã Khách Hàng");
@@ -125,10 +117,21 @@ public class fTaoDonHang extends javax.swing.JPanel {
         jTextField8.setEditable(false);
         jTextField8.setBackground(new java.awt.Color(204, 204, 204));
 
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/restaurant-membership-card-tool.png"))); // NOI18N
+        jLabel11.setText("Thành Viên");
+
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/head (2).png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jLabel11)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
@@ -138,24 +141,26 @@ public class fTaoDonHang extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField2)
-                    .addComponent(jTextField1)
                     .addComponent(jTextField3)
-                    .addComponent(jTextField8))
+                    .addComponent(jTextField8)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel12)
+                        .addGap(0, 7, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addComponent(jCheckBox2)
-                .addContainerGap(84, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jCheckBox2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2))
+                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -181,8 +186,9 @@ public class fTaoDonHang extends javax.swing.JPanel {
         jLabel6.setForeground(new java.awt.Color(102, 102, 102));
         jLabel6.setText("Số Lượng");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/book(3).png"))); // NOI18N
         jLabel7.setText("Thêm Sách");
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -199,21 +205,26 @@ public class fTaoDonHang extends javax.swing.JPanel {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField4)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextField4)
+                            .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(81, 81, 81)
+                                .addComponent(jButton1))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(53, 53, 53)
+                                .addComponent(jLabel7)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(81, 81, 81)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel7))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,7 +241,7 @@ public class fTaoDonHang extends javax.swing.JPanel {
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -290,8 +301,24 @@ public class fTaoDonHang extends javax.swing.JPanel {
             new String [] {
                 "STT", "Tên Sách", "Tác Giả", "Đơn Giá", "Số Lượng", "Thành Tiền"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setHeaderValue("STT");
+            jTable1.getColumnModel().getColumn(1).setHeaderValue("Tên Sách");
+            jTable1.getColumnModel().getColumn(2).setHeaderValue("Tác Giả");
+            jTable1.getColumnModel().getColumn(3).setHeaderValue("Đơn Giá");
+            jTable1.getColumnModel().getColumn(4).setHeaderValue("Số Lượng");
+            jTable1.getColumnModel().getColumn(5).setHeaderValue("Thành Tiền");
+        }
 
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton4.setForeground(new java.awt.Color(0, 102, 102));
@@ -315,7 +342,7 @@ public class fTaoDonHang extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -347,10 +374,6 @@ public class fTaoDonHang extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox2ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -371,9 +394,10 @@ public class fTaoDonHang extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
