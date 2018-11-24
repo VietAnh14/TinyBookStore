@@ -8,7 +8,10 @@ package GUI;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -22,6 +25,7 @@ public class fMain extends javax.swing.JFrame {
     public fMain() {
         initComponents();
         centerForm();
+        btnQLGiDo.setEnabled(false);
     }
 
     /**
@@ -38,6 +42,8 @@ public class fMain extends javax.swing.JFrame {
         btnQLGiDo = new javax.swing.JLabel();
         btnQuanLySach = new javax.swing.JLabel();
         btnQLPhieuNhap = new javax.swing.JLabel();
+        btnTaoDonHang = new javax.swing.JLabel();
+        btnQuanLyDonHang = new javax.swing.JLabel();
         layeredPanelContain = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -53,7 +59,7 @@ public class fMain extends javax.swing.JFrame {
         btnQLGiDo.setForeground(new java.awt.Color(204, 204, 204));
         btnQLGiDo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/quill.png"))); // NOI18N
         btnQLGiDo.setText("Quản lý gì đó");
-        sideBarPanel.add(btnQLGiDo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 180, 45));
+        sideBarPanel.add(btnQLGiDo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 180, 45));
 
         btnQuanLySach.setBackground(new java.awt.Color(204, 204, 204));
         btnQuanLySach.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -65,16 +71,39 @@ public class fMain extends javax.swing.JFrame {
                 btnQuanLySachMouseClicked(evt);
             }
         });
-        sideBarPanel.add(btnQuanLySach, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 180, 45));
+        sideBarPanel.add(btnQuanLySach, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 180, 45));
 
         btnQLPhieuNhap.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnQLPhieuNhap.setForeground(new java.awt.Color(204, 204, 204));
         btnQLPhieuNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/quill.png"))); // NOI18N
         btnQLPhieuNhap.setText("Quản lý phiếu nhập");
-        sideBarPanel.add(btnQLPhieuNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 180, 45));
+        btnQLPhieuNhap.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnQLPhieuNhapMouseClicked(evt);
+            }
+        });
+        sideBarPanel.add(btnQLPhieuNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 180, 45));
+
+        btnTaoDonHang.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnTaoDonHang.setForeground(new java.awt.Color(204, 204, 204));
+        btnTaoDonHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/shopping-cart.png"))); // NOI18N
+        btnTaoDonHang.setText("Tạo Đơn hàng");
+        btnTaoDonHang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnTaoDonHangMouseClicked(evt);
+            }
+        });
+        sideBarPanel.add(btnTaoDonHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 180, 40));
+
+        btnQuanLyDonHang.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnQuanLyDonHang.setForeground(new java.awt.Color(204, 204, 204));
+        btnQuanLyDonHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/checklist.png"))); // NOI18N
+        btnQuanLyDonHang.setText("Quản Lý Đơn Hàng");
+        sideBarPanel.add(btnQuanLyDonHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 180, 40));
 
         containPanel.add(sideBarPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 540));
 
+        layeredPanelContain.setBackground(new java.awt.Color(102, 102, 102));
         layeredPanelContain.setLayout(new java.awt.CardLayout());
         containPanel.add(layeredPanelContain, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 870, 540));
 
@@ -89,6 +118,20 @@ public class fMain extends javax.swing.JFrame {
         btnQuanLySach.setForeground(Color.WHITE);
         swichPanel(qlSach);
     }//GEN-LAST:event_btnQuanLySachMouseClicked
+
+    private void btnQLPhieuNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQLPhieuNhapMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnQLPhieuNhapMouseClicked
+
+    private void btnTaoDonHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTaoDonHangMouseClicked
+        fTaoDonHang donhang = null;
+        try {
+            donhang = new fTaoDonHang();
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(fMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        swichPanel(donhang);        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTaoDonHangMouseClicked
 
     // Change the panel in layered panel
      public void swichPanel(JPanel panel) {
@@ -107,7 +150,7 @@ public class fMain extends javax.swing.JFrame {
      
      private void centerForm(){
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
     }
      
     /**
@@ -148,7 +191,9 @@ public class fMain extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnQLGiDo;
     private javax.swing.JLabel btnQLPhieuNhap;
+    private javax.swing.JLabel btnQuanLyDonHang;
     private javax.swing.JLabel btnQuanLySach;
+    private javax.swing.JLabel btnTaoDonHang;
     private javax.swing.JPanel containPanel;
     private javax.swing.JLayeredPane layeredPanelContain;
     private javax.swing.JPanel sideBarPanel;
