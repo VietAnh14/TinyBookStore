@@ -8,6 +8,7 @@ package DAL;
 import DTO.NXBDTO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -35,7 +36,7 @@ public class NXBDAL extends ConnectDB {
                 listNXBDTO.add(nxbdto);
             }
             closeCn(cn, ps, rs);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return listNXBDTO;
@@ -48,7 +49,7 @@ public class NXBDAL extends ConnectDB {
             PreparedStatement ps = cn.prepareStatement(GET_BY_ID);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-           
+
             while (rs.next()) {
                 NXBDTO nxbdto = new NXBDTO();
                 nxbdto.setMaNXB(rs.getInt("MaNXB"));
@@ -59,9 +60,43 @@ public class NXBDAL extends ConnectDB {
                 listNXBDTO.add(nxbdto);
             }
             closeCn(cn, ps, rs);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return listNXBDTO;
+    }
+
+    public Integer getIdByName(String name) {
+        String sql = "SELECT MaNXB FROM NXB WHERE TENNXB = ?";
+        int id = 0;
+        try {
+            getConnection();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setString(1, name);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt("MaNXB");
+                closeCn(cn, ps, rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
+    public int generateId() {
+        String sql = "SELECT MAX(MaNXB) FROM NXB AS MaxId";
+        int id = 0;
+        try {
+            getConnection();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt("MaxId") + 1;
+                closeCn(cn, ps, rs);
+            }
+        } catch (SQLException e) {
+        }
+        return id;
     }
 }

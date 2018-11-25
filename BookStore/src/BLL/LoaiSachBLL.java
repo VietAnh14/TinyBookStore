@@ -23,4 +23,11 @@ public class LoaiSachBLL {
            return loaiSachDAL.getAll();
        }
        
+       public int getIdByName(String name) {
+           return loaiSachDAL.getIdByName(name);
+       }
+       
+       public int generateId(){
+           return loaiSachDAL.generateId();
+       }
 }

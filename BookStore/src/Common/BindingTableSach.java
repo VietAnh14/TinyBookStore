@@ -26,8 +26,7 @@ public class BindingTableSach {
     LoaiSachBLL loaiSachBLL = new LoaiSachBLL();
     NXBBLL nxbbll = new NXBBLL();
     
-    public void binding(JTable tableSach) {
-        ArrayList<BookDTO> listBook = bookBLL.getAll();
+    public void binding(JTable tableSach, ArrayList<BookDTO> listBook) {
         ArrayList<LoaiSachDTO> listLoaiSach = new ArrayList<>();
         ArrayList<NXBDTO> listNXB = new ArrayList<>();
         Vector header = new Vector();

@@ -24,4 +24,11 @@ public class NXBBLL {
             return nxbdal.getById(id);
         }
         
+        public int generateId() {
+            return nxbdal.generateId();
+        }
+        
+        public int getIdByName(String name) {
+            return nxbdal.getIdByName(name);
+        }
 }
