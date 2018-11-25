@@ -24,11 +24,19 @@ public class NXBBLL {
             return nxbdal.getById(id);
         }
         
-        public int generateId() {
+        public Integer generateId() {
             return nxbdal.generateId();
         }
         
         public int getIdByName(String name) {
             return nxbdal.getIdByName(name);
+        }
+        
+        public boolean updateNXB(NXBDTO nxb) {
+            return nxbdal.updateNXB(nxb);
+        }
+                
+        public boolean insertNXB(NXBDTO nxb) {
+            return nxbdal.insertNXB(nxb);
         }
 }

@@ -27,7 +27,15 @@ public class LoaiSachBLL {
            return loaiSachDAL.getIdByName(name);
        }
        
-       public int generateId(){
-           return loaiSachDAL.generateId();
+//       public Integer generateId(){
+//           return loaiSachDAL.generateId();
+//       }
+       
+       public boolean insertLoaiSach(LoaiSachDTO loaiSach) {
+           return loaiSachDAL.insertTL(loaiSach);
+       }
+       
+       public boolean updateLoaiSach(LoaiSachDTO loaiSach) {
+           return loaiSachDAL.updatetTL(loaiSach);
        }
 }

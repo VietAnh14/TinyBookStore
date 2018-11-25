@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import sun.security.rsa.RSACore;
 
 /**
  *
@@ -31,7 +32,7 @@ public class NXBDAL extends ConnectDB {
                 nxbdto.setMaNXB(rs.getInt("MaNXB"));
                 nxbdto.setTenNXB(rs.getString("TenNXB"));
                 nxbdto.setDiaChi(rs.getString("DiaChi"));
-                nxbdto.setDiaChi(rs.getString("SDT"));
+                nxbdto.setSDT(rs.getString("SDT"));
                 nxbdto.setDeleted(rs.getBoolean("Deleted"));
                 listNXBDTO.add(nxbdto);
             }
@@ -84,8 +85,8 @@ public class NXBDAL extends ConnectDB {
         return id;
     }
 
-    public int generateId() {
-        String sql = "SELECT MAX(MaNXB) FROM NXB AS MaxId";
+    public Integer generateId() {
+        String sql = "SELECT MAX(MaNXB) AS MaxId FROM NXB";
         int id = 0;
         try {
             getConnection();
@@ -98,5 +99,43 @@ public class NXBDAL extends ConnectDB {
         } catch (SQLException e) {
         }
         return id;
+    }
+    
+    public boolean insertNXB(NXBDTO nxb) {
+        String sql = "INSERT INTO NXB (MaNXB, TenNXB, DiaChi, SDT) VALUES        (?, ?, ?, ?)";
+        try {
+            getConnection();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setInt(1, nxb.getMaNXB());
+            ps.setString(2, nxb.getTenNXB());
+            ps.setString(3, nxb.getDiaChi());
+            ps.setString(4, nxb.getSDT());
+            int rs = ps.executeUpdate();
+            if (rs != 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+        public boolean updateNXB(NXBDTO nxb) {
+        String sql = "UPDATE NXB  SET TenNXB = ?, DiaChi = ?, SDT = ? WHERE MaNXB = ?";
+        try {
+            getConnection();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setString(1, nxb.getTenNXB());
+            ps.setString(2, nxb.getDiaChi());
+            ps.setString(3, nxb.getSDT());
+            ps.setInt(4, nxb.getMaNXB());
+            int rs = ps.executeUpdate();
+            if (rs != 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
