@@ -10,14 +10,16 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Viet Anh
  */
 public class ConnectDB {
-    private static String username = "sa";
-    private static String password = "datchim147";
+    private static String username = "";
+    private static String password = "";
     private static String url = "jdbc:sqlserver://localhost:1433;databaseName=QLNS;";
     private static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     protected Connection cn;
@@ -52,5 +54,13 @@ public class ConnectDB {
        } catch (Exception e) {
            e.printStackTrace();
        }
+   }
+   
+   public void getClose(){
+        try {
+            cn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConnectDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
    }
 }

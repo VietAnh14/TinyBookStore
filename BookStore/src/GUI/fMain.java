@@ -99,6 +99,11 @@ public class fMain extends javax.swing.JFrame {
         btnQuanLyDonHang.setForeground(new java.awt.Color(204, 204, 204));
         btnQuanLyDonHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/checklist.png"))); // NOI18N
         btnQuanLyDonHang.setText("Quản Lý Đơn Hàng");
+        btnQuanLyDonHang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnQuanLyDonHangMouseClicked(evt);
+            }
+        });
         sideBarPanel.add(btnQuanLyDonHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 180, 40));
 
         containPanel.add(sideBarPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 540));
@@ -132,6 +137,12 @@ public class fMain extends javax.swing.JFrame {
         }
         swichPanel(donhang);        // TODO add your handling code here:
     }//GEN-LAST:event_btnTaoDonHangMouseClicked
+
+    private void btnQuanLyDonHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyDonHangMouseClicked
+    fQuanLyDonHang qldh = null;
+    qldh = new fQuanLyDonHang();
+        swichPanel(qldh);         // TODO add your handling code here:
+    }//GEN-LAST:event_btnQuanLyDonHangMouseClicked
 
     // Change the panel in layered panel
      public void swichPanel(JPanel panel) {
