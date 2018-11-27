@@ -6,6 +6,7 @@
 package DAL;
 import DTO.KhachHangDTO;
 import java.sql.CallableStatement;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 /**
  *
@@ -21,10 +22,13 @@ public class KhachHangDAL extends ConnectDB{
             CallableStatement caSt = cn.prepareCall(strCall); 
             caSt.setString(1, Integer.toString(a.getMaKH())); 
             ResultSet rs = caSt.executeQuery();
-            if(rs != null){
+
+            while (rs.next()){
+
                 a.setHoTen(rs.getString("HoTen"));
                 a.setSDT(rs.getInt("SDT"));
                 a.setDiemTichLuy(rs.getInt("DiemTichLuy"));
+                
                 check = true;
             }
             getClose();

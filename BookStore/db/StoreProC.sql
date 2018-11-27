@@ -11,3 +11,5 @@ END
 
 
 SELECT * FROM dbo.KHACHHANG
+
+EXEC dbo.Info_KhachHang @makh = 0 -- int

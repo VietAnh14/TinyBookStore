@@ -18,8 +18,8 @@ import java.util.logging.Logger;
  * @author Viet Anh
  */
 public class ConnectDB {
-    private static String username = "";
-    private static String password = "";
+    private static String username = "sa";
+    private static String password = "123";
     private static String url = "jdbc:sqlserver://localhost:1433;databaseName=QLNS;";
     private static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     protected Connection cn;
