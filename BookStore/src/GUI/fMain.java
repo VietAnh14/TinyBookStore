@@ -121,10 +121,10 @@ public class fMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnQuanLySachMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLySachMouseClicked
-//        fQuanLySach qlSach = new fQuanLySach();
+        fQuanLySach qlSach = new fQuanLySach();
         resetColor();
         btnQuanLySach.setForeground(Color.WHITE);
-        swichPanel(fQuanLySach1);
+        swichPanel(qlSach);
     }//GEN-LAST:event_btnQuanLySachMouseClicked
 
     private void btnQLPhieuNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQLPhieuNhapMouseClicked
