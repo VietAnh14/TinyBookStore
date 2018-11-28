@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class fTaoDonHang extends javax.swing.JPanel {
     
     KhachHangDTO kh = new KhachHangDTO();
-        ArrayList<BookCartDTO> listBook = null;
+        ArrayList<BookCartDTO> listBook = new ArrayList<>();
     private BookCartBLL bookbll = new BookCartBLL();
     private Common.BindingTableFormTaoDonHang bindingTable = new BindingTableFormTaoDonHang();
     
@@ -229,6 +229,11 @@ public class fTaoDonHang extends javax.swing.JPanel {
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(51, 51, 51));
         jButton2.setText("Xóa");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -455,9 +460,15 @@ public class fTaoDonHang extends javax.swing.JPanel {
 
     private void btnThemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseClicked
         // TODO add your handling code here:
-        listBook =bookbll.addbook(txtMaSach.getText(),Integer.parseInt(txtSoLuong.getText()));
+        bookbll.addbook(listBook, txtMaSach.getText(),Integer.parseInt(txtSoLuong.getText()));
         bindingTable.bindingtblSach(tableDonHang, listBook);
     }//GEN-LAST:event_btnThemMouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        bookbll.removeBook(listBook,Integer.parseInt(txtMaSach.getText()) , Integer.parseInt(txtSoLuong.getText()));
+        bindingTable.bindingtblSach(tableDonHang, listBook);
+    }//GEN-LAST:event_jButton2MouseClicked
     
     
     

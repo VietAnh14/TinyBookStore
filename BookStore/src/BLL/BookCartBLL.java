@@ -15,8 +15,12 @@ import java.util.ArrayList;
  */
 public class BookCartBLL {
         BookCartDAL bookcartDAL = new BookCartDAL();
-        public ArrayList<BookCartDTO> addbook(String masach,int sl){
-        return bookcartDAL.addbook(masach,sl);
+        public ArrayList<BookCartDTO> addbook(ArrayList<BookCartDTO> listBook,String masach,int sl){
+        return bookcartDAL.addbook(listBook, masach,sl);
     }
-    
+
+        public boolean removeBook(ArrayList<BookCartDTO> listBook, int masach,int sl){
+            
+            return bookcartDAL.removeBook(listBook, masach, sl);
+        }
 }

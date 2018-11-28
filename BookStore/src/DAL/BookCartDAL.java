@@ -18,8 +18,16 @@ import java.util.ArrayList;
 public class BookCartDAL extends ConnectDB{
     // hàm tìm Info sách trong fTaoDonHang
 
-    public ArrayList<BookCartDTO> addbook(String masach,int sl) {
-       ArrayList<BookCartDTO> listBook = new ArrayList<>();
+    public ArrayList<BookCartDTO> addbook(ArrayList<BookCartDTO> listBook, String masach,int sl) {
+       //ArrayList<BookCartDTO> listBook = new ArrayList<>();
+       boolean check = true;        // biến check tìm kiếm xem trong table tồn tại chưa
+       for (BookCartDTO book : listBook) {
+             if(Integer.parseInt(masach)== book.getMaSach()){
+                 book.setSoLuong(book.getSoLuong()+sl);
+                 check = false;
+             }
+         }
+       if(check){
         try {
             getConnection();
             String strCall = "{call INFO_SACH(?)}";
@@ -44,6 +52,26 @@ public class BookCartDAL extends ConnectDB{
         } catch (SQLException e) {
             e.printStackTrace();
         }
+       }
         return listBook;
     }
+    
+    
+    public boolean removeBook (ArrayList<BookCartDTO> listBook, int masach,int sl){
+        boolean check = false;
+         for (BookCartDTO book : listBook) {
+             if(masach == book.getMaSach()){
+                 if(sl<book.getSoLuong()){
+                     book.setSoLuong(book.getSoLuong()-sl);
+                     check = true;
+                 }
+                 else{
+                     listBook.remove(book);
+                     check = true;
+                 }
+             }
+         }
+         return check;
+    }
+    
 }
