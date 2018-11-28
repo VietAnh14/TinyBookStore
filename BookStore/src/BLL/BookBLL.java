@@ -16,4 +16,29 @@ public class BookBLL {
     public ArrayList<BookDTO> getAll(){
         return bookDAL.getAll();
     }
+    
+    public boolean insertBook(BookDTO book) {
+        return bookDAL.insertBook(book);
+    }
+    
+    public Integer generateId() {
+        return bookDAL.generateId();
+    }
+    
+    public boolean checkValid(BookDTO book) {
+        if (book.getTacGia().trim().isEmpty() || book.getTenSach().trim().isEmpty() || book.getGiaBan() < 0 ||
+                book.getMaLoaiSach() < 0 || book.getSoLuong() < 0 || book.getMaNXB() < 0) {
+            // need to check with QuyDinh
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean updateBook(BookDTO book) {
+        return bookDAL.updateBook(book);
+    }
+    
+    public ArrayList<BookDTO> searchByName (String name) {
+        return bookDAL.searchByName(name);
+    }
 }

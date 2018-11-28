@@ -45,6 +45,7 @@ public class fMain extends javax.swing.JFrame {
         btnTaoDonHang = new javax.swing.JLabel();
         btnQuanLyDonHang = new javax.swing.JLabel();
         layeredPanelContain = new javax.swing.JLayeredPane();
+        fQuanLySach1 = new GUI.fQuanLySach();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -110,6 +111,8 @@ public class fMain extends javax.swing.JFrame {
 
         layeredPanelContain.setBackground(new java.awt.Color(102, 102, 102));
         layeredPanelContain.setLayout(new java.awt.CardLayout());
+        layeredPanelContain.add(fQuanLySach1, "card2");
+
         containPanel.add(layeredPanelContain, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 870, 540));
 
         getContentPane().add(containPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, 540));
@@ -118,10 +121,10 @@ public class fMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnQuanLySachMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLySachMouseClicked
-        fQuanLySach qlSach = new fQuanLySach();
+//        fQuanLySach qlSach = new fQuanLySach();
         resetColor();
         btnQuanLySach.setForeground(Color.WHITE);
-        swichPanel(qlSach);
+        swichPanel(fQuanLySach1);
     }//GEN-LAST:event_btnQuanLySachMouseClicked
 
     private void btnQLPhieuNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQLPhieuNhapMouseClicked
@@ -206,6 +209,7 @@ public class fMain extends javax.swing.JFrame {
     private javax.swing.JLabel btnQuanLySach;
     private javax.swing.JLabel btnTaoDonHang;
     private javax.swing.JPanel containPanel;
+    private GUI.fQuanLySach fQuanLySach1;
     private javax.swing.JLayeredPane layeredPanelContain;
     private javax.swing.JPanel sideBarPanel;
     // End of variables declaration//GEN-END:variables
