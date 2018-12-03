@@ -5,6 +5,8 @@
  */
 package GUI;
 
+import BLL.AccountBLL;
+import DTO.AccountDTO;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -116,6 +118,11 @@ public class fLogin extends javax.swing.JFrame {
         btnLogin.setText("Đăng nhập");
         btnLogin.setContentAreaFilled(false);
         btnLogin.setOpaque(true);
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(204, 204, 204));
@@ -229,6 +236,37 @@ public class fLogin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txbPasswordKeyPressed
 
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        AccountDTO account = new AccountDTO();
+        if (txbUsername.getText().trim().equals("") || txbPassword.getPassword().equals("")) {
+            JOptionPane.showMessageDialog(this, "Empty username or password");
+        } else {
+            account.setMatKhau(new String(txbPassword.getPassword()));
+            account.setTenTaiKhoan(txbUsername.getText());
+            Integer status = accountBLL.login(account);
+            switch (status) {
+                case 1000 : {  // TRUE
+                    MaNV = account.getMaNV();
+                    ChucVu = account.getChucVu();
+                    fMain main = new fMain();
+                    main.setVisible(true);
+                    this.setVisible(false);
+                    break;
+                } 
+                case 1001 : {  // WRONG USERNAME OR PASSWORD
+                    JOptionPane.showMessageDialog(this, "Incorrect username or password");
+                    break;
+                }
+                
+                case 1002 : { // DATABASE EXCEPTION
+                    JOptionPane.showMessageDialog(this,  "Unexpected error");
+                }
+                
+                default: JOptionPane.showMessageDialog(this,  "Unexpected error"); // UNEXPECTED ERROR
+            }
+        }
+    }//GEN-LAST:event_btnLoginActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -263,6 +301,10 @@ public class fLogin extends javax.swing.JFrame {
             }
         });
     }
+    
+    final AccountBLL accountBLL = new AccountBLL();
+    static  Integer MaNV = 0;
+    static String ChucVu = "not assign";
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
