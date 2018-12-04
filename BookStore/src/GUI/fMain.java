@@ -128,7 +128,10 @@ public class fMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnQuanLySachMouseClicked
 
     private void btnQLPhieuNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQLPhieuNhapMouseClicked
-        // TODO add your handling code here:
+        fQLPhieuNhap fQLPhieuNhap = new fQLPhieuNhap();
+        resetColor();
+        btnQLPhieuNhap.setForeground(Color.WHITE);
+        swichPanel(fQLPhieuNhap);
     }//GEN-LAST:event_btnQLPhieuNhapMouseClicked
 
     private void btnTaoDonHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTaoDonHangMouseClicked
