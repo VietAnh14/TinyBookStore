@@ -6,6 +6,7 @@
 package BLL;
 
 import DAL.PhieuNhapDAL;
+import DTO.PhieuNhapDTO;
 
 /**
  *
@@ -16,5 +17,9 @@ public class PhieuNhapBLL {
     
     public Integer generateId() {
         return phieuNhapDAL.getIdMax() + 1;
+    }
+    
+    public boolean insertPN(PhieuNhapDTO phieuNhap) {
+        return phieuNhapDAL.insertPN(phieuNhap);
     }
 }

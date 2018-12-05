@@ -5,8 +5,10 @@
  */
 package DAL;
 
+import DTO.PhieuNhapDTO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  *
@@ -15,7 +17,7 @@ import java.sql.ResultSet;
 public class PhieuNhapDAL extends ConnectDB {
 
     public Integer getIdMax() {
-        String sql = " SELECT MAX(MaCty) FROM CONGTY";
+        String sql = " SELECT MAX(MaPN) FROM PHIEUNHAP";
         Integer id = 0;
 
         try {
@@ -32,5 +34,28 @@ public class PhieuNhapDAL extends ConnectDB {
         }
         
         return id;
+    }
+    
+    public boolean insertPN(PhieuNhapDTO phieuNhap) {
+        String sql = "INSERT INTO PHIEUNHAP (MaPN, MaNV, MaCty, TongChi) "
+                + "VALUES ("+ phieuNhap.getMaPN()+"," + phieuNhap.getMaNV() +","+phieuNhap.getMaCty()+",0)";
+        boolean status = false;
+        try {
+            getConnection();
+            cn.setAutoCommit(false);
+            Statement statement = cn.createStatement();
+            int rs = statement.executeUpdate(sql);
+            cn.commit();
+            if (rs > 0) {
+                status = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            status = false;
+            cn.rollback();
+        } finally {
+            getClose();
+            return status;
+        }
     }
 }

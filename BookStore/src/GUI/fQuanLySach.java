@@ -130,6 +130,9 @@ public class fQuanLySach extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Tên sách :");
 
+        txbTenSach.setEditable(false);
+        txbTenSach.setEnabled(false);
+
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("Thể loại :");
 
