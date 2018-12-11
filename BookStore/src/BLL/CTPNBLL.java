@@ -18,4 +18,8 @@ public class CTPNBLL {
    public boolean insertListCTPN(ArrayList<CTPNDTO> listCtpn) {
        return ctpndal.insertListCTPN(listCtpn);
    }
+   
+   public boolean getByIdPN(ArrayList<CTPNDTO> listCtpn, String idPN) {
+       return ctpndal.getByIdPN(listCtpn, idPN);
+   }
 }

@@ -7,6 +7,7 @@ package BLL;
 
 import DAL.PhieuNhapDAL;
 import DTO.PhieuNhapDTO;
+import java.util.ArrayList;
 
 /**
  *
@@ -21,5 +22,9 @@ public class PhieuNhapBLL {
     
     public boolean insertPN(PhieuNhapDTO phieuNhap) {
         return phieuNhapDAL.insertPN(phieuNhap);
+    }
+    
+    public boolean getAll(ArrayList<PhieuNhapDTO> listPhieuNhap) {
+        return phieuNhapDAL.getAll(listPhieuNhap);
     }
 }

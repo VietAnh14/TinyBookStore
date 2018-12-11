@@ -5,12 +5,104 @@
  */
 package Common;
 
+import BLL.CTPNBLL;
+import BLL.PhieuNhapBLL;
+import DTO.CTPNDTO;
+import DTO.PhieuNhapDTO;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import javax.swing.JTable;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Viet Anh
  */
 public class BindingTableFormQLPhieuNhap {
-    public void bindingCBTenCty() {
-        
+
+    private final PhieuNhapBLL phieuNhapBLL = new PhieuNhapBLL();
+    private final CTPNBLL ctpnbll = new CTPNBLL();
+
+    public boolean bindingTblPhieuNhap(JTable tblPhieuNhap, HashMap<String, Integer> mapCty) {
+        boolean status = false;
+        ArrayList<PhieuNhapDTO> listPhieuNhap = new ArrayList<>();
+        if (!phieuNhapBLL.getAll(listPhieuNhap)) {
+            return false;
+        } else {
+            Vector header = new Vector();
+            header.add("Mã PN");
+            header.add("Mã NV");
+            header.add("Công ty");
+            header.add("Trị giá");
+            header.add("Ngày nhập");
+            Vector data = new Vector();
+            for (PhieuNhapDTO phieuNhap : listPhieuNhap) {
+                Vector row = new Vector();
+                row.add(phieuNhap.getMaPN().toString());
+                row.add(phieuNhap.getMaNV().toString());
+                row.add(getKeyByValue(mapCty, phieuNhap.getMaCty()));
+                row.add(phieuNhap.getTongChi().toString());
+                row.add(new SimpleDateFormat("dd/MM/yyyy").format(phieuNhap.getNgayNhap()));
+                data.add(row);
+            }
+            DefaultTableModel dtm = new DefaultTableModel(data, header) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+
+            tblPhieuNhap.setModel(dtm);
+            status = true;
+        }
+
+        return status;
+    }
+
+    public static <T, E> T getKeyByValue(Map<T, E> map, E value) {
+        for (Entry<T, E> entry : map.entrySet()) {
+            if (Objects.equals(value, entry.getValue())) {
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
+
+    public boolean bindingTbleCTPN(JTable tableCTPN, HashMap mapSach, String idPN) {
+        Vector header = new Vector();
+        header.add("Mã PN");
+        header.add("Mã sách");
+        header.add("Tên sách");
+        header.add("Số lượng");
+        header.add("Gía nhập");
+        ArrayList<CTPNDTO> listCtpn = new ArrayList<>();
+        if (!ctpnbll.getByIdPN(listCtpn, idPN)) {
+            return false;
+        }
+
+        Vector data = new Vector();
+        for (CTPNDTO ctpn : listCtpn) {
+            Vector row = new Vector();
+            row.add(ctpn.getMaPN());
+            row.add(ctpn.getMaSach());
+            row.add(mapSach.get(ctpn.getMaSach()));
+            row.add(ctpn.getSoLuongNhap());
+            row.add(ctpn.getThanhTien());
+            data.add(row);
+        }
+
+        DefaultTableModel dtm = new DefaultTableModel(data, header) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        tableCTPN.setModel(dtm);
+        return true;
     }
 }

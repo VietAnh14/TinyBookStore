@@ -9,6 +9,7 @@ import DTO.PhieuNhapDTO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -32,13 +33,13 @@ public class PhieuNhapDAL extends ConnectDB {
             getClose();
             id = -2; //FAIL
         }
-        
+
         return id;
     }
-    
+
     public boolean insertPN(PhieuNhapDTO phieuNhap) {
         String sql = "INSERT INTO PHIEUNHAP (MaPN, MaNV, MaCty, TongChi) "
-                + "VALUES ("+ phieuNhap.getMaPN()+"," + phieuNhap.getMaNV() +","+phieuNhap.getMaCty()+",0)";
+                + "VALUES (" + phieuNhap.getMaPN() + "," + phieuNhap.getMaNV() + "," + phieuNhap.getMaCty() + ",0)";
         boolean status = false;
         try {
             getConnection();
@@ -53,6 +54,32 @@ public class PhieuNhapDAL extends ConnectDB {
             e.printStackTrace();
             status = false;
             cn.rollback();
+        } finally {
+            getClose();
+            return status;
+        }
+    }
+
+    public boolean getAll(ArrayList<PhieuNhapDTO> listPhieuNhap) {
+        String sql = "SELECT * FROM  PHIEUNHAP";
+        boolean status = false;
+        try {
+            getConnection();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                PhieuNhapDTO phieuNhap = new PhieuNhapDTO();
+                phieuNhap.setMaCty(rs.getInt("MaCty"));
+                phieuNhap.setMaNV(rs.getInt("MaNV"));
+                phieuNhap.setMaPN(rs.getInt("MaPN"));
+                phieuNhap.setNgayNhap(rs.getDate("NgayNhap"));
+                phieuNhap.setTongChi(rs.getFloat("TongChi"));
+                listPhieuNhap.add(phieuNhap);
+            }
+            status = true;
+        } catch (Exception e) {
+            status = false;
+            e.printStackTrace();
         } finally {
             getClose();
             return status;

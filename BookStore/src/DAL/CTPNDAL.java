@@ -7,6 +7,7 @@ package DAL;
 
 import DTO.CTPNDTO;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -37,6 +38,33 @@ public class CTPNDAL extends ConnectDB {
                 exception.printStackTrace();
             }
         }
+        getClose();
+        return status;
+    }
+    
+    public boolean getByIdPN(ArrayList<CTPNDTO> listCTPN, String idPN) {
+        boolean status = false;
+        String sql = "SELECT * FROM CTPHIEUNHAP WHERE MaPN = ?";
+        try {
+            getConnection();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setString(1, idPN);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                CTPNDTO ctpn = new CTPNDTO();
+                ctpn.setMaPN(rs.getInt("MaPN"));
+                ctpn.setGiaNhap(rs.getFloat("GiaNhap"));
+                ctpn.setThanhTien(rs.getFloat("ThanhTien"));
+                ctpn.setMaSach(rs.getInt("MaSach"));
+                ctpn.setSoLuongNhap(rs.getInt("SoLuongNhap"));
+                listCTPN.add(ctpn);
+            }
+            
+            status = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+        
         getClose();
         return status;
     }
