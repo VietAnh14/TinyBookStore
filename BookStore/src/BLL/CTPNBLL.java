@@ -22,4 +22,16 @@ public class CTPNBLL {
    public boolean getByIdPN(ArrayList<CTPNDTO> listCtpn, String idPN) {
        return ctpndal.getByIdPN(listCtpn, idPN);
    }
+   
+   public boolean insertCTPN(CTPNDTO ctpn) {
+       return ctpndal.insertCTPN(ctpn);
+   }
+   
+      public boolean deleteCTPN(String maPN, String maSach) {
+       return ctpndal.deleteCTPN(maPN, maSach);
+   }
+      
+      public boolean updateCTPN(CTPNDTO ctpn) {
+          return ctpndal.updateCTPN(ctpn);
+      }
 }

@@ -114,7 +114,7 @@ public class fQLPhieuNhap extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
         jLabel2.setText("Mã phiếu nhập:");
 
-        txbMaPN.setEnabled(false);
+        txbMaPN.setEditable(false);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(102, 102, 102));
@@ -442,6 +442,7 @@ public class fQLPhieuNhap extends javax.swing.JPanel {
             }
         });
 
+        txbMaPn_CT.setEditable(false);
         txbMaPn_CT.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txbMaPn_CTFocusLost(evt);
@@ -460,6 +461,11 @@ public class fQLPhieuNhap extends javax.swing.JPanel {
         jLabel19.setText("Mã sách");
 
         txbMaSach_CT.setEditable(false);
+        txbMaSach_CT.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txbMaSach_CTFocusLost(evt);
+            }
+        });
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(102, 102, 102));
@@ -523,16 +529,16 @@ public class fQLPhieuNhap extends javax.swing.JPanel {
                             .addComponent(txbGiaNhap_CT)
                             .addComponent(txbSoLgNhap_CT)))
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel22)
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(btnThem_CT, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnSua_CT, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnXoaCT, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)))
+                        .addComponent(btnThem_CT, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSua_CT, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnXoaCT, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnLuu_CT, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnLuu_CT, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel22)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -570,21 +576,23 @@ public class fQLPhieuNhap extends javax.swing.JPanel {
 
         tblCTPN.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Mã PN", "Mã sách", "Tên sách", "Số lượng", "Gía nhập"
+                "Mã PN", "Mã sách", "Tên sách", "Số lượng", "Gía nhập", "Thành tiền"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true
+                false, true, true, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tblCTPN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCTPNMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(tblCTPN);
@@ -685,7 +693,7 @@ public class fQLPhieuNhap extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThem1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        if(insertPN()) {
+        if (insertPN()) {
             JOptionPane.showMessageDialog(this, "Lưu phiếu nhập thành công!");
         }
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -751,7 +759,10 @@ public class fQLPhieuNhap extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnThem_CTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem_CTActionPerformed
-        // TODO add your handling code here:
+        controlTxbCTPN(true);
+        clearTxbCTPN_QL();
+        btnXoaCT.setEnabled(false);
+        flag = 1;
     }//GEN-LAST:event_btnThem_CTActionPerformed
 
     private void txbMaPn_CTFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txbMaPn_CTFocusLost
@@ -763,25 +774,130 @@ public class fQLPhieuNhap extends javax.swing.JPanel {
     }//GEN-LAST:event_txbMaPn_CTMouseExited
 
     private void btnSua_CTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua_CTActionPerformed
-        // TODO add your handling code here:
+        flag = 2;
+        controlTxbCTPN(true);
+        txbMaSach_CT.setEditable(false);
     }//GEN-LAST:event_btnSua_CTActionPerformed
 
     private void btnXoaCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaCTActionPerformed
-        // TODO add your handling code here:
+        int result = JOptionPane.showConfirmDialog(this, "Xoa ctpn ?", "Confirm", JOptionPane.OK_CANCEL_OPTION);
+        if (result == 0) {
+            if (!ctpnbll.deleteCTPN(txbMaPn_CT.getText(), txbMaSach_CT.getText())) {
+                JOptionPane.showMessageDialog(this, "Xoa that bai");
+                return;
+            }
+            
+            Float tongTienHienTai = Float.parseFloat(tblPN.getValueAt(tblPN.getSelectedRow(), 3).toString());
+            Float tongTien = tongTienHienTai - Float.parseFloat(tblCTPN.getValueAt(tblCTPN.getSelectedRow(), 5).toString());
+            DefaultTableModel dftPN = (DefaultTableModel) tblPN.getModel();
+            dftPN.setValueAt(tongTien, tblPN.getSelectedRow(), 3);
+        }
     }//GEN-LAST:event_btnXoaCTActionPerformed
 
     private void btnLuu_CTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuu_CTActionPerformed
-        // TODO add your handling code here:
+        try {
+            Integer.parseInt(txbMaSach_CT.getText());
+            Float gia = Float.parseFloat(txbGiaNhap_CT.getText());
+            Integer soLuong = Integer.parseInt(txbSoLgNhap_CT.getText());
+            if (gia < 0 || soLuong < 0) {
+                throw new Exception("Invalid argument");
+            }
+
+            if (isDuplicateCTPN(txbMaSach.getText())) {
+                JOptionPane.showMessageDialog(this, "Sách đã tồn tại trong CTPN");
+                return;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Sai thông tin chi tiết phiếu nhập !!");
+        }
+        
+        int row = tblPN.getSelectedRow();
+        Float gia = Float.parseFloat(txbGiaNhap_CT.getText());
+        Integer soLuong = Integer.parseInt(txbSoLgNhap_CT.getText());
+        Float thanhTien = gia * soLuong;
+        CTPNDTO ctpn = new CTPNDTO();
+        ctpn.setMaPN(Integer.parseInt(txbMaPn_CT.getText()));
+        ctpn.setMaSach(Integer.parseInt(txbMaSach_CT.getText()));
+        ctpn.setGiaNhap(Float.parseFloat(txbGiaNhap_CT.getText()));
+        ctpn.setSoLuongNhap(Integer.parseInt(txbSoLgNhap_CT.getText()));
+        ctpn.setThanhTien(thanhTien);
+        Float tongTienHienTai = Float.parseFloat(tblPN.getValueAt(row, 3).toString());
+        
+        switch (flag) {
+            case 1: {
+                if (!ctpnbll.insertCTPN(ctpn)) {
+                    JOptionPane.showMessageDialog(this, "Them that bai");
+                    return;
+                }
+               
+                Float tongTien = tongTienHienTai + ctpn.getThanhTien();
+                DefaultTableModel dftPN = (DefaultTableModel) tblPN.getModel();
+                dftPN.setValueAt(tongTien, tblPN.getSelectedRow(), 3);
+                JOptionPane.showMessageDialog(this, "Them thanh cong");
+            }
+            break;
+
+            case 2: {
+                if (ctpn.getSoLuongNhap() < soLuong) {
+                    JOptionPane.showMessageDialog(this, "So luong nhap nho hon so luong sach hien tai trong kho!");
+                    return;
+                }
+                if (!ctpnbll.updateCTPN(ctpn)) {
+                    JOptionPane.showMessageDialog(this, "Update that bai");
+                    return;
+                }
+
+                Float tongTien = tongTienHienTai + ctpn.getThanhTien() - Float.parseFloat(tblCTPN.getValueAt(tblCTPN.getSelectedRow(), 5).toString());
+                DefaultTableModel dftPN = (DefaultTableModel) tblPN.getModel();
+                dftPN.setValueAt(tongTien, tblPN.getSelectedRow(), 3);
+                JOptionPane.showMessageDialog(this, "Luu thanh cong");
+            }
+            break;
+        }
+
+        clearTxbCTPN_QL();
+        bindingQLPN.bindingTbleCTPN(tblCTPN, mapSach, txbMaPn_CT.getText());
+        controlTxbCTPN(false);
     }//GEN-LAST:event_btnLuu_CTActionPerformed
 
     private void tblPNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPNMouseClicked
         int row = tblPN.getSelectedRow();
         if (row >= 0) {
-           if ( !bindingQLPN.bindingTbleCTPN(tblCTPN, mapSach, tblPN.getValueAt(row, 0).toString())) {
-               JOptionPane.showMessageDialog(this, "Can't load table ctpn");
-           }
+            if (!bindingQLPN.bindingTbleCTPN(tblCTPN, mapSach, tblPN.getValueAt(row, 0).toString())) {
+                JOptionPane.showMessageDialog(this, "Can't load table ctpn");
+            }
+            txbMaPn_CT.setText(tblPN.getValueAt(row, 0).toString());
         }
     }//GEN-LAST:event_tblPNMouseClicked
+
+    private void tblCTPNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCTPNMouseClicked
+        int row = tblCTPN.getSelectedRow();
+        txbMaPn_CT.setText(tblCTPN.getValueAt(row, 0).toString());
+        txbMaSach_CT.setText(tblCTPN.getValueAt(row, 1).toString());
+        txbTenSachCT.setText(tblCTPN.getValueAt(row, 2).toString());
+        txbSoLgNhap_CT.setText(tblCTPN.getValueAt(row, 3).toString());
+        txbGiaNhap_CT.setText(tblCTPN.getValueAt(row, 4).toString());
+        controlTxbCTPN(false);
+    }//GEN-LAST:event_tblCTPNMouseClicked
+
+    private void txbMaSach_CTFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txbMaSach_CTFocusLost
+        try {
+            BookDTO book = new BookDTO();
+            if (txbMaSach_CT.getText().trim().isEmpty()) {
+                return;
+            }
+            Integer id = Integer.parseInt(txbMaSach_CT.getText());
+
+            if (bookBLL.getById(book, id)) {
+                txbTenSachCT.setText(book.getTenSach());
+                solgTon = book.getSoLuong();
+            } else {
+                JOptionPane.showMessageDialog(this, "Ma sach khong ton tai");
+            }
+        } catch (HeadlessException | NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Wrong format Id");
+        }
+    }//GEN-LAST:event_txbMaSach_CTFocusLost
 
     final void loadCbCTy() {
         mapCty.clear();
@@ -796,10 +912,10 @@ public class fQLPhieuNhap extends javax.swing.JPanel {
             mapCty.put(congTyDTO.getTenCty(), congTyDTO.getMaCty());
         }
     }
-    
+
     final void loadMapSach() {
         for (BookDTO book : bookBLL.getAll()) {
-           mapSach.put(book.getMaSach(), book.getTenSach());
+            mapSach.put(book.getMaSach(), book.getTenSach());
         }
     }
 
@@ -815,18 +931,29 @@ public class fQLPhieuNhap extends javax.swing.JPanel {
         } else {
             txbMaPN.setText(Id.toString());
         }
-        
+
         if (!bindingQLPN.bindingTblPhieuNhap(tblPN, mapCty)) {
             JOptionPane.showMessageDialog(this, "Can't load tbl phieu nhap");
         }
-        
+
         loadMapSach();
+        controlTxbCTPN(false);
     }
 
     boolean isDuplicateBook(String maSach) {
         int rowCount = tbleCTPN.getRowCount();
         for (int i = rowCount - 1; i >= 0; i--) {
             if (tbleCTPN.getValueAt(i, 0).equals(maSach)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    boolean isDuplicateCTPN(String maSach) {
+        int rowCount = tblCTPN.getRowCount();
+        for (int i = rowCount - 1; i >= 0; i--) {
+            if (tblCTPN.getValueAt(i, 1).equals(maSach)) {
                 return true;
             }
         }
@@ -852,16 +979,15 @@ public class fQLPhieuNhap extends javax.swing.JPanel {
             ctpn.setThanhTien(Float.parseFloat(tbleCTPN.getValueAt(i, 4).toString()));
             listCTPN.add(ctpn);
         }
-        
+
         return listCTPN;
     }
-    
-    
+
     private boolean insertPN() {
         if (tbleCTPN.getRowCount() < 0) {
             JOptionPane.showMessageDialog(this, "Lỗi, phiếu nhập cần có ctpn");
         }
-        
+
         PhieuNhapDTO pn = new PhieuNhapDTO();
         pn.setMaPN(Integer.parseInt(txbMaPN.getText()));
         pn.setMaNV(fLogin.MaNV);
@@ -870,15 +996,35 @@ public class fQLPhieuNhap extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Them phieu nhap that bai");
             return false;
         }
-        
+
         if (!ctpnbll.insertListCTPN(CreateListPN())) {
             JOptionPane.showMessageDialog(this, "Loi khi luu ctpn");
             return false;
         }
-        
+
         return true;
     }
 
+    private void controlTxbCTPN(boolean control) {
+        btnLuu_CT.setEnabled(control);
+        btnSua_CT.setEnabled(!control);
+        btnXoaCT.setEnabled(!control);
+        btnThem_CT.setEnabled(!control);
+        txbMaSach_CT.setEditable(control);
+        txbGiaNhap_CT.setEditable(control);
+        txbSoLgNhap_CT.setEditable(control);
+        txbMaSach_CT.setEditable(control);
+    }
+
+    private void clearTxbCTPN_QL() {
+        txbMaSach_CT.setText("");
+        txbTenSachCT.setText("");
+        txbSoLgNhap_CT.setText("0");
+        txbGiaNhap_CT.setText("0");
+    }
+
+    private int flag = 0;
+    private int solgTon = 0;
     private final CongTyBLL congTyBLL = new CongTyBLL();
     private final PhieuNhapBLL phieuNhapBLL = new PhieuNhapBLL();
     private final HashMap<String, Integer> mapCty = new HashMap();

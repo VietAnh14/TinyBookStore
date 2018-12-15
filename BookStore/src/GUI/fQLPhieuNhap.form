@@ -195,7 +195,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txbMaPN">
                   <Properties>
-                    <Property name="enabled" type="boolean" value="false"/>
+                    <Property name="editable" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel3">
@@ -658,18 +658,17 @@
                                   </Group>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="jLabel22" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="btnThem_CT" min="-2" pref="71" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="btnSua_CT" min="-2" pref="67" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="btnXoaCT" pref="67" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                                  <Component id="btnThem_CT" min="-2" pref="71" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="btnSua_CT" min="-2" pref="67" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="btnXoaCT" pref="67" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnLuu_CT" min="-2" pref="59" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -755,6 +754,9 @@
                   </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txbMaPn_CT">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                  </Properties>
                   <Events>
                     <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txbMaPn_CTFocusLost"/>
                     <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txbMaPn_CTMouseExited"/>
@@ -780,6 +782,9 @@
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txbMaSach_CTFocusLost"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel20">
                   <Properties>
@@ -875,15 +880,19 @@
                 <Component class="javax.swing.JTable" name="tblCTPN">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="5" rowCount="4">
+                      <Table columnCount="6" rowCount="0">
                         <Column editable="false" title="M&#xe3; PN" type="java.lang.Object"/>
                         <Column editable="true" title="M&#xe3; s&#xe1;ch" type="java.lang.Object"/>
                         <Column editable="true" title="T&#xea;n s&#xe1;ch" type="java.lang.Object"/>
                         <Column editable="true" title="S&#x1ed1; l&#x1b0;&#x1ee3;ng" type="java.lang.Object"/>
                         <Column editable="true" title="G&#xed;a nh&#x1ead;p" type="java.lang.Object"/>
+                        <Column editable="true" title="Th&#xe0;nh ti&#x1ec1;n" type="java.lang.Object"/>
                       </Table>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblCTPNMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

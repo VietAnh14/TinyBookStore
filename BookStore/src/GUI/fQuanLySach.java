@@ -125,13 +125,10 @@ public class fQuanLySach extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Mã sách : ");
 
-        txbMaSach.setEnabled(false);
+        txbMaSach.setEditable(false);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Tên sách :");
-
-        txbTenSach.setEditable(false);
-        txbTenSach.setEnabled(false);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("Thể loại :");
@@ -884,12 +881,12 @@ public class fQuanLySach extends javax.swing.JPanel {
         btnLuu.setEnabled(control);
         btnSua.setEnabled(!control);
         btnThem.setEnabled(!control);
-        txbGia.setEnabled(control);
-        txbSoLuong.setEnabled(control);
+        txbGia.setEditable(control);
+        txbSoLuong.setEditable(control);
         tbxTacGia.setEditable(control);
-        cbTheLoai.setEnabled(control);
-        cbxNXB.setEnabled(control);
-        txbTenSach.setEnabled(control);
+        cbTheLoai.setEditable(control);
+        cbxNXB.setEditable(control);
+        txbTenSach.setEditable(control);
     }
 
     public void clearTxb() {

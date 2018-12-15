@@ -80,6 +80,7 @@ public class BindingTableFormQLPhieuNhap {
         header.add("Tên sách");
         header.add("Số lượng");
         header.add("Gía nhập");
+        header.add("Thành tiền");
         ArrayList<CTPNDTO> listCtpn = new ArrayList<>();
         if (!ctpnbll.getByIdPN(listCtpn, idPN)) {
             return false;
@@ -92,6 +93,7 @@ public class BindingTableFormQLPhieuNhap {
             row.add(ctpn.getMaSach());
             row.add(mapSach.get(ctpn.getMaSach()));
             row.add(ctpn.getSoLuongNhap());
+            row.add(ctpn.getGiaNhap());
             row.add(ctpn.getThanhTien());
             data.add(row);
         }
