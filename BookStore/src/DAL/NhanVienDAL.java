@@ -69,7 +69,7 @@ public class NhanVienDAL extends ConnectDB {
          }  
     }
 
-    public ArrayList<NhanVienDTO> getAll() throws ParseException {
+    public ArrayList<NhanVienDTO> getAll() {
         ArrayList<NhanVienDTO> listNhanVien = new ArrayList<>();
         try {
             getConnection();
@@ -197,7 +197,7 @@ public class NhanVienDAL extends ConnectDB {
 
         return false;
     }
-    public ArrayList<NhanVienDTO> searchByName(String name) throws ParseException {
+    public ArrayList<NhanVienDTO> searchByName(String name) {
         String sql = "SELECT * FROM NHANVIEN WHERE HoTen LIKE N'%"+name+"%'";
         ArrayList<NhanVienDTO> listNhanVien = new ArrayList<>();
         try {

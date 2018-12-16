@@ -475,7 +475,17 @@ public class fQLNV extends javax.swing.JPanel {
 
     private void jButtonSaThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaThaiActionPerformed
         flag =3;
-        controlTxb(true);
+        jButtonLuu.setEnabled(true);
+        jButtonSaThai.setEnabled(false);
+        jButtonSua.setEnabled(false);
+        jButtonThem.setEnabled(false);
+        jTextMaNV.setEnabled(false);
+        jTextTenNV.setEnabled(false);
+        jTextSDT.setEnabled(false);
+        jTextDiaChi.setEnabled(false);
+        jTextCMND.setEnabled(false);
+        jNgaySinhpick.setEnabled(false);
+        
     }//GEN-LAST:event_jButtonSaThaiActionPerformed
     private void controlTxb(boolean control) {
         jButtonLuu.setEnabled(control);

@@ -7,6 +7,7 @@ package BLL;
 
 import DTO.NhanVienDTO;
 import DAL.NhanVienDAL;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
@@ -42,7 +43,7 @@ public class NhanVienBLL {
     public boolean sathaiNV(NhanVienDTO NhanVien) {
         return NhanVienDAL.sathaiNV(NhanVien);
     }
-    public ArrayList<NhanVienDTO> searchByName (String name) {
+    public ArrayList<NhanVienDTO> searchByName (String name){
         return NhanVienDAL.searchByName(name);
     }
     

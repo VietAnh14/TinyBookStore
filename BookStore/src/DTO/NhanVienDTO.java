@@ -70,7 +70,7 @@ public class NhanVienDTO {
     {
         return Deleted;
     }
-    public void Setdeleted(Boolean Deleted) throws ParseException
+    public void Setdeleted(Boolean Deleted)
     {
         this.Deleted= Deleted;
     }
