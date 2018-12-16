@@ -94,7 +94,7 @@ CREATE TABLE CTPHIEUNHAP
 GO
 
 CREATE TABLE KHACHHANG(
-	MaKH INT  PRIMARY KEY,
+	MaKH INT  PRIMARY KEY IDENTITY,
 	HoTen NVARCHAR(50) NOT NULL,
 	SDT CHAR(12) NOT NULL,
 	Email NVARCHAR(50) NOT NULL,
@@ -163,11 +163,6 @@ CREATE TABLE BAOCAODOANHTHU
 CREATE TABLE QUYDINH
 (
 	ID INT IDENTITY(1,1) PRIMARY KEY,
-	TonToiDaTruocNhap INT NOT NULL,
-	SoLuongNhapItNhat INT NOT NULL,
-	SoLuongNhapNhieuNhat INT NOT NULL,
-	TonToiThieuSauBan INT NOT NULL,
-	LaiXuatBanSach FLOAT NOT NULL,
 	GiaTriDiemTichLuy MONEY NOT NULL,
 	TienToDiemTichLuy MONEY NOT NULL
 )
@@ -223,17 +218,17 @@ INSERT INTO NHANVIEN
 VALUES        (1,N'Ngyễn Văn A','012345678','123546465','15/6/1999','TP HCM')
 
 INSERT INTO KHACHHANG
-                         (MaKH,HoTen, SDT, Email, SoTienNo, NgaySinh,CMND)
-VALUES        (1,N'KH mua lẻ','123546','Tkobietboi@something.com','0','11/2/1998','131213')
+                         (MaKH,HoTen, SDT, Email, NgaySinh,CMND)
+VALUES        (1,N'KH mua lẻ','123546','Tkobietboi@something.com','11/2/1998','131213')
 
 INSERT INTO QUYDINH
-                         (TonToiDaTruocNhap, SoLuongNhapNhieuNhat, SoLuongNhapItNhat, TonToiThieuSauBan, LaiXuatBanSach, GiaTriDiemTichLuy, TienToDiemTichLuy)
-VALUES        (100, 500, 100, 50, 0.1, 1, 50)
+                         (GiaTriDiemTichLuy, TienToDiemTichLuy)
+VALUES        (1, 50)
 
 
 INSERT INTO ACCOUNT
                          (TenTaiKhoan, MatKhau, ChucVu, MaNV)
 VALUES        ('admin','admin','admin',1)
 
-
+UPDATE KHACHHANG SET HoTen = ?,SDT = ?, Email = ?,CMND = ?,Ngay Sinh = ? WHERE MaKH = ?
 

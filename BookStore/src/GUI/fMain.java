@@ -25,7 +25,7 @@ public class fMain extends javax.swing.JFrame {
     public fMain() {
         initComponents();
         centerForm();
-        btnQLGiDo.setEnabled(false);
+        btnQLNhanVien.setEnabled(false);
     }
 
     /**
@@ -39,11 +39,12 @@ public class fMain extends javax.swing.JFrame {
 
         containPanel = new javax.swing.JPanel();
         sideBarPanel = new javax.swing.JPanel();
-        btnQLGiDo = new javax.swing.JLabel();
+        btnQLNhanVien = new javax.swing.JLabel();
         btnQuanLySach = new javax.swing.JLabel();
         btnQLPhieuNhap = new javax.swing.JLabel();
         btnTaoDonHang = new javax.swing.JLabel();
         btnQuanLyDonHang = new javax.swing.JLabel();
+        btnQLKhachHang = new javax.swing.JLabel();
         layeredPanelContain = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -55,11 +56,11 @@ public class fMain extends javax.swing.JFrame {
         sideBarPanel.setBackground(new java.awt.Color(51, 51, 51));
         sideBarPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnQLGiDo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnQLGiDo.setForeground(new java.awt.Color(204, 204, 204));
-        btnQLGiDo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/quill.png"))); // NOI18N
-        btnQLGiDo.setText("Quản lý gì đó");
-        sideBarPanel.add(btnQLGiDo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 180, 45));
+        btnQLNhanVien.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnQLNhanVien.setForeground(new java.awt.Color(204, 204, 204));
+        btnQLNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/quill.png"))); // NOI18N
+        btnQLNhanVien.setText("Quản lý Nhân Viên");
+        sideBarPanel.add(btnQLNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 180, 45));
 
         btnQuanLySach.setBackground(new java.awt.Color(204, 204, 204));
         btnQuanLySach.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -101,6 +102,17 @@ public class fMain extends javax.swing.JFrame {
         btnQuanLyDonHang.setText("Quản Lý Đơn Hàng");
         sideBarPanel.add(btnQuanLyDonHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 180, 40));
 
+        btnQLKhachHang.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnQLKhachHang.setForeground(new java.awt.Color(204, 204, 204));
+        btnQLKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/quill.png"))); // NOI18N
+        btnQLKhachHang.setText("Quản lý Khách Hàng");
+        btnQLKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnQLKhachHangMouseClicked(evt);
+            }
+        });
+        sideBarPanel.add(btnQLKhachHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 180, 45));
+
         containPanel.add(sideBarPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 540));
 
         layeredPanelContain.setBackground(new java.awt.Color(102, 102, 102));
@@ -133,6 +145,13 @@ public class fMain extends javax.swing.JFrame {
         swichPanel(donhang);        // TODO add your handling code here:
     }//GEN-LAST:event_btnTaoDonHangMouseClicked
 
+    private void btnQLKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQLKhachHangMouseClicked
+        fQLKH qlKH = new fQLKH();
+        resetColor();
+        btnQLKhachHang.setForeground(Color.WHITE);
+        swichPanel(qlKH);
+    }//GEN-LAST:event_btnQLKhachHangMouseClicked
+
     // Change the panel in layered panel
      public void swichPanel(JPanel panel) {
        layeredPanelContain.removeAll();
@@ -145,7 +164,8 @@ public class fMain extends javax.swing.JFrame {
      public void resetColor() {
           btnQuanLySach.setForeground(new Color(204, 204, 204));
           btnQLPhieuNhap.setForeground(new Color(204, 204, 204));
-          btnQLGiDo.setForeground(new Color(204, 204, 204));
+          btnQLNhanVien.setForeground(new Color(204, 204, 204));
+          btnQLKhachHang.setForeground(new Color(204, 204, 204));
      }
      
      private void centerForm(){
@@ -189,7 +209,8 @@ public class fMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel btnQLGiDo;
+    private javax.swing.JLabel btnQLKhachHang;
+    private javax.swing.JLabel btnQLNhanVien;
     private javax.swing.JLabel btnQLPhieuNhap;
     private javax.swing.JLabel btnQuanLyDonHang;
     private javax.swing.JLabel btnQuanLySach;
