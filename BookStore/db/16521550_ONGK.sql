@@ -236,5 +236,77 @@ INSERT INTO ACCOUNT
                          (TenTaiKhoan, MatKhau, ChucVu, MaNV)
 VALUES        ('admin','admin','admin',1)
 
+GO
 
+DROP TRIGGER UPDATE_SL_SACH_FOR_CTPN
+
+GO
+CREATE TRIGGER UPDATE_SL_SACH_FOR_CTPN
+ON CTPHIEUNHAP AFTER UPDATE, INSERT, DELETE
+AS
+DECLARE @MaSach int , @SoLuong int, @SoLuongTon int, @SoLuongTruocUpdate int, @Activity varchar(20), @SoLuongNhap int,
+		@ThanhTienCu float, @ThanhTienMoi float, @TongTien float, @MaPN int
+IF EXISTS(SELECT * FROM deleted) AND EXISTS(SELECT * FROM inserted)
+BEGIN
+SET @Activity = 'UPDATE'
+	SELECT @MaPN = MaPN FROM inserted
+	SELECT @MaSach = MaSach FROM inserted
+	SELECT @SoLuongNhap = SoLuongNhap FROM inserted
+	SELECT @SoLuongTon = SoLuong FROM SACH WHERE MaSach = @MaSach
+	SELECT @SoLuongTruocUpdate = SoLuongNhap FROM deleted
+	SET @SoLuong = @SoLuongTon - @SoLuongTruocUpdate + @SoLuongNhap
+	UPDATE SACH SET SoLuong = @SoLuong WHERE MaSach = @MaSach
+
+	SELECT @ThanhTienCu = ThanhTien FROM deleted
+	SELECT @ThanhTienMoi = ThanhTien FROM inserted
+	SELECT @TongTien = TongChi FROM PHIEUNHAP WHERE MaPN = @MaPN
+	SET @TongTien = @TongTien + @ThanhTienMoi - @ThanhTienCu
+	UPDATE PHIEUNHAP SET TongChi = @TongTien WHERE MaPN = @MaPN
+END
+
+If EXISTS (SELECT * FROM inserted) AND NOT EXISTS(SELECT * FROM deleted)
+BEGIN
+	SET @Activity = 'INSERT';
+	SELECT @MaPN = MaPN FROM inserted
+	SELECT @MaSach = MaSach FROM inserted
+	SELECT @SoLuongNhap = SoLuongNhap FROM inserted
+	SELECT @SoLuongTon = SoLuong FROM SACH WHERE MaSach = @MaSach
+	SET @SoLuong = @SoLuongTon + @SoLuongNhap
+	UPDATE SACH SET SoLuong = @SoLuong WHERE MaSach = @MaSach
+
+	SELECT @ThanhTienMoi = ThanhTien FROM inserted
+	SELECT @TongTien = TongChi FROM PHIEUNHAP WHERE MaPN = @MaPN
+	SET @TongTien = @TongTien + @ThanhTienMoi
+	UPDATE PHIEUNHAP SET TongChi = @TongTien WHERE MaPN = @MaPN
+END
+
+IF NOT EXISTS(SELECT * FROM inserted) AND EXISTS(SELECT * FROM deleted)
+BEGIN
+	SET @Activity = 'DELETE'
+	SELECT @MaPN = MaPN FROM deleted
+	SELECT @MaSach = MaSach FROM deleted
+	SELECT @SoLuongNhap = SoLuongNhap FROM deleted
+	SELECT @SoLuongTon = SoLuong FROM SACH WHERE MaSach = @MaSach
+	SET @SoLuong = @SoLuongTon - @SoLuongNhap
+	UPDATE SACH SET SoLuong = @SoLuong WHERE MaSach = @MaSach
+
+	SELECT @ThanhTienMoi = ThanhTien FROM deleted
+	SELECT @TongTien = TongChi FROM PHIEUNHAP WHERE MaPN = @MaPN
+	SET @TongTien = @TongTien - @ThanhTienMoi
+	UPDATE PHIEUNHAP SET TongChi = @TongTien WHERE MaPN = @MaPN
+END
+GO
+
+
+INSERT INTO PHIEUNHAP
+                         (MaPN, MaNV, MaCty, TongChi)
+VALUES        (1, 1, 1, 0)
+
+INSERT INTO CTPHIEUNHAP
+                         (MaPN, MaSach, SoLuongNhap, ThanhTien, GiaNhap)
+VALUES        (1, 8, 250, 100, 1)
+
+UPDATE CTPHIEUNHAP SET SoLuongNhap = 200, ThanhTien = 200 WHERE MaPN = 1 AND MaSach = 8
+
+DELETE CTPHIEUNHAP WHERE MaPN = 1 AND MaSach = 8
 
