@@ -5,6 +5,7 @@
  */
 package DAL;
 
+
 import DTO.KhachHangDTO;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
@@ -19,6 +20,11 @@ import java.util.ArrayList;
  */
 public class KhachHangDAL extends ConnectDB {
     private final String GET_ALL = "SELECT  * FROM KHACHHANG";
+/**
+ *
+ * @author QuyNam
+*/
+    //  getInfoKH form 
     public boolean GetInfoKH(KhachHangDTO a){
         boolean check = false;
         try{
@@ -33,16 +39,22 @@ public class KhachHangDAL extends ConnectDB {
                 a.SetHoten(rs.getString("HoTen"));
                 a.SetSDT(rs.getString("SDT"));
                 a.SetDiemTichLuy(rs.getInt("DiemTichLuy"));
+
+                
+ 
                 
                 check = true;
+                return check;
             }
             getClose();
         }
         catch(SQLException e){
+            e.printStackTrace();
         }
         
         return check;
     }
+
     public boolean getById(KhachHangDTO KhachHang,int Id) {
         String sql = "SELECT * FROM KHACHHANG WHERE MaKH = ?";
         try {
@@ -200,4 +212,5 @@ public class KhachHangDAL extends ConnectDB {
         }
         return listKhachHang;
     }
+    
 }

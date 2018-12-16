@@ -85,5 +85,6 @@ public class KhachHangDTO {
     public void Setdeleted(Boolean Deleted) throws ParseException
     {
         this.Deleted= Deleted;
+        
     }
-}
+ }

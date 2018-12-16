@@ -23,4 +23,19 @@ public class LoaiSachBLL {
            return loaiSachDAL.getAll();
        }
        
+       public int getIdByName(String name) {
+           return loaiSachDAL.getIdByName(name);
+       }
+       
+//       public Integer generateId(){
+//           return loaiSachDAL.generateId();
+//       }
+       
+       public boolean insertLoaiSach(LoaiSachDTO loaiSach) {
+           return loaiSachDAL.insertTL(loaiSach);
+       }
+       
+       public boolean updateLoaiSach(LoaiSachDTO loaiSach) {
+           return loaiSachDAL.updatetTL(loaiSach);
+       }
 }

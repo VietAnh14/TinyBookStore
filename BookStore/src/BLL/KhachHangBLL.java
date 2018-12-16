@@ -47,4 +47,15 @@ public class KhachHangBLL {
     public boolean getById(KhachHangDTO KH, int Id) {
         return KhachHangDAL.getById(KH, Id);
     }
+    public boolean getInfoKhachHang(KhachHangDTO kh)
+    {
+        return KhachHangDAL.GetInfoKH(kh);
+    }
 }
+
+/**
+ *
+ * @author QuyNam
+ */
+    
+
