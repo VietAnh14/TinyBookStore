@@ -431,7 +431,7 @@ public class fTaoDonHang extends javax.swing.JPanel {
         KhachHangBLL khbll = new KhachHangBLL();
         if(txtMaKH != null)
         {
-            kh.setMaKH(Integer.parseInt(txtMaKH.getText()));
+            kh.SetMaKH(Integer.parseInt(txtMaKH.getText()));
             check = true;
         }
         else
@@ -442,9 +442,9 @@ public class fTaoDonHang extends javax.swing.JPanel {
         {
             if (khbll.getInfoKhachHang(kh))
             {
-                txtTenKH.setText(kh.getHoTen());
-                txtSDT.setText(kh.getSDT().toString());
-                txtDiemTichLuy.setText(kh.getDiemTichLuy().toString());
+                txtTenKH.setText(kh.GetHoten());
+                txtSDT.setText(kh.GetSDT().toString());
+                txtDiemTichLuy.setText(kh.GetDiemTichLuy().toString());
             }
             else
             {

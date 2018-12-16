@@ -4,31 +4,27 @@
  * and open the template in the editor.
  */
 package DTO;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 /**
  *
  * @author HUY
  */
-public class KhachHangDTO {
-    private Integer MaKH;
+public class NhanVienDTO {
+    private Integer MaNV;
     private String Hoten;
     private String SDT;
-    private String Email;
     private String CMND;
+    private String DiaChi;
     private Date NgaySinh;
-    private Integer DiemTichLuy;
     private Boolean Deleted;
-    public Integer GetMaKH()
+    public Integer GetMaNV()
     {
-        return MaKH;
+        return MaNV;
     }
-    public void SetMaKH(Integer Ma)
+    public void SetMaNV(Integer Ma)
     {
-        this.MaKH =Ma;
+        this.MaNV =Ma;
     }
     public String GetHoten()
     {
@@ -46,13 +42,13 @@ public class KhachHangDTO {
     {
         this.SDT = sdt;
     }
-    public String GetEmail()
+    public String GetDiaChi()
     {
-        return Email;
+        return DiaChi;
     }
-    public void SetEmail(String Email)
+    public void SetDiaChi(String DiaChi)
     {
-        this.Email = Email;
+        this.DiaChi = DiaChi;
     }
     public Date GetNgaySinh()
     {
@@ -61,14 +57,6 @@ public class KhachHangDTO {
     public void SetNgaySinh(Date NgaySinh)
     {
         this.NgaySinh =NgaySinh;
-    }
-    public Integer GetDiemTichLuy()
-    {
-        return DiemTichLuy;
-    }
-    public void SetDiemTichLuy(int DTL)
-    {
-        this.DiemTichLuy = DTL;
     }
     public String GetCMND()
     {
@@ -82,9 +70,8 @@ public class KhachHangDTO {
     {
         return Deleted;
     }
-    public void Setdeleted(Boolean Deleted) throws ParseException
+    public void Setdeleted(Boolean Deleted)
     {
         this.Deleted= Deleted;
-        
     }
- }
+}
