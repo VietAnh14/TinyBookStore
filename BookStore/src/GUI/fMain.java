@@ -60,6 +60,12 @@ public class fMain extends javax.swing.JFrame {
         btnQLNhanVien.setForeground(new java.awt.Color(204, 204, 204));
         btnQLNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/quill.png"))); // NOI18N
         btnQLNhanVien.setText("Quản lý Nhân Viên");
+        btnQLNhanVien.setPreferredSize(new java.awt.Dimension(165, 32));
+        btnQLNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnQLNhanVienMouseClicked(evt);
+            }
+        });
         sideBarPanel.add(btnQLNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 180, 45));
 
         btnQuanLySach.setBackground(new java.awt.Color(204, 204, 204));
@@ -106,12 +112,13 @@ public class fMain extends javax.swing.JFrame {
         btnQLKhachHang.setForeground(new java.awt.Color(204, 204, 204));
         btnQLKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/quill.png"))); // NOI18N
         btnQLKhachHang.setText("Quản lý Khách Hàng");
+        btnQLKhachHang.setPreferredSize(new java.awt.Dimension(165, 32));
         btnQLKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnQLKhachHangMouseClicked(evt);
             }
         });
-        sideBarPanel.add(btnQLKhachHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 180, 45));
+        sideBarPanel.add(btnQLKhachHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 235, 180, 50));
 
         containPanel.add(sideBarPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 540));
 
@@ -151,6 +158,13 @@ public class fMain extends javax.swing.JFrame {
         btnQLKhachHang.setForeground(Color.WHITE);
         swichPanel(qlKH);
     }//GEN-LAST:event_btnQLKhachHangMouseClicked
+
+    private void btnQLNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQLNhanVienMouseClicked
+        fQLNV qlNV = new fQLNV();
+        resetColor();
+        btnQLNhanVien.setForeground(Color.WHITE);
+        swichPanel(qlNV);
+    }//GEN-LAST:event_btnQLNhanVienMouseClicked
 
     // Change the panel in layered panel
      public void swichPanel(JPanel panel) {

@@ -153,19 +153,19 @@ public class KhachHangDAL extends ConnectDB {
             getConnection();
             PreparedStatement ps = cn.prepareStatement(sql);
             ps.setString(1, KhachHang.GetHoten());
-            System.out.print(KhachHang.GetHoten());
+            
             ps.setString(2, KhachHang.GetSDT());
             ps.setString(3, KhachHang.GetEmail());
             ps.setString(4, KhachHang.GetCMND());
             Format formatter = new SimpleDateFormat("MM-dd-yyyy");
             String s = formatter.format(KhachHang.GetNgaySinh());
             ps.setString(5, s);
-            System.out.println(KhachHang.GetSDT());
-            System.out.println(KhachHang.GetEmail());
-            System.out.println(KhachHang.GetCMND());
-            System.out.println(s);
+            
+            
+            
+            
             ps.setInt(6, KhachHang.GetMaKH());
-            System.out.println(KhachHang.GetMaKH());
+            
             int rs = ps.executeUpdate();
             if (rs != 0) {
                 return true;

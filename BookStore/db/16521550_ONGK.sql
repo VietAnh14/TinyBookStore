@@ -38,7 +38,7 @@ CREATE TABLE SACH
 
 CREATE TABLE NHANVIEN
 (
-	MaNV INT  PRIMARY KEY,
+	MaNV INT  PRIMARY KEY I,
 	HoTen NVARCHAR(50) NOT NULL,
 	SDT CHAR(15) NOT NULL,
 	CMND CHAR(20) NOT NULL,
@@ -214,12 +214,12 @@ INSERT INTO SACH
 VALUES        (5,'1',N'SGK Lý 10','VC','1','15','150')
 
 INSERT INTO NHANVIEN
-                         (MaNV,HoTen, SDT, CMND,NgaySinh, DiaChi)
-VALUES        (1,N'Ngyễn Văn A','012345678','123546465','15/6/1999','TP HCM')
+                         (HoTen, SDT, CMND,NgaySinh, DiaChi)
+VALUES        (N'Ngyễn Văn A','012345678','123546465','15/6/1999','TP HCM')
 
 INSERT INTO KHACHHANG
-                         (MaKH,HoTen, SDT, Email, NgaySinh,CMND)
-VALUES        (1,N'KH mua lẻ','123546','Tkobietboi@something.com','11/2/1998','131213')
+                         (HoTen, SDT, Email, NgaySinh,CMND)
+VALUES        (N'KH mua lẻ','123546','Tkobietboi@something.com','11/2/1998','131213')
 
 INSERT INTO QUYDINH
                          (GiaTriDiemTichLuy, TienToDiemTichLuy)

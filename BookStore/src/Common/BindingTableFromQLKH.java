@@ -9,7 +9,6 @@ import DTO.KhachHangDTO;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JTable;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 /**
  *
