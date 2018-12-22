@@ -28,40 +28,33 @@ public class BindingTableFormQLPhieuNhap {
     private final PhieuNhapBLL phieuNhapBLL = new PhieuNhapBLL();
     private final CTPNBLL ctpnbll = new CTPNBLL();
 
-    public boolean bindingTblPhieuNhap(JTable tblPhieuNhap, HashMap<String, Integer> mapCty) {
+    public void bindingTblPhieuNhap(JTable tblPhieuNhap, ArrayList<PhieuNhapDTO> listPhieuNhap, HashMap<String, Integer> mapCty) {
         boolean status = false;
-        ArrayList<PhieuNhapDTO> listPhieuNhap = new ArrayList<>();
-        if (!phieuNhapBLL.getAll(listPhieuNhap)) {
-            return false;
-        } else {
-            Vector header = new Vector();
-            header.add("Mã PN");
-            header.add("Mã NV");
-            header.add("Công ty");
-            header.add("Trị giá");
-            header.add("Ngày nhập");
-            Vector data = new Vector();
-            for (PhieuNhapDTO phieuNhap : listPhieuNhap) {
-                Vector row = new Vector();
-                row.add(phieuNhap.getMaPN().toString());
-                row.add(phieuNhap.getMaNV().toString());
-                row.add(getKeyByValue(mapCty, phieuNhap.getMaCty()));
-                row.add(phieuNhap.getTongChi().toString());
-                row.add(new SimpleDateFormat("dd/MM/yyyy").format(phieuNhap.getNgayNhap()));
-                data.add(row);
-            }
-            DefaultTableModel dtm = new DefaultTableModel(data, header) {
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                    return false;
-                }
-            };
-
-            tblPhieuNhap.setModel(dtm);
-            status = true;
+        Vector header = new Vector();
+        header.add("Mã PN");
+        header.add("Mã NV");
+        header.add("Công ty");
+        header.add("Trị giá");
+        header.add("Ngày nhập");
+        Vector data = new Vector();
+        for (PhieuNhapDTO phieuNhap : listPhieuNhap) {
+            Vector row = new Vector();
+            row.add(phieuNhap.getMaPN().toString());
+            row.add(phieuNhap.getMaNV().toString());
+            row.add(getKeyByValue(mapCty, phieuNhap.getMaCty()));
+            row.add(phieuNhap.getTongChi().toString());
+            row.add(new SimpleDateFormat("dd/MM/yyyy").format(phieuNhap.getNgayNhap()));
+            data.add(row);
         }
+        DefaultTableModel dtm = new DefaultTableModel(data, header) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
 
-        return status;
+        tblPhieuNhap.setModel(dtm);
+        status = true;
     }
 
     public static <T, E> T getKeyByValue(Map<T, E> map, E value) {
