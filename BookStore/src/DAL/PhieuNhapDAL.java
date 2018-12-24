@@ -85,4 +85,33 @@ public class PhieuNhapDAL extends ConnectDB {
             return status;
         }
     }
+    
+    public boolean searchByDate(String dateFrom, String dateTo,ArrayList<PhieuNhapDTO> listPhieuNhap) {
+        String sql = "set dateformat DMY " +
+                            "select * from PHIEUNHAP WHERE PHIEUNHAP.NgayNhap between ? and ?";
+        boolean status = false;
+        try {
+            getConnection();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setString(1, dateFrom);
+            ps.setString(2, dateTo);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                PhieuNhapDTO phieuNhap = new PhieuNhapDTO();
+                phieuNhap.setMaCty(rs.getInt("MaCty"));
+                phieuNhap.setMaNV(rs.getInt("MaNV"));
+                phieuNhap.setMaPN(rs.getInt("MaPN"));
+                phieuNhap.setNgayNhap(rs.getDate("NgayNhap"));
+                phieuNhap.setTongChi(rs.getFloat("TongChi"));
+                listPhieuNhap.add(phieuNhap);
+            }
+            status = true;
+        } catch (Exception e) {
+            status = false;
+            e.printStackTrace();
+        } finally {
+            getClose();
+            return status;
+        }
+    }
 }

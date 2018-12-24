@@ -27,4 +27,8 @@ public class PhieuNhapBLL {
     public boolean getAll(ArrayList<PhieuNhapDTO> listPhieuNhap) {
         return phieuNhapDAL.getAll(listPhieuNhap);
     }
+    
+        public boolean searchByDate(String dateFrom, String dateTo, ArrayList<PhieuNhapDTO> listPhieuNhap) {
+        return phieuNhapDAL.searchByDate(dateFrom, dateTo, listPhieuNhap);
+    }
 }

@@ -22,4 +22,20 @@ public class CongTyBLL {
     public boolean  getById(CongTyDTO congTyDTO, Integer id) {
         return ctyDAL.getById(congTyDTO, id);
     }
+    
+    public boolean updateCty(CongTyDTO congTy) {
+        return ctyDAL.updateCty(congTy);
+    }
+    
+   public boolean insertCty(CongTyDTO congTy) {
+        return ctyDAL.insertCty(congTy);
+    }
+    
+    public Integer genarateId() {
+        return ctyDAL.generateId();
+    }
+    
+   public  boolean searchCtyByName(String name, ArrayList<CongTyDTO> listCongty) {
+        return ctyDAL.searchByName(name, listCongty);
+    }
 }
