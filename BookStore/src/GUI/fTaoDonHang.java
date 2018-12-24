@@ -6,6 +6,7 @@
 package GUI;
 
 import BLL.BookCartBLL;
+import BLL.CTHDBLL;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -15,13 +16,18 @@ import BLL.KhachHangBLL;
 import Common.BindingTableFormTaoDonHang;
 import DTO.BookCartDTO;
 import java.util.ArrayList;
+import DTO.HoaDonDTO;
+import BLL.HoaDonBLL;
+import DTO.CTHDDTO;
 
 /**
  *
  * @author DaoLam
  */
 public class fTaoDonHang extends javax.swing.JPanel {
-    
+    private HoaDonBLL hdBLL = new HoaDonBLL();
+    private HoaDonDTO hdDTO = new HoaDonDTO();
+    private CTHDBLL ctBLL = new CTHDBLL();
     KhachHangDTO kh = new KhachHangDTO();
         ArrayList<BookCartDTO> listBook = new ArrayList<>();
     private BookCartBLL bookbll = new BookCartBLL();
@@ -85,13 +91,13 @@ public class fTaoDonHang extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        txtTichLuy = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         txtTongtien = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableDonHang = new javax.swing.JTable();
-        jButton4 = new javax.swing.JButton();
+        btnThanhToan = new javax.swing.JButton();
 
         jRadioButtonMenuItem1.setSelected(true);
         jRadioButtonMenuItem1.setText("jRadioButtonMenuItem1");
@@ -293,7 +299,7 @@ public class fTaoDonHang extends javax.swing.JPanel {
         jLabel8.setForeground(new java.awt.Color(51, 51, 51));
         jLabel8.setText("Tích Lũy");
 
-        jTextField6.setEditable(false);
+        txtTichLuy.setEditable(false);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel9.setText("Tổng Tiền");
@@ -318,7 +324,7 @@ public class fTaoDonHang extends javax.swing.JPanel {
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField6)
+                    .addComponent(txtTichLuy)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(txtTongtien, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -334,7 +340,7 @@ public class fTaoDonHang extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTichLuy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -378,12 +384,12 @@ public class fTaoDonHang extends javax.swing.JPanel {
             tableDonHang.getColumnModel().getColumn(5).setHeaderValue("Thành Tiền");
         }
 
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(0, 102, 102));
-        jButton4.setText("THANH TOÁN");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnThanhToan.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnThanhToan.setForeground(new java.awt.Color(0, 102, 102));
+        btnThanhToan.setText("THANH TOÁN");
+        btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnThanhToanActionPerformed(evt);
             }
         });
 
@@ -404,7 +410,7 @@ public class fTaoDonHang extends javax.swing.JPanel {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(236, Short.MAX_VALUE)
-                .addComponent(jButton4)
+                .addComponent(btnThanhToan)
                 .addGap(197, 197, 197)
                 .addComponent(jButton3)
                 .addGap(190, 190, 190))
@@ -427,7 +433,7 @@ public class fTaoDonHang extends javax.swing.JPanel {
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(btnThanhToan))
                 .addGap(13, 13, 13))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -436,9 +442,34 @@ public class fTaoDonHang extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnThemActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+        
+        int Mahd = hdBLL.GetMaHD();
+        hdDTO.setMaHD(Mahd);
+        hdDTO.setMaKH(Integer.parseInt(txtMaKH.getText()));
+        hdDTO.setMaNv(1);       // giả sử chỗ này đã truyền từ form login mã nhân viên là 1
+        hdDTO.setTienDiemTichLuy(Integer.parseInt(txtTichLuy.getText()));
+        hdDTO.setTriGia(Integer.parseInt(txtTongtien.getText()));
+        
+        
+        try{
+            hdBLL.TaoHD(hdDTO);
+            for(int i = 0; i < listBook.size(); i++){
+                CTHDDTO ct = new CTHDDTO();
+                ct.setMaHD(Mahd);
+                ct.setMaSach(listBook.get(i).getMaSach());
+                ct.setSoLuong(listBook.get(i).getSoLuong());
+                ct.setThanhTien(listBook.get(i).getThanhTien());
+                ctBLL.TaoCTHD(ct);
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            hdBLL.XoaHD(hdDTO);
+        }
+        
+    }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
         // TODO add your handling code here:
@@ -477,12 +508,13 @@ public class fTaoDonHang extends javax.swing.JPanel {
         // TODO add your handling code here:
         bookbll.addbook(listBook, txtMaSach.getText(),Integer.parseInt(txtSoLuong.getText()));
         bindingTable.bindingtblSach(tableDonHang, listBook);
-        float tongtien = 0;
+        Integer tongtien = 0;
         for (int i =0;i < listBook.size();i++){
             
             tongtien = tongtien + listBook.get(i).getThanhTien();
         }
-        txtTongtien.setText(Float.toString(tongtien));
+        txtTongtien.setText(Integer.toString(tongtien));
+        txtTichLuy.setText(Integer.toString((int) (tongtien*0.1)));
         
     }//GEN-LAST:event_btnThemMouseClicked
 
@@ -490,12 +522,13 @@ public class fTaoDonHang extends javax.swing.JPanel {
         // TODO add your handling code here:
         bookbll.removeBook(listBook,Integer.parseInt(txtMaSach.getText()) , Integer.parseInt(txtSoLuong.getText()));
         bindingTable.bindingtblSach(tableDonHang, listBook);
-        float tongtien = 0;
+        Integer tongtien = 0;
         for (int i =0;i < listBook.size();i++){
             
             tongtien = tongtien + listBook.get(i).getThanhTien();
         }
-        txtTongtien.setText(Float.toString(tongtien));
+        txtTongtien.setText(Integer.toString(tongtien));
+        txtTichLuy.setText(Integer.toString((int) (tongtien*0.1)));
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void tableDonHangInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_tableDonHangInputMethodTextChanged
@@ -514,6 +547,7 @@ public class fTaoDonHang extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnSearch;
+    private javax.swing.JButton btnThanhToan;
     private javax.swing.JButton btnThem;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
@@ -524,7 +558,6 @@ public class fTaoDonHang extends javax.swing.JPanel {
     private javax.swing.ButtonGroup buttonGroup7;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -542,7 +575,6 @@ public class fTaoDonHang extends javax.swing.JPanel {
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JTable tableDonHang;
     private javax.swing.JTextField txtDiemTichLuy;
     private javax.swing.JTextField txtMaKH;
@@ -550,6 +582,7 @@ public class fTaoDonHang extends javax.swing.JPanel {
     private javax.swing.JTextField txtSDT;
     private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txtTenKH;
+    private javax.swing.JTextField txtTichLuy;
     private javax.swing.JTextField txtTongtien;
     // End of variables declaration//GEN-END:variables
 }

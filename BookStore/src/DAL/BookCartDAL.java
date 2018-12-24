@@ -41,7 +41,7 @@ public class BookCartDAL extends ConnectDB{
                 book.setTenSach(rs.getString("TenSach"));
                 book.setTacGia(rs.getString("TacGia"));
                 //book.setMaLoaiSach(rs.getInt("MaLoaiSach"));
-                book.setGiaBan(rs.getFloat("GiaBan"));
+                book.setGiaBan(rs.getInt("GiaBan"));
                 
                 book.setSoLuong(sl);
                 book.setThanhTien();
