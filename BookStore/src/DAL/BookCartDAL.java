@@ -63,6 +63,7 @@ public class BookCartDAL extends ConnectDB{
              if(masach == book.getMaSach()){
                  if(sl<book.getSoLuong()){
                      book.setSoLuong(book.getSoLuong()-sl);
+                     book.setThanhTien();
                      check = true;
                  }
                  else{
