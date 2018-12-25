@@ -25,6 +25,12 @@ public class fMain extends javax.swing.JFrame {
     public fMain() {
         initComponents();
         centerForm();
+        if(!fLogin.ChucVu.equals("admin")) {
+            btnQLPhieuNhap.setVisible(false);
+            btnQLNhanVien.setVisible(false);
+            btnQLPhieuNhap.setVisible(false);
+            btnQuanLyCongTy.setVisible(false);
+        }
     }
 
     /**
@@ -69,7 +75,7 @@ public class fMain extends javax.swing.JFrame {
                 btnQLNhanVienMouseClicked(evt);
             }
         });
-        sideBarPanel.add(btnQLNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 180, 50));
+        sideBarPanel.add(btnQLNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 180, 50));
 
         btnQuanLySach.setBackground(new java.awt.Color(204, 204, 204));
         btnQuanLySach.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -81,7 +87,7 @@ public class fMain extends javax.swing.JFrame {
                 btnQuanLySachMouseClicked(evt);
             }
         });
-        sideBarPanel.add(btnQuanLySach, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 180, 45));
+        sideBarPanel.add(btnQuanLySach, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 180, 45));
 
         btnQLPhieuNhap.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnQLPhieuNhap.setForeground(new java.awt.Color(204, 204, 204));
@@ -92,7 +98,7 @@ public class fMain extends javax.swing.JFrame {
                 btnQLPhieuNhapMouseClicked(evt);
             }
         });
-        sideBarPanel.add(btnQLPhieuNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 180, 45));
+        sideBarPanel.add(btnQLPhieuNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 180, 45));
 
         btnTaoDonHang.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnTaoDonHang.setForeground(new java.awt.Color(204, 204, 204));
@@ -126,7 +132,7 @@ public class fMain extends javax.swing.JFrame {
                 btnQLKhachHangMouseClicked(evt);
             }
         });
-        sideBarPanel.add(btnQLKhachHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 180, 50));
+        sideBarPanel.add(btnQLKhachHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 180, 50));
 
         btnDoiMatKhau.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnDoiMatKhau.setForeground(new java.awt.Color(204, 204, 204));
@@ -138,7 +144,7 @@ public class fMain extends javax.swing.JFrame {
                 btnDoiMatKhauMouseClicked(evt);
             }
         });
-        sideBarPanel.add(btnDoiMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 180, 50));
+        sideBarPanel.add(btnDoiMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 180, 50));
 
         btnDoiQua.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnDoiQua.setForeground(new java.awt.Color(204, 204, 204));
@@ -150,7 +156,7 @@ public class fMain extends javax.swing.JFrame {
                 btnDoiQuaMouseClicked(evt);
             }
         });
-        sideBarPanel.add(btnDoiQua, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 180, 50));
+        sideBarPanel.add(btnDoiQua, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 180, 50));
 
         btnQuanLyCongTy.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnQuanLyCongTy.setForeground(new java.awt.Color(204, 204, 204));
@@ -161,7 +167,7 @@ public class fMain extends javax.swing.JFrame {
                 btnQuanLyCongTyMouseClicked(evt);
             }
         });
-        sideBarPanel.add(btnQuanLyCongTy, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 180, 40));
+        sideBarPanel.add(btnQuanLyCongTy, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 180, 40));
 
         btnBaoCao.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnBaoCao.setForeground(new java.awt.Color(204, 204, 204));
@@ -173,7 +179,7 @@ public class fMain extends javax.swing.JFrame {
                 btnBaoCaoMouseClicked(evt);
             }
         });
-        sideBarPanel.add(btnBaoCao, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 180, 50));
+        sideBarPanel.add(btnBaoCao, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 180, 50));
 
         containPanel.add(sideBarPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 540));
 
@@ -204,6 +210,8 @@ public class fMain extends javax.swing.JFrame {
         fTaoDonHang donhang = null;
         try {
             donhang = new fTaoDonHang();
+            resetColor();
+            btnTaoDonHang.setForeground(Color.WHITE);
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(fMain.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -224,8 +232,10 @@ public class fMain extends javax.swing.JFrame {
         swichPanel(qlNV);
     }//GEN-LAST:event_btnQLNhanVienMouseClicked
     private void btnQuanLyDonHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyDonHangMouseClicked
-    fQuanLyDonHang qldh = null;
-    qldh = new fQuanLyDonHang();
+        fQuanLyDonHang qldh = null;
+        resetColor();
+        btnQuanLyDonHang.setForeground(Color.WHITE);
+        qldh = new fQuanLyDonHang();
         swichPanel(qldh);         // TODO add your handling code here:
     }//GEN-LAST:event_btnQuanLyDonHangMouseClicked
 
@@ -261,29 +271,32 @@ public class fMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBaoCaoMouseClicked
 
     // Change the panel in layered panel
-     public void swichPanel(JPanel panel) {
-       layeredPanelContain.removeAll();
-       layeredPanelContain.add(panel);
-       layeredPanelContain.repaint();
-       layeredPanelContain.revalidate();
-    } 
-     
-     // Reset text color of all btnLable
-     public void resetColor() {
-          btnQuanLySach.setForeground(new Color(204, 204, 204));
-          btnQLPhieuNhap.setForeground(new Color(204, 204, 204));
-          btnQLNhanVien.setForeground(new Color(204, 204, 204));
-          btnQLKhachHang.setForeground(new Color(204, 204, 204));
-          btnDoiMatKhau.setForeground(new Color(204, 204, 204));
-          btnDoiQua.setForeground(new Color(204, 204, 204));
-          btnBaoCao.setForeground(new Color(204, 204, 204));
-     }
-     
-     private void centerForm(){
+    public void swichPanel(JPanel panel) {
+        layeredPanelContain.removeAll();
+        layeredPanelContain.add(panel);
+        layeredPanelContain.repaint();
+        layeredPanelContain.revalidate();
+    }
+
+    // Reset text color of all btnLable
+    public void resetColor() {
+        btnQuanLySach.setForeground(new Color(204, 204, 204));
+        btnQLPhieuNhap.setForeground(new Color(204, 204, 204));
+        btnQLNhanVien.setForeground(new Color(204, 204, 204));
+        btnQLKhachHang.setForeground(new Color(204, 204, 204));
+        btnDoiMatKhau.setForeground(new Color(204, 204, 204));
+        btnDoiQua.setForeground(new Color(204, 204, 204));
+        btnBaoCao.setForeground(new Color(204, 204, 204));
+        btnTaoDonHang.setForeground(new Color(204, 204, 204));
+        btnQuanLyDonHang.setForeground(new Color(204, 204, 204));
+        btnQuanLyCongTy.setForeground(new Color(204, 204, 204));
+    }
+
+    private void centerForm() {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
     }
-     
+
     /**
      * @param args the command line arguments
      */

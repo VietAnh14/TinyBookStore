@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  */
 public class ConnectDB {
     private static String username = "sa";
-    private static String password = "123";
+    private static String password = "datchim147";
     private static String url = "jdbc:sqlserver://localhost:1433;databaseName=QLNS;";
     private static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     protected Connection cn;
