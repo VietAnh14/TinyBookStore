@@ -22,6 +22,8 @@ import DTO.HoaDonDTO;
 import BLL.HoaDonBLL;
 import DTO.CTHDDTO;
 import java.awt.Component;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -457,7 +459,7 @@ public class fTaoDonHang extends javax.swing.JPanel {
         int Mahd = hdBLL.GetMaHD();
         hdDTO.setMaHD(Mahd);
         hdDTO.setMaKH(Integer.parseInt(txtMaKH.getText()));
-        hdDTO.setMaNv(1);       // giả sử chỗ này đã truyền từ form login mã nhân viên là 1
+        hdDTO.setMaNv(fLogin.MaNV);       // giả sử chỗ này đã truyền từ form login mã nhân viên là 1
         hdDTO.setTienDiemTichLuy(Integer.parseInt(txtTichLuy.getText()));
         hdDTO.setTriGia(Integer.parseInt(txtTongtien.getText()));
         
@@ -484,20 +486,19 @@ public class fTaoDonHang extends javax.swing.JPanel {
 
     private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
         // TODO add your handling code here:
-        boolean check = false;
+//        boolean check = false;
         KhachHangBLL khbll = new KhachHangBLL();
-        if(!txtMaKH.getText().isEmpty())
+
+        Pattern pattern = Pattern.compile("\\d*"); 
+        Matcher matcher = pattern.matcher(txtMaKH.getText());
+        if (txtMaKH.getText().isEmpty() | !matcher.matches())
         {
-            kh.setMaKH(Integer.parseInt(txtMaKH.getText()));
-            check = true;
+            Component frame = null;
+            JOptionPane.showMessageDialog(frame, "Nhập đúng mã Khách Hàng");
         }
         else
         {
-            Component frame = null;
-            JOptionPane.showMessageDialog(frame, "Mời nhập đúng mã số KH");
-        }
-        if (check)
-        {
+            kh.setMaKH(Integer.parseInt(txtMaKH.getText()));
             if (khbll.getInfoKhachHang(kh))
             {
                 txtTenKH.setText(kh.getHoTen());
@@ -519,11 +520,23 @@ public class fTaoDonHang extends javax.swing.JPanel {
 
     private void btnThemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseClicked
         // TODO add your handling code here:
-        if (txtMaSach.getText().isEmpty()| txtSoLuong.getText().isEmpty()){
+
+//        if (txtMaSach.getText().isEmpty()| txtSoLuong.getText().isEmpty()){
+//            Component frame = null;
+//            JOptionPane.showMessageDialog(frame, "Nhập đầy đủ thông tin");
+//        }
+//        else {
+        Pattern pattern = Pattern.compile("\\d*"); 
+        Matcher matcher = pattern.matcher(txtMaSach.getText());
+        Pattern pattern1 = Pattern.compile("\\d*"); 
+        Matcher matcher2 = pattern1.matcher(txtSoLuong.getText());
+        if (txtMaKH.getText().isEmpty() | !matcher.matches() | txtSoLuong.getText().isEmpty() |!matcher2.matches())
+        {
             Component frame = null;
-            JOptionPane.showMessageDialog(frame, "Nhập đầy đủ thông tin");
+            JOptionPane.showMessageDialog(frame, "Nhập đúng mã Sách và Số Lượng");
         }
-        else {
+        else
+        {
         bookbll.addbook(listBook, txtMaSach.getText(),Integer.parseInt(txtSoLuong.getText()));
         bindingTable.bindingtblSach(tableDonHang, listBook);
         Integer tongtien = 0;
