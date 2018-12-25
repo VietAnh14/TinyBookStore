@@ -238,7 +238,7 @@ INSERT INTO ACCOUNT
 VALUES        ('admin','admin','admin',1)
 
 GO
-
+select *from ACCOUNT
 DROP TRIGGER UPDATE_SL_SACH_FOR_CTPN
 
 GO
