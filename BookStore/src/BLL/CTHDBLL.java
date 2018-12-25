@@ -6,6 +6,7 @@
 package BLL;
 import DTO.CTHDDTO;
 import DAL.CTHDDAL;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,5 +17,8 @@ public class CTHDBLL {
     
     public boolean TaoCTHD(CTHDDTO ct){
     return cthdDAL.TaoCTHD(ct);
+    }
+    public ArrayList<CTHDDTO> getCTHD_MaHD(int mahd){
+        return cthdDAL.getCTHD_MaHD(mahd);
     }
 }
