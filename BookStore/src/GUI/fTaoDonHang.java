@@ -447,6 +447,12 @@ public class fTaoDonHang extends javax.swing.JPanel {
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         // TODO add your handling code here:
+        if (txtMaKH.getText().isEmpty()| listBook.size() < 1){
+            Component frame = null;
+            JOptionPane.showMessageDialog(frame, "Nhập đầy đủ thông tin");
+
+        }
+        else{
         
         int Mahd = hdBLL.GetMaHD();
         hdDTO.setMaHD(Mahd);
@@ -473,14 +479,14 @@ public class fTaoDonHang extends javax.swing.JPanel {
             e.printStackTrace();
             hdBLL.XoaHD(hdDTO);
         }
-        
+        }
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
         // TODO add your handling code here:
         boolean check = false;
         KhachHangBLL khbll = new KhachHangBLL();
-        if(txtMaKH != null)
+        if(!txtMaKH.getText().isEmpty())
         {
             kh.setMaKH(Integer.parseInt(txtMaKH.getText()));
             check = true;
@@ -513,6 +519,11 @@ public class fTaoDonHang extends javax.swing.JPanel {
 
     private void btnThemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseClicked
         // TODO add your handling code here:
+        if (txtMaSach.getText().isEmpty()| txtSoLuong.getText().isEmpty()){
+            Component frame = null;
+            JOptionPane.showMessageDialog(frame, "Nhập đầy đủ thông tin");
+        }
+        else {
         bookbll.addbook(listBook, txtMaSach.getText(),Integer.parseInt(txtSoLuong.getText()));
         bindingTable.bindingtblSach(tableDonHang, listBook);
         Integer tongtien = 0;
@@ -522,11 +533,16 @@ public class fTaoDonHang extends javax.swing.JPanel {
         }
         txtTongtien.setText(Integer.toString(tongtien));
         txtTichLuy.setText(Integer.toString((int) (tongtien*0.1)));
-        
+        }
     }//GEN-LAST:event_btnThemMouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
+        if (txtMaSach.getText().isEmpty()| txtSoLuong.getText().isEmpty()){
+            Component frame = null;
+            JOptionPane.showMessageDialog(frame, "Nhập đầy đủ thông tin");
+        }
+        else {
         bookbll.removeBook(listBook,Integer.parseInt(txtMaSach.getText()) , Integer.parseInt(txtSoLuong.getText()));
         bindingTable.bindingtblSach(tableDonHang, listBook);
         Integer tongtien = 0;
@@ -536,6 +552,7 @@ public class fTaoDonHang extends javax.swing.JPanel {
         }
         txtTongtien.setText(Integer.toString(tongtien));
         txtTichLuy.setText(Integer.toString((int) (tongtien*0.1)));
+        }
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void tableDonHangInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_tableDonHangInputMethodTextChanged
