@@ -40,6 +40,10 @@ public class KhachHangBLL {
         return KhachHangDAL.updatetKH(KhachHang);
     }
     
+    public boolean updateDTL(KhachHangDTO KhachHang) {
+        return KhachHangDAL.updatetDTL(KhachHang);
+    }
+    
     public ArrayList<KhachHangDTO> searchByName (String name) {
         return KhachHangDAL.searchByName(name);
     }

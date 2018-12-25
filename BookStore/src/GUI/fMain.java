@@ -25,7 +25,6 @@ public class fMain extends javax.swing.JFrame {
     public fMain() {
         initComponents();
         centerForm();
-        btnQLNhanVien.setEnabled(false);
     }
 
     /**
@@ -45,6 +44,8 @@ public class fMain extends javax.swing.JFrame {
         btnTaoDonHang = new javax.swing.JLabel();
         btnQuanLyDonHang = new javax.swing.JLabel();
         btnQLKhachHang = new javax.swing.JLabel();
+        btnDoiMatKhau = new javax.swing.JLabel();
+        btnDoiQua = new javax.swing.JLabel();
         layeredPanelContain = new javax.swing.JLayeredPane();
         fQuanLySach1 = new GUI.fQuanLySach();
 
@@ -67,7 +68,7 @@ public class fMain extends javax.swing.JFrame {
                 btnQLNhanVienMouseClicked(evt);
             }
         });
-        sideBarPanel.add(btnQLNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 180, 45));
+        sideBarPanel.add(btnQLNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 180, 50));
 
         btnQuanLySach.setBackground(new java.awt.Color(204, 204, 204));
         btnQuanLySach.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -124,7 +125,31 @@ public class fMain extends javax.swing.JFrame {
                 btnQLKhachHangMouseClicked(evt);
             }
         });
-        sideBarPanel.add(btnQLKhachHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 235, 180, 50));
+        sideBarPanel.add(btnQLKhachHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 180, 50));
+
+        btnDoiMatKhau.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnDoiMatKhau.setForeground(new java.awt.Color(204, 204, 204));
+        btnDoiMatKhau.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/iconfinder_019_Lock_183581.png"))); // NOI18N
+        btnDoiMatKhau.setText("Đổi Mật Khẩu");
+        btnDoiMatKhau.setPreferredSize(new java.awt.Dimension(165, 32));
+        btnDoiMatKhau.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDoiMatKhauMouseClicked(evt);
+            }
+        });
+        sideBarPanel.add(btnDoiMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 180, 45));
+
+        btnDoiQua.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnDoiQua.setForeground(new java.awt.Color(204, 204, 204));
+        btnDoiQua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/iconfinder_150_christmas_gift_giftbox_present_4008419.png"))); // NOI18N
+        btnDoiQua.setText("Đổi Quả Tích Lũy");
+        btnDoiQua.setPreferredSize(new java.awt.Dimension(165, 32));
+        btnDoiQua.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDoiQuaMouseClicked(evt);
+            }
+        });
+        sideBarPanel.add(btnDoiQua, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 180, 45));
 
         containPanel.add(sideBarPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 540));
 
@@ -181,6 +206,22 @@ public class fMain extends javax.swing.JFrame {
     qldh = new fQuanLyDonHang();
         swichPanel(qldh);         // TODO add your handling code here:
     }//GEN-LAST:event_btnQuanLyDonHangMouseClicked
+
+    private void btnDoiMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDoiMatKhauMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDoiMatKhauMouseClicked
+
+    private void btnDoiQuaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDoiQuaMouseClicked
+        try {
+            fDoiQua dq = new fDoiQua();
+            resetColor();
+            btnDoiQua.setForeground(Color.WHITE);
+            swichPanel(dq);
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(fMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+    }//GEN-LAST:event_btnDoiQuaMouseClicked
 
     // Change the panel in layered panel
      public void swichPanel(JPanel panel) {
@@ -239,6 +280,8 @@ public class fMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnDoiMatKhau;
+    private javax.swing.JLabel btnDoiQua;
     private javax.swing.JLabel btnQLKhachHang;
     private javax.swing.JLabel btnQLNhanVien;
     private javax.swing.JLabel btnQLPhieuNhap;
