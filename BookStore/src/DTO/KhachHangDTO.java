@@ -4,84 +4,87 @@
  * and open the template in the editor.
  */
 package DTO;
-
-import java.sql.Date;
-
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 /**
  *
- * @author QuyNam
+ * @author HUY
  */
 public class KhachHangDTO {
     private Integer MaKH;
-    private String HoTen;
-    private Integer SDT;
+    private String Hoten;
+    private String SDT;
     private String Email;
-    private Integer CMND;
+    private String CMND;
     private Date NgaySinh;
     private Integer DiemTichLuy;
-
-    public Integer getDiemTichLuy() {
-        return DiemTichLuy;
-    }
-
-    public void setDiemTichLuy(Integer DiemTichLuy) {
-        this.DiemTichLuy = DiemTichLuy;
-    }
     private Boolean Deleted;
-
-    public Integer getMaKH() {
+    public Integer GetMaKH()
+    {
         return MaKH;
     }
-
-    public void setMaKH(Integer MaKH) {
-        this.MaKH = MaKH;
+    public void SetMaKH(Integer Ma)
+    {
+        this.MaKH =Ma;
     }
-
-    public String getHoTen() {
-        return HoTen;
+    public String GetHoten()
+    {
+        return Hoten;
     }
-
-    public void setHoTen(String HoTen) {
-        this.HoTen = HoTen;
+    public void SetHoten(String Hoten)
+    {
+        this.Hoten= Hoten;
     }
-
-    public Integer getSDT() {
+    public String GetSDT()
+    {
         return SDT;
     }
-
-    public void setSDT(Integer SDT) {
-        this.SDT = SDT;
+    public void SetSDT(String sdt)
+    {
+        this.SDT = sdt;
     }
-
-    public String getEmail() {
+    public String GetEmail()
+    {
         return Email;
     }
-
-    public void setEmail(String Email) {
+    public void SetEmail(String Email)
+    {
         this.Email = Email;
     }
-
-    public Integer getCMND() {
-        return CMND;
-    }
-
-    public void setCMND(Integer CMND) {
-        this.CMND = CMND;
-    }
-
-    public Date getNgaySinh() {
+    public Date GetNgaySinh()
+    {
         return NgaySinh;
     }
-
-    public void setNgaySinh(Date NgaySinh) {
-        this.NgaySinh = NgaySinh;
+    public void SetNgaySinh(Date NgaySinh)
+    {
+        this.NgaySinh =NgaySinh;
     }
-
-    public Boolean getDeleted() {
+    public Integer GetDiemTichLuy()
+    {
+        return DiemTichLuy;
+    }
+    public void SetDiemTichLuy(int DTL)
+    {
+        this.DiemTichLuy = DTL;
+    }
+    public String GetCMND()
+    {
+        return CMND;
+    }
+    public void SetCMND(String CMND)
+    {
+        this.CMND = CMND;
+    }
+    public Boolean Getdeleted()
+    {
         return Deleted;
     }
-
-    public void setDeleted(Boolean Deleted) {
-        this.Deleted = Deleted;
+    public void Setdeleted(Boolean Deleted) throws ParseException
+    {
+        this.Deleted= Deleted;
+        
     }
-}
+ }

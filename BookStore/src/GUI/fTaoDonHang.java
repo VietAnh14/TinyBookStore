@@ -498,12 +498,12 @@ public class fTaoDonHang extends javax.swing.JPanel {
         }
         else
         {
-            kh.setMaKH(Integer.parseInt(txtMaKH.getText()));
+            kh.SetMaKH(Integer.parseInt(txtMaKH.getText()));
             if (khbll.getInfoKhachHang(kh))
             {
-                txtTenKH.setText(kh.getHoTen());
-                txtSDT.setText(kh.getSDT().toString());
-                txtDiemTichLuy.setText(kh.getDiemTichLuy().toString());
+                txtTenKH.setText(kh.GetHoten());
+                txtSDT.setText(kh.GetSDT().toString());
+                txtDiemTichLuy.setText(kh.GetDiemTichLuy().toString());
             }
             else
             {

@@ -1,4 +1,7 @@
-﻿CREATE DATABASE QLNS
+﻿DROP DATABASE IF EXISTS QLNS
+GO
+
+CREATE DATABASE QLNS
 GO
 
 USE QLNS
@@ -38,7 +41,7 @@ CREATE TABLE SACH
 
 CREATE TABLE NHANVIEN
 (
-	MaNV INT  PRIMARY KEY,
+	MaNV INT  PRIMARY KEY IDENTITY,
 	HoTen NVARCHAR(50) NOT NULL,
 	SDT CHAR(15) NOT NULL,
 	CMND CHAR(20) NOT NULL,
@@ -60,7 +63,7 @@ GO
 
 CREATE TABLE CONGTY
 (
-	MaCty INT PRIMARY KEY IDENTITY,
+	MaCty INT PRIMARY KEY,
 	TenCty NVARCHAR(70),
 	DiaChi NVARCHAR(70),
 	SDT VARCHAR(20)
@@ -94,10 +97,9 @@ CREATE TABLE CTPHIEUNHAP
 GO
 
 CREATE TABLE KHACHHANG(
-	MaKH INT  PRIMARY KEY,
+	MaKH INT  PRIMARY KEY IDENTITY,
 	HoTen NVARCHAR(50) NOT NULL,
 	SDT CHAR(12) NOT NULL,
-	SoTienNo MONEY DEFAULT 0,
 	Email NVARCHAR(50) NOT NULL,
 	CMND CHAR(15) NOT NULL,
 	NgaySinh DATE NOT NULL,
@@ -138,15 +140,15 @@ GO
 
 CREATE TABLE BAOCAOTON
 (
-	Thang INT NOT NULL CHECK(Thang > 0 and Thang <= 12),
-	Nam INT NOT NULL CHECK(Nam > 0),
+	ID INT IDENTITY(1,1)  PRIMARY KEY,
+	Thang INT NOT NULL,
+	Nam INT NOT NULL,
 	TonDau INT NOT NULL,
 	TonPhatSinh INT NOT NULL,
 	TonCuoi INT NOT NULL,
 	MaSach INT NOT NULL,
-	
-	PRIMARY KEY (Thang, Nam, Masach),
-	FOREIGN KEY (MaSach) REFERENCES Sach(MaSach)
+
+	FOREIGN KEY (MaSach) REFERENCES SACH(MaSach)
 )
 GO
 
@@ -156,19 +158,13 @@ CREATE TABLE BAOCAODOANHTHU
 	TuNgay SMALLDATETIME NOT NULL,
 	DenNgay SMALLDATETIME NOT NULL,
 	NgayLap SMALLDATETIME,
-	DoanhThu MONEY NOT NULL,
-	TongTienDTLSuDung MONEY NOT NULL,
+	TongThu MONEY NOT NULL,
 	PRIMARY KEY(TUNGAY, DENNGAY)
 )
 
 CREATE TABLE QUYDINH
 (
 	ID INT IDENTITY(1,1) PRIMARY KEY,
-	TonToiDaTruocNhap INT NOT NULL,
-	SoLuongNhapItNhat INT NOT NULL,
-	SoLuongNhapNhieuNhat INT NOT NULL,
-	TonToiThieuSauBan INT NOT NULL,
-	LaiXuatBanSach FLOAT NOT NULL,
 	GiaTriDiemTichLuy MONEY NOT NULL,
 	TienToDiemTichLuy MONEY NOT NULL
 )
@@ -220,21 +216,93 @@ INSERT INTO SACH
 VALUES        (5,'1',N'SGK Lý 10','VC','1','15','150')
 
 INSERT INTO NHANVIEN
-                         (MaNV,HoTen, SDT, CMND,NgaySinh, DiaChi)
-VALUES        (1,N'Ngyễn Văn A','012345678','123546465','15/6/1999','TP HCM')
+                         (HoTen, SDT, CMND,NgaySinh, DiaChi)
+VALUES        (N'Ngyễn Văn A','012345678','123546465','15/6/1999','TP HCM')
 
 INSERT INTO KHACHHANG
-                         (MaKH,HoTen, SDT, Email, SoTienNo, NgaySinh,CMND)
-VALUES        (1,N'KH mua lẻ','123546','Tkobietboi@something.com','0','11/2/1998','131213')
+                         (HoTen, SDT, Email, NgaySinh,CMND)
+VALUES        (N'KH mua lẻ','123546','Tkobietboi@something.com','11/2/1998','131213')
 
 INSERT INTO QUYDINH
-                         (TonToiDaTruocNhap, SoLuongNhapNhieuNhat, SoLuongNhapItNhat, TonToiThieuSauBan, LaiXuatBanSach, GiaTriDiemTichLuy, TienToDiemTichLuy)
-VALUES        (100, 500, 100, 50, 0.1, 1, 50)
+                         (GiaTriDiemTichLuy, TienToDiemTichLuy)
+VALUES        (1, 50)
 
 
 INSERT INTO ACCOUNT
                          (TenTaiKhoan, MatKhau, ChucVu, MaNV)
 VALUES        ('admin','admin','admin',1)
 
+GO
 
+DROP TRIGGER IF EXISTS UPDATE_SL_SACH_FOR_CTPN
+
+GO
+CREATE TRIGGER UPDATE_SL_SACH_FOR_CTPN
+ON CTPHIEUNHAP AFTER UPDATE, INSERT, DELETE
+AS
+DECLARE @MaSach int , @SoLuong int, @SoLuongTon int, @SoLuongTruocUpdate int, @Activity varchar(20), @SoLuongNhap int,
+		@ThanhTienCu float, @ThanhTienMoi float, @TongTien float, @MaPN int
+IF EXISTS(SELECT * FROM deleted) AND EXISTS(SELECT * FROM inserted)
+BEGIN
+SET @Activity = 'UPDATE'
+	SELECT @MaPN = MaPN FROM inserted
+	SELECT @MaSach = MaSach FROM inserted
+	SELECT @SoLuongNhap = SoLuongNhap FROM inserted
+	SELECT @SoLuongTon = SoLuong FROM SACH WHERE MaSach = @MaSach
+	SELECT @SoLuongTruocUpdate = SoLuongNhap FROM deleted
+	SET @SoLuong = @SoLuongTon - @SoLuongTruocUpdate + @SoLuongNhap
+	UPDATE SACH SET SoLuong = @SoLuong WHERE MaSach = @MaSach
+
+	SELECT @ThanhTienCu = ThanhTien FROM deleted
+	SELECT @ThanhTienMoi = ThanhTien FROM inserted
+	SELECT @TongTien = TongChi FROM PHIEUNHAP WHERE MaPN = @MaPN
+	SET @TongTien = @TongTien + @ThanhTienMoi - @ThanhTienCu
+	UPDATE PHIEUNHAP SET TongChi = @TongTien WHERE MaPN = @MaPN
+END
+
+If EXISTS (SELECT * FROM inserted) AND NOT EXISTS(SELECT * FROM deleted)
+BEGIN
+	SET @Activity = 'INSERT';
+	SELECT @MaPN = MaPN FROM inserted
+	SELECT @MaSach = MaSach FROM inserted
+	SELECT @SoLuongNhap = SoLuongNhap FROM inserted
+	SELECT @SoLuongTon = SoLuong FROM SACH WHERE MaSach = @MaSach
+	SET @SoLuong = @SoLuongTon + @SoLuongNhap
+	UPDATE SACH SET SoLuong = @SoLuong WHERE MaSach = @MaSach
+
+	SELECT @ThanhTienMoi = ThanhTien FROM inserted
+	SELECT @TongTien = TongChi FROM PHIEUNHAP WHERE MaPN = @MaPN
+	SET @TongTien = @TongTien + @ThanhTienMoi
+	UPDATE PHIEUNHAP SET TongChi = @TongTien WHERE MaPN = @MaPN
+END
+
+IF NOT EXISTS(SELECT * FROM inserted) AND EXISTS(SELECT * FROM deleted)
+BEGIN
+	SET @Activity = 'DELETE'
+	SELECT @MaPN = MaPN FROM deleted
+	SELECT @MaSach = MaSach FROM deleted
+	SELECT @SoLuongNhap = SoLuongNhap FROM deleted
+	SELECT @SoLuongTon = SoLuong FROM SACH WHERE MaSach = @MaSach
+	SET @SoLuong = @SoLuongTon - @SoLuongNhap
+	UPDATE SACH SET SoLuong = @SoLuong WHERE MaSach = @MaSach
+
+	SELECT @ThanhTienMoi = ThanhTien FROM deleted
+	SELECT @TongTien = TongChi FROM PHIEUNHAP WHERE MaPN = @MaPN
+	SET @TongTien = @TongTien - @ThanhTienMoi
+	UPDATE PHIEUNHAP SET TongChi = @TongTien WHERE MaPN = @MaPN
+END
+GO
+
+/*
+INSERT INTO PHIEUNHAP
+                         (MaPN, MaNV, MaCty, TongChi)
+VALUES        (1, 1, 1, 0)
+
+INSERT INTO CTPHIEUNHAP
+                         (MaPN, MaSach, SoLuongNhap, ThanhTien, GiaNhap)
+VALUES        (1, 8, 250, 100, 1) */
+
+UPDATE CTPHIEUNHAP SET SoLuongNhap = 200, ThanhTien = 200 WHERE MaPN = 1 AND MaSach = 8
+
+DELETE CTPHIEUNHAP WHERE MaPN = 1 AND MaSach = 8
 
