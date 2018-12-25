@@ -16,4 +16,12 @@ public class AccountBLL {
     public Integer login(AccountDTO account) {
         return accountDAL.login(account);
     }
+    public Boolean checkPass(Integer MaNV,String pass)
+    {
+        return accountDAL.checkLogin(MaNV, pass);
+    }
+    public Boolean suaPass(Integer MaNV,String pass)
+    {
+        return accountDAL.suaMatKhau(MaNV, pass);
+    }
 }

@@ -9,7 +9,10 @@ import DTO.BaoCaoDoanhThuDTO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -39,15 +42,14 @@ public class BaoCaoDoanhThuDAL extends ConnectDB {
         return listBaoCao;
     }
 
-    public Float tinhTongThu(String tuNgay, String denNgay) {
-        String sql = "set dateformat DMY"
-                + "SELECT SUM(TriGia) AS TongThu, SUM() FROM HOADON WHERE NgHD BETWEEN '?' AND '?'";
+    public Float TongThu(String tuNgay, String denNgay) {
+        String sql = "set dateformat DMY SELECT SUM(TriGia) AS TongThu FROM HOADON WHERE NgHD BETWEEN ? AND ?";
         Float trigia = new Float('0');
         try {
             getConnection();
             PreparedStatement ps = cn.prepareStatement(sql);
-            ps.setString(0, tuNgay);
-            ps.setString(1, denNgay);
+            ps.setString(1, tuNgay);
+            ps.setString(2, denNgay);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 trigia = rs.getFloat("TongThu");
@@ -59,4 +61,50 @@ public class BaoCaoDoanhThuDAL extends ConnectDB {
         getClose();
         return  trigia;
     }
+     public ArrayList<BaoCaoDoanhThuDTO> selecttheongay(BaoCaoDoanhThuDTO BC, String tuNgay, String denNgay) throws SQLException {
+        ArrayList<BaoCaoDoanhThuDTO> listBaoCao = new ArrayList<>();
+        String sql = "SET DATEFORMAT DMY SELECT * FROM BAOCAODOANHTHU WHERE TuNgay = ? AND DenNgay = ?";
+        try {
+            getConnection();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setString(1, tuNgay);
+            ps.setString(2,denNgay);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                BC.setTuNgay(rs.getDate("TuNgay"));
+                BC.setDenNgay(rs.getDate("DenNgay"));
+                BC.setNgayLap(rs.getDate("NgayLap"));
+                BC.setTongThu(rs.getFloat("TongThu"));
+                closeCn(cn, ps, rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+        return listBaoCao;
+    }
+     public boolean insertBC(BaoCaoDoanhThuDTO BC,float tt) {
+        String sql ="set dateformat DMY INSERT INTO BAOCAODOANHTHU (TuNgay,DenNgay,NgayLap,TongThu) VALUES (?,?,?,?)";
+        try {
+            getConnection();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+            String s2 = formatter.format(BC.getDenNgay());
+            String s1 = formatter.format(BC.getTuNgay());
+            Date d = new java.util.Date();
+            String cd = formatter.format(d);
+            ps.setString(1, s1);
+            ps.setString(2, s2);
+            ps.setString(3, cd);
+            ps.setFloat(4, tt);
+            int rs = ps.executeUpdate();
+            if (rs != 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+        }
+
+        return false;
+    }
+
 }
