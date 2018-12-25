@@ -434,9 +434,9 @@ public class fDoiQua extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -482,13 +482,14 @@ public class fDoiQua extends javax.swing.JPanel {
 
     private void jButtonDoiQuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDoiQuaActionPerformed
         flag =3;
+        controlTxb(true);
     }//GEN-LAST:event_jButtonDoiQuaActionPerformed
 
     private void jTableQuaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableQuaMouseClicked
         int row = jTableQua.getSelectedRow();
         jTextMaQua.setText(jTableQua.getValueAt(row, 0).toString());
-        jTextTenQua.setText(jTableQua.getValueAt(row, 1).toString());
-        jTextMucDiem.setText(jTableQua.getValueAt(row, 2).toString());
+        jTextMucDiem.setText(jTableQua.getValueAt(row, 1).toString());
+        jTextTenQua.setText(jTableQua.getValueAt(row, 2).toString());
     }//GEN-LAST:event_jTableQuaMouseClicked
 
     private void jTextMaQuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextMaQuaActionPerformed
@@ -545,19 +546,21 @@ public class fDoiQua extends javax.swing.JPanel {
                 break;
             }
             case 3:{
-                Integer A = 0;
-                A = Integer.parseInt(jTextDTL.getText().toString()) - Integer.parseInt(jMucDiem.getText().toString());
-                if(A<0)
+                Integer a,b,c = 0;
+                b= Integer.parseInt(jTextDTL.getText().toString());
+                c =Integer.parseInt(jTextMucDiem.getText().toString());
+                a =  b - c ;
+                if(a<0)
                 {
                     JOptionPane.showMessageDialog(this, "Điểm tích lũy của khách hàng không đủ");
                 }
                 else{
-                    if(KhachHangBLL.updateDTL(KH))
+                    if(KhachHangBLL.updateDTL(a,KH))
                     {
-                        JOptionPane.showMessageDialog(this, "Cập nhật thành công");}
+                        JOptionPane.showMessageDialog(this, "Chúc mừng bạn đổi quà thành công");}
                     else
                     {
-                        JOptionPane.showMessageDialog(this, "Cập nhật thất bại");
+                        JOptionPane.showMessageDialog(this, "Xin vui lòng thử lại");
                     }
                 }
                 break;
@@ -568,6 +571,7 @@ public class fDoiQua extends javax.swing.JPanel {
         }
 
         bindingTableFormDoiQuaTL.bindingtbQua(jTableQua, GiftBLL.getAll());
+        bindingTableFormQLKH.bindingtbQLKH(jTableKH, KhachHangBLL.getAll());
         controlTxb(false);
     }//GEN-LAST:event_ButtonLuuActionPerformed
 
@@ -611,7 +615,7 @@ public class fDoiQua extends javax.swing.JPanel {
     }
     public boolean bindingKH(KhachHangDTO KH){
         try{
-            KH.SetMaKH(Integer.parseInt(jTextMaQua.getText()));
+            KH.SetMaKH(Integer.parseInt(jTextMaKH.getText()));
             KH.SetHoten(jTextTenKH.getText());
             KH.SetDiemTichLuy(Integer.parseInt(jTextMucDiem.getText()));
         }

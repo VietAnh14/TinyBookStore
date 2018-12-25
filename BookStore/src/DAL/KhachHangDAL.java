@@ -188,13 +188,13 @@ public class KhachHangDAL extends ConnectDB {
 
         return false;
     }
-    public boolean updatetDTL(KhachHangDTO KhachHang) {
+    public boolean updatetDTL(Integer a,KhachHangDTO KH) {
         String sql = "UPDATE KHACHHANG SET DiemTichLuy = ? WHERE MaKH = ?";
         try {
             getConnection();
             PreparedStatement ps = cn.prepareStatement(sql);
-            ps.setInt(1, KhachHang.GetDiemTichLuy());                       
-            ps.setInt(2, KhachHang.GetMaKH());
+            ps.setInt(1, a);                       
+            ps.setInt(2, KH.GetMaKH());
             
             int rs = ps.executeUpdate();
             if (rs != 0) {

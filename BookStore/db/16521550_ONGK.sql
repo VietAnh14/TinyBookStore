@@ -226,10 +226,8 @@ INSERT INTO NHANVIEN
                          (HoTen, SDT, CMND,NgaySinh, DiaChi)
 VALUES        (N'Ngyễn Văn A','012345678','123546465','15/6/1999','TP HCM')
 
-INSERT INTO KHACHHANG
-                         (HoTen, SDT, Email, NgaySinh,CMND)
-VALUES        (N'KH mua lẻ','123546','Tkobietboi@something.com','11/2/1998','131213')
-
+UPDATE KHACHHANG
+SET DiemTichLuy = 500 WHERE MaKH = 2                        
 INSERT INTO QUYDINH
                          (GiaTriDiemTichLuy, TienToDiemTichLuy)
 VALUES        (1, 50)

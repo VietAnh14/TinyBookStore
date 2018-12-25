@@ -137,7 +137,7 @@ public class fMain extends javax.swing.JFrame {
                 btnDoiMatKhauMouseClicked(evt);
             }
         });
-        sideBarPanel.add(btnDoiMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 180, 45));
+        sideBarPanel.add(btnDoiMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 180, 50));
 
         btnDoiQua.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnDoiQua.setForeground(new java.awt.Color(204, 204, 204));
@@ -149,7 +149,7 @@ public class fMain extends javax.swing.JFrame {
                 btnDoiQuaMouseClicked(evt);
             }
         });
-        sideBarPanel.add(btnDoiQua, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 180, 45));
+        sideBarPanel.add(btnDoiQua, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 180, 50));
 
         containPanel.add(sideBarPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 540));
 
@@ -208,7 +208,10 @@ public class fMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnQuanLyDonHangMouseClicked
 
     private void btnDoiMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDoiMatKhauMouseClicked
-        // TODO add your handling code here:
+        fDoiMatKhau dpass = new fDoiMatKhau();
+        resetColor();
+        btnDoiMatKhau.setForeground(Color.WHITE);
+        swichPanel(dpass);
     }//GEN-LAST:event_btnDoiMatKhauMouseClicked
 
     private void btnDoiQuaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDoiQuaMouseClicked
@@ -220,7 +223,6 @@ public class fMain extends javax.swing.JFrame {
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(fMain.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
     }//GEN-LAST:event_btnDoiQuaMouseClicked
 
     // Change the panel in layered panel
@@ -237,6 +239,8 @@ public class fMain extends javax.swing.JFrame {
           btnQLPhieuNhap.setForeground(new Color(204, 204, 204));
           btnQLNhanVien.setForeground(new Color(204, 204, 204));
           btnQLKhachHang.setForeground(new Color(204, 204, 204));
+          btnDoiMatKhau.setForeground(new Color(204, 204, 204));
+          btnDoiQua.setForeground(new Color(204, 204, 204));
      }
      
      private void centerForm(){

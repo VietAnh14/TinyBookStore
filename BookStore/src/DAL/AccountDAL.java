@@ -8,10 +8,12 @@ package DAL;
 import DTO.AccountDTO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  *
  * @author Viet Anh
+ * @author HUY
  */
 public class AccountDAL extends ConnectDB {
 
@@ -39,5 +41,36 @@ public class AccountDAL extends ConnectDB {
             return 1002; // DATABASE EXCEPTION
 
         }
+    }
+    //kiểm tra đăng nhập
+    public boolean checkLogin(Integer MaNV, String pass){
+        String SQL = "select * from ACCOUNT where MaNV=? and MatKhau='"+pass+"'";
+        try{
+            getConnection();
+            PreparedStatement ps = cn.prepareStatement(SQL);
+            ps.setInt(1, MaNV);
+            ResultSet rs = ps.executeQuery();
+            if(rs!=null&&rs.next())
+                return true;
+            getClose();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+    //sửa mật khâu
+    public boolean  suaMatKhau(Integer MaNV, String matkhau){
+        String SQL = "Update ACCOUNT set MatKhau='"+matkhau+"' where MaNV=? ";
+        try{
+            getConnection();
+            Statement st = cn.createStatement();
+            int rs = st.executeUpdate(SQL);
+            if(rs>0)
+                return true;
+            getClose();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return false;
     }
 }
