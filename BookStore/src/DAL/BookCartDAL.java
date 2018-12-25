@@ -6,10 +6,12 @@
 package DAL;
 
 import DTO.BookCartDTO;
+import java.awt.Component;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,6 +22,7 @@ public class BookCartDAL extends ConnectDB{
 
     public ArrayList<BookCartDTO> addbook(ArrayList<BookCartDTO> listBook, String masach,int sl) {
        //ArrayList<BookCartDTO> listBook = new ArrayList<>();
+       int SlTonKho = 0;
        boolean check = true;        // biến check tìm kiếm xem trong table tồn tại chưa
        for (BookCartDTO book : listBook) {
              if(Integer.parseInt(masach)== book.getMaSach()){
@@ -40,9 +43,14 @@ public class BookCartDAL extends ConnectDB{
                // book.setMaNXB(rs.getInt("MaNXB"));
                 book.setTenSach(rs.getString("TenSach"));
                 book.setTacGia(rs.getString("TacGia"));
+                SlTonKho = rs.getInt("SoLuong");
                 //book.setMaLoaiSach(rs.getInt("MaLoaiSach"));
                 book.setGiaBan(rs.getInt("GiaBan"));
-                
+                if (sl > SlTonKho){
+                Component frame = null;
+                JOptionPane.showMessageDialog(frame, "Số lượng lớn hơn số lượng tồn trong kho");
+                break;
+                }
                 book.setSoLuong(sl);
                 book.setThanhTien();
                 

@@ -52,9 +52,9 @@ public class fQuanLyDonHang extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblHoaDon = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblCTHD = new javax.swing.JTable();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -227,7 +227,7 @@ public class fQuanLyDonHang extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(0, 153, 153));
         jLabel4.setText("Hóa Đơn");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -238,9 +238,9 @@ public class fQuanLyDonHang extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblHoaDon);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblCTHD.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -251,7 +251,7 @@ public class fQuanLyDonHang extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tblCTHD);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -343,12 +343,12 @@ public class fQuanLyDonHang extends javax.swing.JPanel {
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
+    private javax.swing.JTable tblCTHD;
+    private javax.swing.JTable tblHoaDon;
     // End of variables declaration//GEN-END:variables
 }

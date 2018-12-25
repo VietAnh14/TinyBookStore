@@ -8,7 +8,9 @@ package GUI;
 import BLL.BookCartBLL;
 import BLL.CTHDBLL;
 import javax.swing.JOptionPane;
+import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import DTO.KhachHangDTO;
@@ -19,6 +21,7 @@ import java.util.ArrayList;
 import DTO.HoaDonDTO;
 import BLL.HoaDonBLL;
 import DTO.CTHDDTO;
+import java.awt.Component;
 
 /**
  *
@@ -462,6 +465,8 @@ public class fTaoDonHang extends javax.swing.JPanel {
                 ct.setSoLuong(listBook.get(i).getSoLuong());
                 ct.setThanhTien(listBook.get(i).getThanhTien());
                 ctBLL.TaoCTHD(ct);
+                Component frame = null;
+                JOptionPane.showMessageDialog(frame, "thành công");
             }
         }
         catch(Exception e){
@@ -482,7 +487,8 @@ public class fTaoDonHang extends javax.swing.JPanel {
         }
         else
         {
-            JOptionPane.showInternalMessageDialog(this,"Moi nhap dung ma so KH");
+            Component frame = null;
+            JOptionPane.showMessageDialog(frame, "Mời nhập đúng mã số KH");
         }
         if (check)
         {
@@ -494,7 +500,8 @@ public class fTaoDonHang extends javax.swing.JPanel {
             }
             else
             {
-               JOptionPane.showInternalMessageDialog(this,"Ma Khach Hang khong ton tai"); 
+            Component frame = null;
+            JOptionPane.showMessageDialog(frame, "Mã KH không tồn tại");
             }
         }
         
