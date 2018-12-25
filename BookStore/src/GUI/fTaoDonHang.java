@@ -449,21 +449,16 @@ public class fTaoDonHang extends javax.swing.JPanel {
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         // TODO add your handling code here:
-        if ( listBook.size() < 1){
+        if (txtMaKH.getText().isEmpty()| listBook.size() < 1){
             Component frame = null;
-            JOptionPane.showMessageDialog(frame, "Giỏ Hàng Rỗng");
+            JOptionPane.showMessageDialog(frame, "Nhập đầy đủ thông tin");
 
         }
         else{
         
         int Mahd = hdBLL.GetMaHD();
         hdDTO.setMaHD(Mahd);
-        if(txtMaKH.getText().isEmpty()){
-            hdDTO.setMaKH(1);
-        }
-        else{
-            hdDTO.setMaKH(Integer.parseInt(txtMaKH.getText()));
-        }
+        hdDTO.setMaKH(Integer.parseInt(txtMaKH.getText()));
         hdDTO.setMaNv(fLogin.MaNV);       // giả sử chỗ này đã truyền từ form login mã nhân viên là 1
         hdDTO.setTienDiemTichLuy(Integer.parseInt(txtTichLuy.getText()));
         hdDTO.setTriGia(Integer.parseInt(txtTongtien.getText()));
@@ -478,14 +473,13 @@ public class fTaoDonHang extends javax.swing.JPanel {
                 ct.setSoLuong(listBook.get(i).getSoLuong());
                 ct.setThanhTien(listBook.get(i).getThanhTien());
                 ctBLL.TaoCTHD(ct);
-
+                Component frame = null;
+                JOptionPane.showMessageDialog(frame, "thành công");
             }
-            Component frame = null;
-            JOptionPane.showMessageDialog(frame, "thành công");
         }
         catch(Exception e){
             e.printStackTrace();
-            //hdBLL.XoaHD(hdDTO);
+            hdBLL.XoaHD(hdDTO);
         }
         }
     }//GEN-LAST:event_btnThanhToanActionPerformed
@@ -499,19 +493,17 @@ public class fTaoDonHang extends javax.swing.JPanel {
         Matcher matcher = pattern.matcher(txtMaKH.getText());
         if (txtMaKH.getText().isEmpty() | !matcher.matches())
         {
-
             Component frame = null;
             JOptionPane.showMessageDialog(frame, "Nhập đúng mã Khách Hàng");
-
         }
         else
         {
             kh.setMaKH(Integer.parseInt(txtMaKH.getText()));
             if (khbll.getInfoKhachHang(kh))
             {
-                txtTenKH.setText(kh.GetHoten());
-                txtSDT.setText(kh.GetSDT().toString());
-                txtDiemTichLuy.setText(kh.GetDiemTichLuy().toString());
+                txtTenKH.setText(kh.getHoTen());
+                txtSDT.setText(kh.getSDT().toString());
+                txtDiemTichLuy.setText(kh.getDiemTichLuy().toString());
             }
             else
             {
@@ -538,7 +530,7 @@ public class fTaoDonHang extends javax.swing.JPanel {
         Matcher matcher = pattern.matcher(txtMaSach.getText());
         Pattern pattern1 = Pattern.compile("\\d*"); 
         Matcher matcher2 = pattern1.matcher(txtSoLuong.getText());
-        if (txtMaSach.getText().isEmpty() | !matcher.matches() | txtSoLuong.getText().isEmpty() |!matcher2.matches())
+        if (txtMaKH.getText().isEmpty() | !matcher.matches() | txtSoLuong.getText().isEmpty() |!matcher2.matches())
         {
             Component frame = null;
             JOptionPane.showMessageDialog(frame, "Nhập đúng mã Sách và Số Lượng");

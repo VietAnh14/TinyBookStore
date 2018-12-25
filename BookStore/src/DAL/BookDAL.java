@@ -41,7 +41,6 @@ public class BookDAL extends ConnectDB {
             closeCn(cn, ps, rs);
         } catch (SQLException e) {
             e.printStackTrace();
-            getClose();
         }
         return listBook;
     }
@@ -66,7 +65,6 @@ public class BookDAL extends ConnectDB {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            getClose();
         }
         return false;
     }
@@ -83,8 +81,6 @@ public class BookDAL extends ConnectDB {
                 closeCn(cn, ps, rs);
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            getClose();
         }
         return id;
     }
@@ -108,7 +104,6 @@ public class BookDAL extends ConnectDB {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            getClose();
         }
         return false;
     }
@@ -135,38 +130,11 @@ public class BookDAL extends ConnectDB {
             closeCn(cn, ps, rs);
         } catch (SQLException e) {
             e.printStackTrace();
-            getClose();
         }
         return listBook;
     }
 
-    public boolean getById(int Id, BookDTO book) {
-        String sql = "SELECT * FROM SACH WHERE MASACH = ?";
-        try {
-            getConnection();
-            PreparedStatement ps = cn.prepareStatement(sql);
-            ps.setInt(1, Id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                book.setMaSach(rs.getInt("MaSach"));
-                book.setMaNXB(rs.getInt("MaNXB"));
-                book.setTenSach(rs.getString("TenSach"));
-                book.setTacGia(rs.getString("TacGia"));
-                book.setMaLoaiSach(rs.getInt("MaLoaiSach"));
-                book.setGiaBan(rs.getFloat("GiaBan"));
-                book.setSoLuong(rs.getInt("SoLuong"));
-                book.setDeleted(rs.getBoolean("deleted"));
-                closeCn(cn, ps, rs);
-                return true;
-            }
-            
-            return false;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            getClose();
-            return false;
-        }
-    }
+
 
 
     

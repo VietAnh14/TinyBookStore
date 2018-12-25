@@ -42,7 +42,5 @@ public class BookBLL {
         return bookDAL.searchByName(name);
     }
     
-    public boolean getById(BookDTO book, int Id) {
-        return bookDAL.getById(Id, book);
-    }
+
 }

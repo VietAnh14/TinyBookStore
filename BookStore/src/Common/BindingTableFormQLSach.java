@@ -12,7 +12,6 @@ import DTO.BookDTO;
 import DTO.LoaiSachDTO;
 import DTO.NXBDTO;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Vector;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
@@ -28,7 +27,9 @@ public class BindingTableFormQLSach {
     LoaiSachBLL loaiSachBLL = new LoaiSachBLL();
     NXBBLL nxbbll = new NXBBLL();
     
-    public void bindingtblSach(JTable tableSach, ArrayList<BookDTO> listBook, HashMap<Integer, String> mapTheLoai,HashMap<Integer, String> mapNXB) {
+    public void bindingtblSach(JTable tableSach, ArrayList<BookDTO> listBook) {
+        ArrayList<LoaiSachDTO> listLoaiSach = new ArrayList<>();
+        ArrayList<NXBDTO> listNXB = new ArrayList<>();
         Vector header = new Vector();
         header.add("Mã sách");
         header.add("Tên sách");
@@ -43,11 +44,13 @@ public class BindingTableFormQLSach {
             Vector row = new Vector();
             row.add(book.getMaSach());
             row.add(book.getTenSach());
-            row.add(mapTheLoai.get(book.getMaLoaiSach()));
+            listLoaiSach = loaiSachBLL.getById(book.getMaLoaiSach());
+            row.add(listLoaiSach.get(0).getTenLoaiSach());
             row.add(book.getTacGia());
             row.add(book.getGiaBan());
             row.add(book.getSoLuong());
-            row.add(mapNXB.get(book.getMaNXB()));
+            listNXB = nxbbll.getById(book.getMaNXB());
+            row.add(listNXB.get(0).getTenNXB());
             data.add(row);
         }
         
@@ -61,7 +64,7 @@ public class BindingTableFormQLSach {
         tableSach.setModel(dft);
     }
     
-    public void bindingtblTheLoai(JTable table, ArrayList<LoaiSachDTO> listLoaiSach, HashMap<Integer, String> mapTheLoai) {
+    public void bindingtblTheLoai(JTable table, ArrayList<LoaiSachDTO> listLoaiSach) {
         ArrayList<LoaiSachDTO> listTheLoai = new ArrayList<>();
         Vector header = new Vector();
         header.add("Mã loại");
@@ -73,7 +76,6 @@ public class BindingTableFormQLSach {
             row.add(loaiSach.getMaLoaiSach());
             row.add(loaiSach.getTenLoaiSach());
             data.add(row);
-            mapTheLoai.put(loaiSach.getMaLoaiSach(), loaiSach.getTenLoaiSach());
         }
         
         DefaultTableModel dfModelTheLoai = new DefaultTableModel(data, header){
@@ -86,7 +88,7 @@ public class BindingTableFormQLSach {
         table.setModel(dfModelTheLoai);
     }
     
-        public void bindingtblNXB(JTable table, ArrayList<NXBDTO> listNXB, HashMap<Integer, String> mapNXB) {
+        public void bindingtblNXB(JTable table, ArrayList<NXBDTO> listNXB) {
         Vector header = new Vector();
         header.add("Mã NXB");
         header.add("Tên");
@@ -101,7 +103,6 @@ public class BindingTableFormQLSach {
             row.add(nxb.getDiaChi());
             row.add(nxb.getSDT());
             data.add(row);
-            mapNXB.put(nxb.getMaNXB(), nxb.getTenNXB());
         }
         
         DefaultTableModel dfModelNXB = new DefaultTableModel(data, header){

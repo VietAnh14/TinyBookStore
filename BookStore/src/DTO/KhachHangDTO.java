@@ -4,92 +4,84 @@
  * and open the template in the editor.
  */
 package DTO;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+
+import java.sql.Date;
+
 /**
  *
- * @author HUY
+ * @author QuyNam
  */
 public class KhachHangDTO {
     private Integer MaKH;
-    private String Hoten;
-    private String SDT;
+    private String HoTen;
+    private Integer SDT;
     private String Email;
-    private String CMND;
+    private Integer CMND;
     private Date NgaySinh;
     private Integer DiemTichLuy;
-    private Boolean Deleted;
-    public Integer GetMaKH()
-    {
-        return MaKH;
-    }
-    public void SetMaKH(Integer Ma)
-    {
-        this.MaKH =Ma;
-    }
-    public String GetHoten()
-    {
-        return Hoten;
-    }
-    public void SetHoten(String Hoten)
-    {
-        this.Hoten= Hoten;
-    }
-    public String GetSDT()
-    {
-        return SDT;
-    }
-    public void SetSDT(String sdt)
-    {
-        this.SDT = sdt;
-    }
-    public String GetEmail()
-    {
-        return Email;
-    }
-    public void SetEmail(String Email)
-    {
-        this.Email = Email;
-    }
-    public Date GetNgaySinh()
-    {
-        return NgaySinh;
-    }
-    public void SetNgaySinh(Date NgaySinh)
-    {
-        this.NgaySinh =NgaySinh;
-    }
-    public Integer GetDiemTichLuy()
-    {
+
+    public Integer getDiemTichLuy() {
         return DiemTichLuy;
     }
-    public void SetDiemTichLuy(int DTL)
-    {
-        this.DiemTichLuy = DTL;
+
+    public void setDiemTichLuy(Integer DiemTichLuy) {
+        this.DiemTichLuy = DiemTichLuy;
     }
-    public String GetCMND()
-    {
-        return CMND;
+    private Boolean Deleted;
+
+    public Integer getMaKH() {
+        return MaKH;
     }
-    public void SetCMND(String CMND)
-    {
-        this.CMND = CMND;
-    }
-    public Boolean Getdeleted()
-    {
-        return Deleted;
-    }
-    public void Setdeleted(Boolean Deleted) throws ParseException
-    {
-        this.Deleted= Deleted;
-        
-    }
+
     public void setMaKH(Integer MaKH) {
         this.MaKH = MaKH;
     }
 
+    public String getHoTen() {
+        return HoTen;
+    }
 
- }
+    public void setHoTen(String HoTen) {
+        this.HoTen = HoTen;
+    }
+
+    public Integer getSDT() {
+        return SDT;
+    }
+
+    public void setSDT(Integer SDT) {
+        this.SDT = SDT;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String Email) {
+        this.Email = Email;
+    }
+
+    public Integer getCMND() {
+        return CMND;
+    }
+
+    public void setCMND(Integer CMND) {
+        this.CMND = CMND;
+    }
+
+    public Date getNgaySinh() {
+        return NgaySinh;
+    }
+
+    public void setNgaySinh(Date NgaySinh) {
+        this.NgaySinh = NgaySinh;
+    }
+
+    public Boolean getDeleted() {
+        return Deleted;
+    }
+
+    public void setDeleted(Boolean Deleted) {
+        this.Deleted = Deleted;
+    }
+}

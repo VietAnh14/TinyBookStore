@@ -9,11 +9,9 @@ package GUI;
  *
  * @author QuyNam
  */
-import BLL.CTHDBLL;
 import BLL.HoaDonBLL;
 import Common.BindingTableFormQLHD;
 import DTO.BookCartDTO;
-import DTO.CTHDDTO;
 import DTO.HoaDonDTO;
 import java.awt.Component;
 import java.util.ArrayList;
@@ -284,11 +282,6 @@ public class fQuanLyDonHang extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblHoaDonMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(tblHoaDon);
 
         tblCTHD.setModel(new javax.swing.table.DefaultTableModel(
@@ -384,7 +377,7 @@ public class fQuanLyDonHang extends javax.swing.JPanel {
         {
         HoaDonBLL hdBLL = new HoaDonBLL();
         BindingTableFormQLHD bindingtableQLDH = new BindingTableFormQLHD();
-        ArrayList<HoaDonDTO> listHD = new ArrayList<>();
+        ArrayList<HoaDonDTO> listHD = new ArrayList<HoaDonDTO>();
         listHD = hdBLL.getHoaDon_MaHD(Integer.parseInt(txtMaHD.getText()));
         bindingtableQLDH.bindingtblHoaDon(tblHoaDon, listHD);
         }
@@ -403,7 +396,7 @@ public class fQuanLyDonHang extends javax.swing.JPanel {
         {
         HoaDonBLL hdBLL = new HoaDonBLL();
         BindingTableFormQLHD bindingtableQLDH = new BindingTableFormQLHD();
-        ArrayList<HoaDonDTO> listHD = new ArrayList<>();
+        ArrayList<HoaDonDTO> listHD = new ArrayList<HoaDonDTO>();
         listHD = hdBLL.getHoaDon_MaNV(Integer.parseInt(txtMaNV.getText()));
         bindingtableQLDH.bindingtblHoaDon(tblHoaDon, listHD);
         }
@@ -422,7 +415,7 @@ public class fQuanLyDonHang extends javax.swing.JPanel {
         {
         HoaDonBLL hdBLL = new HoaDonBLL();
         BindingTableFormQLHD bindingtableQLDH = new BindingTableFormQLHD();
-        ArrayList<HoaDonDTO> listHD = new ArrayList<>();
+        ArrayList<HoaDonDTO> listHD = new ArrayList<HoaDonDTO>();
         listHD = hdBLL.getHoaDon_MaKH(Integer.parseInt(txtMaKH.getText()));
         bindingtableQLDH.bindingtblHoaDon(tblHoaDon, listHD);
         }
@@ -435,7 +428,7 @@ public class fQuanLyDonHang extends javax.swing.JPanel {
 //        Date datefm = cal.getTime();
         HoaDonBLL hdBLL = new HoaDonBLL();
         BindingTableFormQLHD bindingtableQLDH = new BindingTableFormQLHD();
-        ArrayList<HoaDonDTO> listHD = new ArrayList<>();
+        ArrayList<HoaDonDTO> listHD = new ArrayList<HoaDonDTO>();
         listHD = hdBLL.getHoaDon_NgHD(txtNgHD.getText());
         bindingtableQLDH.bindingtblHoaDon(tblHoaDon, listHD);
     }//GEN-LAST:event_jLabel12MouseClicked
@@ -462,24 +455,6 @@ public class fQuanLyDonHang extends javax.swing.JPanel {
             bindingtableQLDH.bindingtblHoaDon(tblHoaDon, listHD);
         }
     }//GEN-LAST:event_jLabel14MouseClicked
-
-    private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
-            // TODO add your handling code here:
-        int row = tblHoaDon.getSelectedRow();
-        if (row >= 0) {
-//            if (!bindingQLPN.bindingTbleCTPN(tblCTPN, mapSach, tblPN.getValueAt(row, 0).toString())) {
-//                JOptionPane.showMessageDialog(this, "Can't load table ctpn");
-//            }
-//            txbMaPn_CT.setText(tblPN.getValueAt(row, 0).toString());
-              String mahd = tblHoaDon.getValueAt(row, 0).toString();
-              CTHDBLL cthdBLL = new CTHDBLL();
-              BindingTableFormQLHD bindingtableQLDH = new BindingTableFormQLHD();
-              ArrayList<CTHDDTO> listCTHD = new ArrayList<>();
-              listCTHD = cthdBLL.getCTHD_MaHD(Integer.parseInt(mahd));
-              bindingtableQLDH.bindingtblCTHD(tblCTHD, listCTHD);
-              
-        }
-    }//GEN-LAST:event_tblHoaDonMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

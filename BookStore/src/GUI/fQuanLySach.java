@@ -11,7 +11,6 @@ import Common.BindingTableFormQLSach;
 import DTO.BookDTO;
 import DTO.LoaiSachDTO;
 import DTO.NXBDTO;
-import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -28,9 +27,9 @@ public class fQuanLySach extends javax.swing.JPanel {
      */
     public fQuanLySach() {
         initComponents();
-        bindingTableFormQLSach.bindingtblNXB(tblNXB, nxbbll.getAll(), mapNXB);
-        bindingTableFormQLSach.bindingtblTheLoai(tblTL, loaiSachBLL.getAll(), mapTheLoai);
-        bindingTableFormQLSach.bindingtblSach(tblSach, bookBLL.getAll(), mapTheLoai, mapNXB);
+        bindingTableFormQLSach.bindingtblSach(tblSach, bookBLL.getAll());
+        bindingTableFormQLSach.bindingtblNXB(tblNXB, nxbbll.getAll());
+        bindingTableFormQLSach.bindingtblTheLoai(tblTL, loaiSachBLL.getAll());
         controlTxbNXB(false);
         controlTxbTL(false);
         loadCb();
@@ -126,7 +125,7 @@ public class fQuanLySach extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Mã sách : ");
 
-        txbMaSach.setEditable(false);
+        txbMaSach.setEnabled(false);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Tên sách :");
@@ -675,7 +674,6 @@ public class fQuanLySach extends javax.swing.JPanel {
         BookDTO book = new BookDTO();
         if (!bindingBook(book) || !bookBLL.checkValid(book)) {
             JOptionPane.showMessageDialog(this, "Thông tin sách không hợp lệ");
-            return;
         }
 
         switch (flag) {
@@ -703,13 +701,13 @@ public class fQuanLySach extends javax.swing.JPanel {
                 break;
         }
 
-        bindingTableFormQLSach.bindingtblSach(tblSach, bookBLL.getAll(), mapTheLoai, mapNXB);
+        bindingTableFormQLSach.bindingtblSach(tblSach, bookBLL.getAll());
         loadCb();
         controlTxb(false);
     }//GEN-LAST:event_btnLuuActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        bindingTableFormQLSach.bindingtblSach(tblSach, bookBLL.searchByName(txbSearch.getText()), mapTheLoai, mapNXB);
+        bindingTableFormQLSach.bindingtblSach(tblSach, bookBLL.searchByName(txbSearch.getText()));
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void tblTLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTLMouseClicked
@@ -764,8 +762,7 @@ public class fQuanLySach extends javax.swing.JPanel {
                 break;
         }
 
-        mapTheLoai.clear();
-        bindingTableFormQLSach.bindingtblTheLoai(tblTL, loaiSachBLL.getAll(), mapTheLoai);
+        bindingTableFormQLSach.bindingtblTheLoai(tblTL, loaiSachBLL.getAll());
         controlTxbTL(false);
         loadCb();
     }//GEN-LAST:event_btnLuuTLActionPerformed
@@ -817,8 +814,7 @@ public class fQuanLySach extends javax.swing.JPanel {
                 break;
         }
 
-        mapNXB.clear();
-        bindingTableFormQLSach.bindingtblNXB(tblNXB, nxbbll.getAll(), mapNXB);
+        bindingTableFormQLSach.bindingtblNXB(tblNXB, nxbbll.getAll());
         controlTxbNXB(false);
         loadCb();
     }//GEN-LAST:event_btnLuuNXBActionPerformed
@@ -833,8 +829,8 @@ public class fQuanLySach extends javax.swing.JPanel {
             nxb.setDiaChi(txbDiaChi.getText());
             nxb.setSDT(txbSDT.getText());
             nxb.setTenNXB(txbTenNXB.getText());
-        } catch (NumberFormatException e) {
-            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return true;
     }
@@ -846,7 +842,8 @@ public class fQuanLySach extends javax.swing.JPanel {
             }
             loaiSach.setTenLoaiSach(txbTL.getText());
             loaiSach.setMaLoaiSach(Integer.parseInt(txbMaTL.getText()));
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
         return true;
@@ -884,12 +881,12 @@ public class fQuanLySach extends javax.swing.JPanel {
         btnLuu.setEnabled(control);
         btnSua.setEnabled(!control);
         btnThem.setEnabled(!control);
-        txbGia.setEditable(control);
-        txbSoLuong.setEditable(control);
+        txbGia.setEnabled(control);
+        txbSoLuong.setEnabled(control);
         tbxTacGia.setEditable(control);
-        cbTheLoai.setEditable(control);
-        cbxNXB.setEditable(control);
-        txbTenSach.setEditable(control);
+        cbTheLoai.setEnabled(control);
+        cbxNXB.setEnabled(control);
+        txbTenSach.setEnabled(control);
     }
 
     public void clearTxb() {
@@ -909,6 +906,7 @@ public class fQuanLySach extends javax.swing.JPanel {
             book.setMaNXB(nxbbll.getIdByName(cbxNXB.getSelectedItem().toString()));
             book.setMaLoaiSach(loaiSachBLL.getIdByName(cbTheLoai.getSelectedItem().toString()));
         } catch (NumberFormatException e) {
+            e.printStackTrace();
             return false;
         }
 
@@ -916,8 +914,6 @@ public class fQuanLySach extends javax.swing.JPanel {
     }
 
     private int flag = 0;
-    HashMap<Integer, String> mapTheLoai = new HashMap<>();
-    HashMap<Integer, String> mapNXB = new HashMap<>();
     private LoaiSachBLL loaiSachBLL = new LoaiSachBLL();
     private BookBLL bookBLL = new BookBLL();
     private BLL.NXBBLL nxbbll = new BLL.NXBBLL();

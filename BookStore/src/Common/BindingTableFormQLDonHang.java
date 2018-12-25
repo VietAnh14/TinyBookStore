@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
 public class BindingTableFormQLDonHang {
 
     
-
+public class BindingTableFormQLSach {
     
     BookBLL bookBLL = new BookBLL();
     LoaiSachBLL loaiSachBLL = new LoaiSachBLL();
@@ -60,4 +60,4 @@ public class BindingTableFormQLDonHang {
     }
     
 }
-
+}

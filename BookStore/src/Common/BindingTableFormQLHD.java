@@ -5,7 +5,6 @@
  */
 package Common;
 
-import DTO.CTHDDTO;
 import DTO.HoaDonDTO;
 
 import java.util.ArrayList;
@@ -37,33 +36,6 @@ public class BindingTableFormQLHD {
             row.add(hd.getNgHD());
             row.add(hd.getTriGia());
             row.add(hd.getTienDiemTichLuy());
-            data.add(row);
-        }
-        
-        DefaultTableModel dft = new DefaultTableModel(data, header) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-            
-        };
-        tableSach.setModel(dft);
-    }
-    public void bindingtblCTHD(JTable tableSach, ArrayList<CTHDDTO> CTHD) {
-        Vector header = new Vector();
-        header.add("Mã Hóa Đơn");
-        header.add("Mã Sách");
-        header.add("Số Lượng");
-        header.add("Thành Tiền");
-
-        
-        Vector data = new Vector();
-        for (CTHDDTO cthd : CTHD) {
-            Vector row = new Vector();
-            row.add(cthd.getMaHD());
-            row.add(cthd.getMaSach());
-            row.add(cthd.getSoLuong());
-            row.add(cthd.getThanhTien());
             data.add(row);
         }
         

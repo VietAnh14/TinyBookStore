@@ -303,7 +303,7 @@ public class fLogin extends javax.swing.JFrame {
     }
     
     final AccountBLL accountBLL = new AccountBLL();
-    static  Integer MaNV = 1;
+    static  Integer MaNV = 0;
     static String ChucVu = "not assign";
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
