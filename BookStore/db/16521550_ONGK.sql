@@ -316,3 +316,39 @@ UPDATE CTPHIEUNHAP SET SoLuongNhap = 200, ThanhTien = 200 WHERE MaPN = 1 AND MaS
 
 DELETE CTPHIEUNHAP WHERE MaPN = 1 AND MaSach = 8
 
+go
+CREATE TRIGGER UPDATETTTON
+ON SACH
+FOR UPDATE 
+AS
+	IF UPDATE (SoLuong)
+	BEGIN
+			DECLARE @Thang INT
+		DECLARE @Nam INT
+		DECLARE @TonDau INT
+		DECLARE @TonCuoi INT
+		DECLARE @TonPhatSinh INT
+		DECLARE @MaSach INT
+		SELECT @Thang=MONTH(GETDATE())
+		SELECT @Nam = YEAR(GETDATE())
+		SELECT @MaSach = MaSach FROM Deleted
+		SELECT @TonCuoi = SoLuong FROM Inserted
+		IF EXISTS(SELECT @MaSach FROM BAOCAOTON WHERE MaSach=@MaSach AND Thang=@Thang AND Nam=@Nam)
+			BEGIN
+				SELECT @TonDau=TonDau FROM BAOCAOTON WHERE MaSach=@MaSach AND Thang=@Thang AND Nam=@Nam 
+				SELECT @TonPhatSinh = @TonCuoi-@TonDau
+				UPDATE  BAOCAOTON SET TonDau=@TonDau, TonCuoi= @TonCuoi, TonPhatSinh=@TonPhatSinh
+				WHERE MaSach=@MaSach AND Thang=@Thang AND Nam=@Nam
+			END
+		ELSE
+			BEGIN
+			SELECT @TonDau=SoLuong FROM Deleted
+			SELECT @TonPhatSinh = @TonCuoi-@TonDau
+			INSERT INTO BAOCAOTON
+									 (Thang, Nam, TonDau, TonCuoi, TonPhatSinh, MaSach)
+			VALUES        (@Thang,@Nam,@TonDau,@TonCuoi,@TonPhatSinh,@MaSach)
+			END
+	END
+UPDATE SACH SET SoLuong=10 WHERE MaSach=1
+
+SELECT *FROM BAOCAOTON
