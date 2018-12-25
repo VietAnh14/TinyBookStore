@@ -7,6 +7,7 @@ package BLL;
 
 import DAL.BaoCaoDoanhThuDAL;
 import DTO.BaoCaoDoanhThuDTO;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -21,7 +22,17 @@ public class BaoCaoDoanhThuBLL {
         return baoCaoDoanhThuDAL.getAll();
     }
     
-    public Float tinhTongThu(String tuNgay, String denNgay) {
+    public ArrayList<BaoCaoDoanhThuDTO> tinhTongThu(String tuNgay, String denNgay) throws SQLException {
         return baoCaoDoanhThuDAL.tinhTongThu(tuNgay, denNgay);
     }
+    
+    public Float TongThu(String tuNgay, String denNgay)
+    {
+        return baoCaoDoanhThuDAL.TongThu(tuNgay, denNgay);
+    }
+    public boolean insertBC(BaoCaoDoanhThuDTO BC,float tt) {
+        return baoCaoDoanhThuDAL.insertBC(BC, tt);
+    }
 }
+
+

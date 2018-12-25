@@ -45,19 +45,17 @@ public class BaoCaoTonDAL extends ConnectDB {
         ArrayList<BaoCaoTonDTO> listBaoCao = new ArrayList<>();
         String sql = "SELECT MaSach,TonDau,TonPhatSinh,TonCuoi FROM BAOCAOTON WHERE Thang = ? AND Nam = ?";
         try {
-            BaoCaoTonDTO BaoCaoTonDTO = new BaoCaoTonDTO();
             getConnection();
             PreparedStatement ps = cn.prepareStatement(sql);
-            ps.setInt(1, BaoCaoTonDTO.GetThang());
-            ps.setInt(2, BaoCaoTonDTO.GetNam());
+            ps.setInt(1, BC.GetThang());
+            ps.setInt(2, BC.GetNam());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                BaoCaoTonDTO.SetID(rs.getInt("ID"));
-                BaoCaoTonDTO.SetMaSach(rs.getInt("MaSach"));
-                BaoCaoTonDTO.SetTonDau(rs.getInt("TonDau"));
-                BaoCaoTonDTO.SetTonPhatSinh(rs.getInt("TonPhatSinh"));
-                BaoCaoTonDTO.SetTonCuoi(rs.getInt("TonCuoi"));
-                listBaoCao.add(BaoCaoTonDTO);
+                BC.SetMaSach(rs.getInt("MaSach"));
+                BC.SetTonDau(rs.getInt("TonDau"));
+                BC.SetTonPhatSinh(rs.getInt("TonPhatSinh"));
+                BC.SetTonCuoi(rs.getInt("TonCuoi"));
+                listBaoCao.add(BC);
             }
          } catch (SQLException e) {
             e.printStackTrace();
