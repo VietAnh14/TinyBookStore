@@ -270,7 +270,12 @@ public class fBaoCao extends javax.swing.JPanel {
         Float tt = BaoCaoDoanhThuBLL.TongThu(dateFrom, dateTo);
         BCDT.setTuNgay(dateChooserComboNBD.getCurrent().getTime());
         BCDT.setDenNgay(dateChooserNgayKT.getCurrent().getTime());
-        BaoCaoDoanhThuBLL.insertBC(BCDT, tt);
+        if(BaoCaoDoanhThuBLL.insertBC(BCDT, tt)==false)
+        {
+            JOptionPane.showMessageDialog(this,"Đã tồn tại báo cáo!");
+            return;
+            
+        }
         bindingTableFormBC.bindingtbBCDT(jTableDT, BaoCaoDoanhThuBLL.getAll());
        
     }//GEN-LAST:event_jButtonBCDT1ActionPerformed

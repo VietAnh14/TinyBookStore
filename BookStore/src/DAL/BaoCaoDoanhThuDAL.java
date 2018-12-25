@@ -61,32 +61,26 @@ public class BaoCaoDoanhThuDAL extends ConnectDB {
         getClose();
         return  trigia;
     }
-     public ArrayList<BaoCaoDoanhThuDTO> tinhTongThu(String tuNgay, String denNgay) throws SQLException {
+     public ArrayList<BaoCaoDoanhThuDTO> selecttheongay(BaoCaoDoanhThuDTO BC, String tuNgay, String denNgay) throws SQLException {
         ArrayList<BaoCaoDoanhThuDTO> listBaoCao = new ArrayList<>();
-        String sql = "set dateformat DMY SELECT SUM(TriGia) AS TongThu FROM HOADON WHERE NgHD BETWEEN ? AND ?";
-        Float trigia = new Float('0');
+        String sql = "SET DATEFORMAT DMY SELECT * FROM BAOCAODOANHTHU WHERE TuNgay = ? AND DenNgay = ?";
         try {
             getConnection();
             PreparedStatement ps = cn.prepareStatement(sql);
             ps.setString(1, tuNgay);
-            ps.setString(2, denNgay);
+            ps.setString(2,denNgay);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                BaoCaoDoanhThuDTO baoCaoDoanhThuDTO = new BaoCaoDoanhThuDTO();
-                trigia = rs.getFloat("TongThu");
-                Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(tuNgay);  
-                Date date2=new SimpleDateFormat("dd/MM/yyyy").parse(denNgay);
-                Date d = new java.util.Date();
-                baoCaoDoanhThuDTO.setTuNgay(date1);
-                baoCaoDoanhThuDTO.setDenNgay(date2);
-                baoCaoDoanhThuDTO.setNgayLap(d);
-                baoCaoDoanhThuDTO.setTongThu(trigia);
+                BC.setTuNgay(rs.getDate("TuNgay"));
+                BC.setDenNgay(rs.getDate("DenNgay"));
+                BC.setNgayLap(rs.getDate("NgayLap"));
+                BC.setTongThu(rs.getFloat("TongThu"));
+                closeCn(cn, ps, rs);
             }
-        } catch (ParseException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+
         }
-        
-        getClose();
         return listBaoCao;
     }
      public boolean insertBC(BaoCaoDoanhThuDTO BC,float tt) {

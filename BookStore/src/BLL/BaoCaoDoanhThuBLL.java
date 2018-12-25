@@ -22,8 +22,8 @@ public class BaoCaoDoanhThuBLL {
         return baoCaoDoanhThuDAL.getAll();
     }
     
-    public ArrayList<BaoCaoDoanhThuDTO> tinhTongThu(String tuNgay, String denNgay) throws SQLException {
-        return baoCaoDoanhThuDAL.tinhTongThu(tuNgay, denNgay);
+    public ArrayList<BaoCaoDoanhThuDTO> selecttheongay(BaoCaoDoanhThuDTO BC ,String tuNgay, String denNgay) throws SQLException {
+        return baoCaoDoanhThuDAL.selecttheongay(BC,tuNgay, denNgay);
     }
     
     public Float TongThu(String tuNgay, String denNgay)
