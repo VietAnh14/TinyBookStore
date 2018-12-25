@@ -5,7 +5,6 @@
  */
 package DTO;
 
-import java.sql.Date;
 
 /**
  *
@@ -15,7 +14,7 @@ public class HoaDonDTO {
     private Integer MaHD;
     private Integer MaNv;
     private Integer MaKH;
-    private Date NgHD;
+    private String NgHD;
     private Integer TriGia;
     private Integer TienDiemTichLuy;
 
@@ -43,11 +42,11 @@ public class HoaDonDTO {
         this.MaKH = MaKH;
     }
 
-    public Date getNgHD() {
+    public String getNgHD() {
         return NgHD;
     }
 
-    public void setNgHD(Date NgHD) {
+    public void setNgHD(String NgHD) {
         this.NgHD = NgHD;
     }
 
@@ -67,6 +66,9 @@ public class HoaDonDTO {
         this.TienDiemTichLuy = TienDiemTichLuy;
     }
 
+   
+
+    
     
    
 }

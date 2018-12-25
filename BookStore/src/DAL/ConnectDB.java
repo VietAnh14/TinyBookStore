@@ -10,7 +10,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.DatabaseMetaData;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,7 +19,7 @@ import java.util.logging.Logger;
  */
 public class ConnectDB {
     private static String username = "sa";
-    private static String password = "123";
+    private static String password = "datchim147";
     private static String url = "jdbc:sqlserver://localhost:1433;databaseName=QLNS;";
     private static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     protected Connection cn;

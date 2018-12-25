@@ -13,9 +13,9 @@ public class BookCartDTO {
     private Integer MaSach;
     private String TenSach;
     private String TacGia;
-    private Float GiaBan;
+    private Integer GiaBan;
     private Integer SoLuong;
-    private Float ThanhTien;
+    private Integer ThanhTien;
 
     public Integer getMaSach() {
         return MaSach;
@@ -41,11 +41,11 @@ public class BookCartDTO {
         this.TacGia = TacGia;
     }
 
-    public Float getGiaBan() {
+    public Integer getGiaBan() {
         return GiaBan;
     }
 
-    public void setGiaBan(Float GiaBan) {
+    public void setGiaBan(Integer GiaBan) {
         this.GiaBan = GiaBan;
     }
 
@@ -57,7 +57,7 @@ public class BookCartDTO {
         this.SoLuong = SoLuong;
     }
 
-    public Float getThanhTien() {
+    public Integer getThanhTien() {
         return ThanhTien;
     }
 

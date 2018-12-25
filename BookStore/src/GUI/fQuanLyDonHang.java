@@ -9,7 +9,21 @@ package GUI;
  *
  * @author QuyNam
  */
+import BLL.HoaDonBLL;
+import Common.BindingTableFormQLHD;
+import DTO.BookCartDTO;
+import DTO.HoaDonDTO;
+import java.awt.Component;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
+
 public class fQuanLyDonHang extends javax.swing.JPanel {
+
+    HoaDonDTO hdDTO = new HoaDonDTO();
 
     /**
      * Creates new form fQuanLyDonHang
@@ -30,31 +44,32 @@ public class fQuanLyDonHang extends javax.swing.JPanel {
         NhomButton = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
+        txtMaHD = new javax.swing.JTextField();
+        btnMaHD = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtMaNV = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtMaKH = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txtNgHD = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jTextField5 = new javax.swing.JTextField();
+        rbtnLonHon = new javax.swing.JRadioButton();
+        rbtnNhoHon = new javax.swing.JRadioButton();
+        rbtnBang = new javax.swing.JRadioButton();
+        txtTriGia = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
+        datecombo = new datechooser.beans.DateChooserCombo();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblHoaDon = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblCTHD = new javax.swing.JTable();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -62,57 +77,82 @@ public class fQuanLyDonHang extends javax.swing.JPanel {
         jLabel5.setForeground(new java.awt.Color(102, 102, 102));
         jLabel5.setText("Mã Hóa Đơn");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtMaHD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtMaHDActionPerformed(evt);
             }
         });
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/magnifier (1).png"))); // NOI18N
+        btnMaHD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/magnifier (1).png"))); // NOI18N
+        btnMaHD.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnMaHDMouseClicked(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(102, 102, 102));
         jLabel7.setText("Mã Nhân Viên");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        txtMaNV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                txtMaNVActionPerformed(evt);
             }
         });
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/magnifier (1).png"))); // NOI18N
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel8MouseClicked(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(102, 102, 102));
         jLabel9.setText("Mã Khách Hàng");
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/magnifier (1).png"))); // NOI18N
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(102, 102, 102));
         jLabel11.setText("Ngày Lập");
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/magnifier (1).png"))); // NOI18N
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(102, 102, 102));
         jLabel13.setText("Trị Giá Hóa Đơn");
 
-        NhomButton.add(jRadioButton1);
-        jRadioButton1.setText("Lớn Hơn");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        NhomButton.add(rbtnLonHon);
+        rbtnLonHon.setText("Lớn Hơn");
+        rbtnLonHon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                rbtnLonHonActionPerformed(evt);
             }
         });
 
-        NhomButton.add(jRadioButton2);
-        jRadioButton2.setText("Nhỏ hơn");
+        NhomButton.add(rbtnNhoHon);
+        rbtnNhoHon.setText("Nhỏ hơn");
 
-        NhomButton.add(jRadioButton3);
-        jRadioButton3.setText("Bằng");
+        NhomButton.add(rbtnBang);
+        rbtnBang.setText("Bằng");
 
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/magnifier (1).png"))); // NOI18N
+        jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel14MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -129,8 +169,8 @@ public class fQuanLyDonHang extends javax.swing.JPanel {
                                     .addComponent(jLabel5))
                                 .addGap(21, 21, 21)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                                    .addComponent(jTextField2)))
+                                    .addComponent(txtMaHD, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                                    .addComponent(txtMaNV)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(4, 4, 4)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,11 +178,11 @@ public class fQuanLyDonHang extends javax.swing.JPanel {
                                     .addComponent(jLabel11))
                                 .addGap(12, 12, 12)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField3)
-                                    .addComponent(jTextField4))))
+                                    .addComponent(txtMaKH)
+                                    .addComponent(txtNgHD))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
+                            .addComponent(btnMaHD)
                             .addComponent(jLabel8)
                             .addComponent(jLabel10)
                             .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)))
@@ -150,14 +190,16 @@ public class fQuanLyDonHang extends javax.swing.JPanel {
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jRadioButton1)
+                                .addComponent(rbtnLonHon)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jRadioButton3)
+                                .addComponent(rbtnBang)
                                 .addGap(32, 32, 32)
-                                .addComponent(jRadioButton2))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(rbtnNhoHon))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 18, Short.MAX_VALUE)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(datecombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtTriGia, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel14)
                                 .addGap(12, 12, 12)))))
@@ -172,27 +214,27 @@ public class fQuanLyDonHang extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
+                    .addComponent(btnMaHD)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel5)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtMaHD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel7)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtMaNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel8))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel9)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtMaKH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel10))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel11)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtNgHD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -200,12 +242,14 @@ public class fQuanLyDonHang extends javax.swing.JPanel {
                         .addComponent(jLabel13)
                         .addGap(9, 9, 9)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton2)
-                            .addComponent(jRadioButton3))
+                            .addComponent(rbtnLonHon)
+                            .addComponent(rbtnNhoHon)
+                            .addComponent(rbtnBang))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtTriGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel14))
+                .addGap(18, 18, 18)
+                .addComponent(datecombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -227,7 +271,7 @@ public class fQuanLyDonHang extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(0, 153, 153));
         jLabel4.setText("Hóa Đơn");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -238,9 +282,9 @@ public class fQuanLyDonHang extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblHoaDon);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblCTHD.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -251,7 +295,7 @@ public class fQuanLyDonHang extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tblCTHD);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -308,21 +352,115 @@ public class fQuanLyDonHang extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtMaHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaHDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtMaHDActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void txtMaNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaNVActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_txtMaNVActionPerformed
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void rbtnLonHonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnLonHonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_rbtnLonHonActionPerformed
+
+    private void btnMaHDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaHDMouseClicked
+        // TODO add your handling code here:
+        Pattern pattern = Pattern.compile("\\d*"); 
+        Matcher matcher = pattern.matcher(txtMaHD.getText());
+        if(txtMaHD.getText().isEmpty() | !matcher.matches())
+        {
+            Component frame = null;
+            JOptionPane.showMessageDialog(frame, "Nhập đúng mã Khách Hàng");          
+        }
+        else
+        {
+        HoaDonBLL hdBLL = new HoaDonBLL();
+        BindingTableFormQLHD bindingtableQLDH = new BindingTableFormQLHD();
+        ArrayList<HoaDonDTO> listHD = new ArrayList<HoaDonDTO>();
+        listHD = hdBLL.getHoaDon_MaHD(Integer.parseInt(txtMaHD.getText()));
+        bindingtableQLDH.bindingtblHoaDon(tblHoaDon, listHD);
+        }
+    }//GEN-LAST:event_btnMaHDMouseClicked
+
+    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+        // TODO add your handling code here:
+        Pattern pattern = Pattern.compile("\\d*"); 
+        Matcher matcher = pattern.matcher(txtMaNV.getText());
+        if(txtMaNV.getText().isEmpty() | !matcher.matches())
+        {
+            Component frame = null;
+            JOptionPane.showMessageDialog(frame, "Nhập đúng mã Nhân Viên");          
+        }
+        else
+        {
+        HoaDonBLL hdBLL = new HoaDonBLL();
+        BindingTableFormQLHD bindingtableQLDH = new BindingTableFormQLHD();
+        ArrayList<HoaDonDTO> listHD = new ArrayList<HoaDonDTO>();
+        listHD = hdBLL.getHoaDon_MaNV(Integer.parseInt(txtMaNV.getText()));
+        bindingtableQLDH.bindingtblHoaDon(tblHoaDon, listHD);
+        }
+    }//GEN-LAST:event_jLabel8MouseClicked
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        // TODO add your handling code here:
+        Pattern pattern = Pattern.compile("\\d*"); 
+        Matcher matcher = pattern.matcher(txtMaKH.getText());
+        if(txtMaKH.getText().isEmpty() | !matcher.matches())
+        {
+            Component frame = null;
+            JOptionPane.showMessageDialog(frame, "Nhập đúng mã Khách Hàng");          
+        }
+        else
+        {
+        HoaDonBLL hdBLL = new HoaDonBLL();
+        BindingTableFormQLHD bindingtableQLDH = new BindingTableFormQLHD();
+        ArrayList<HoaDonDTO> listHD = new ArrayList<HoaDonDTO>();
+        listHD = hdBLL.getHoaDon_MaKH(Integer.parseInt(txtMaKH.getText()));
+        bindingtableQLDH.bindingtblHoaDon(tblHoaDon, listHD);
+        }
+    }//GEN-LAST:event_jLabel10MouseClicked
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+        // TODO add your handling code here:
+//        Calendar cal ;
+//        cal = datecombo.getSelectedDate();
+//        Date datefm = cal.getTime();
+        HoaDonBLL hdBLL = new HoaDonBLL();
+        BindingTableFormQLHD bindingtableQLDH = new BindingTableFormQLHD();
+        ArrayList<HoaDonDTO> listHD = new ArrayList<HoaDonDTO>();
+        listHD = hdBLL.getHoaDon_NgHD(txtNgHD.getText());
+        bindingtableQLDH.bindingtblHoaDon(tblHoaDon, listHD);
+    }//GEN-LAST:event_jLabel12MouseClicked
+
+    private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
+        // TODO add your handling code here:
+        if (rbtnLonHon.isSelected()) {
+            HoaDonBLL hdBLL = new HoaDonBLL();
+            BindingTableFormQLHD bindingtableQLDH = new BindingTableFormQLHD();
+            ArrayList<HoaDonDTO> listHD = new ArrayList<>();
+            listHD = hdBLL.getHoaDon_LonHon(Integer.parseInt(txtTriGia.getText()));
+            bindingtableQLDH.bindingtblHoaDon(tblHoaDon, listHD);
+        } else if (rbtnBang.isSelected()) {
+            HoaDonBLL hdBLL = new HoaDonBLL();
+            BindingTableFormQLHD bindingtableQLDH = new BindingTableFormQLHD();
+            ArrayList<HoaDonDTO> listHD = new ArrayList<>();
+            listHD = hdBLL.getHoaDon_Bang(Integer.parseInt(txtTriGia.getText()));
+            bindingtableQLDH.bindingtblHoaDon(tblHoaDon, listHD);
+        } else if (rbtnNhoHon.isSelected()) {
+            HoaDonBLL hdBLL = new HoaDonBLL();
+            BindingTableFormQLHD bindingtableQLDH = new BindingTableFormQLHD();
+            ArrayList<HoaDonDTO> listHD = new ArrayList<>();
+            listHD = hdBLL.getHoaDon_NhoHon(Integer.parseInt(txtTriGia.getText()));
+            bindingtableQLDH.bindingtblHoaDon(tblHoaDon, listHD);
+        }
+    }//GEN-LAST:event_jLabel14MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup NhomButton;
+    private javax.swing.JLabel btnMaHD;
+    private datechooser.beans.DateChooserCombo datecombo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -333,22 +471,21 @@ public class fQuanLyDonHang extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JRadioButton rbtnBang;
+    private javax.swing.JRadioButton rbtnLonHon;
+    private javax.swing.JRadioButton rbtnNhoHon;
+    private javax.swing.JTable tblCTHD;
+    private javax.swing.JTable tblHoaDon;
+    private javax.swing.JTextField txtMaHD;
+    private javax.swing.JTextField txtMaKH;
+    private javax.swing.JTextField txtMaNV;
+    private javax.swing.JTextField txtNgHD;
+    private javax.swing.JTextField txtTriGia;
     // End of variables declaration//GEN-END:variables
 }
