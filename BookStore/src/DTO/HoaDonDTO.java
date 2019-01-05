@@ -15,8 +15,8 @@ public class HoaDonDTO {
     private Integer MaNv;
     private Integer MaKH;
     private String NgHD;
-    private Integer TriGia;
-    private Integer TienDiemTichLuy;
+    private Float TriGia;
+    private Integer DiemTichLuy;
 
     public Integer getMaHD() {
         return MaHD;
@@ -50,20 +50,20 @@ public class HoaDonDTO {
         this.NgHD = NgHD;
     }
 
-    public Integer getTriGia() {
+    public Float getTriGia() {
         return TriGia;
     }
 
-    public void setTriGia(Integer TriGia) {
+    public void setTriGia(Float TriGia) {
         this.TriGia = TriGia;
     }
 
-    public Integer getTienDiemTichLuy() {
-        return TienDiemTichLuy;
+    public Integer getDiemTichLuy() {
+        return DiemTichLuy;
     }
 
     public void setTienDiemTichLuy(Integer TienDiemTichLuy) {
-        this.TienDiemTichLuy = TienDiemTichLuy;
+        this.DiemTichLuy = TienDiemTichLuy;
     }
 
    

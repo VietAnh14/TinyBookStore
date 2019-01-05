@@ -9,7 +9,6 @@ package DAL;
  *
  * @author DaoLam
  */
-import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,23 +18,23 @@ import DTO.CTHDDTO;
 
 
 public class CTHDDAL extends ConnectDB{
-    public boolean TaoCTHD(CTHDDTO cthd){
-        try{
+    public boolean insertListCTHD(ArrayList<CTHDDTO> listCTHD) {
+        boolean status = false;
+        try {
             getConnection();
-            String strCall = "{call TAOCTHD(?,?,?,?)}";
-            CallableStatement caSt = cn.prepareCall(strCall);
-            caSt.setString(1,Integer.toString(cthd.getMaHD()));
-            caSt.setString(2,Integer.toString(cthd.getMaSach()));
-            caSt.setString(3,Integer.toString(cthd.getSoLuong()));
-            caSt.setString(4,Integer.toString(cthd.getThanhTien()));
-            caSt.execute();
-            return true;
-        }
-         catch(Exception e){
+            Statement stm = cn.createStatement();
+            cn.setAutoCommit(false);
+            for(CTHDDTO cthd : listCTHD) {
+                stm.executeUpdate(cthd.toInsertString());
+            }
+            cn.commit();
+            status = true;
+        } catch (Exception e) {
+            status = false;
             e.printStackTrace();
-            return false;
         }
-        
+        getClose();
+        return status;
     }
     
 }

@@ -10,10 +10,11 @@ package DTO;
  * @author QuyNam
  */
 public class CTHDDTO {
+
     private Integer MaHD;
     private Integer MaSach;
     private Integer SoLuong;
-    private Integer ThanhTien;
+    private Float ThanhTien;
 
     public Integer getMaHD() {
         return MaHD;
@@ -39,11 +40,17 @@ public class CTHDDTO {
         this.SoLuong = SoLuong;
     }
 
-    public Integer getThanhTien() {
+    public Float getThanhTien() {
         return ThanhTien;
     }
 
-    public void setThanhTien(Integer ThanhTien) {
+    public void setThanhTien(Float ThanhTien) {
         this.ThanhTien = ThanhTien;
+    }
+
+    public String  toInsertString() {
+        return "INSERT INTO CTHD"
+                + "                         (MaHD, MaSach, SoLuong, ThanhTien)"
+                + " VALUES        ("+MaHD+","+MaSach+","+SoLuong+","+ThanhTien+") ";
     }
 }

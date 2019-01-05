@@ -9,245 +9,89 @@ package DAL;
  *
  * @author DaoLam
  */
-import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import DTO.HoaDonDTO;
-import java.util.Date;
-
 
 public class HoaDonDAL extends ConnectDB {
     // hàm tìm mã hóa đơn thích hợp
-    public int GetMaHD (){
-        int makh = -1;
-        try{
-            getConnection();
-            String sql = "EXEC dbo.TIM_MAHD"; 
-            Statement stat = cn.createStatement();  
-            ResultSet rs = stat.executeQuery(sql);     
 
-            while (rs.next()){
-                makh = rs.getInt(1);
-            }
-            getClose();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
-        return makh;
-    }
-   
-    public boolean TaoHD(HoaDonDTO hd){
-        try{
+    public Integer generateId() {
+        String sql = "SELECT MAX(MaHD) AS MAHD FROM HOADON ";
+        Integer result = 0;
+        try {
             getConnection();
-            String strCall = "{call TAO_HOADON(?,?,?,?,?)}";
-            CallableStatement caSt = cn.prepareCall(strCall);
-            caSt.setString(1,Integer.toString(hd.getMaHD()));
-            caSt.setString(2,Integer.toString(hd.getMaNv()));
-            caSt.setString(3,Integer.toString(hd.getMaKH()));
-            caSt.setString(4,Integer.toString(hd.getTriGia()));
-            caSt.setString(5,Integer.toString(hd.getTienDiemTichLuy()));
-            caSt.execute();
-            return true;
-        }
-         catch(Exception e){
+            ResultSet rs = cn.createStatement().executeQuery(sql);
+            if (rs.next()) {
+                result = rs.getInt("MAHD") + 1;
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+        }
+        getClose();
+        return result;
+    }   
+
+    public boolean insertHD(HoaDonDTO hd) {
+        boolean status = false;
+        String sql = "INSERT INTO HOADON"
+                + "                         (MaHD, MaNV, MaKH, NgHD, TriGia, DiemTichLuy)"
+                + " VALUES        (?, ?, ?, ?, ?, ?)";
+        try {
+            getConnection();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setInt(1, hd.getMaHD());
+            ps.setInt(2, hd.getMaNv());
+            ps.setInt(3, hd.getMaKH());
+            ps.setString(4, hd.getNgHD());
+            ps.setFloat(5, hd.getTriGia());
+            ps.setInt(6, hd.getDiemTichLuy());
+            Integer rs = ps.executeUpdate();
+            if (rs > 0) {
+                status = true;
+            }
+        } catch (SQLException e) {
+            status = false;
+            e.printStackTrace();
         }
         
+        getClose();
+        return status;
     }
     
-    public boolean XoaHD(HoaDonDTO hd){
-        try{
+    public boolean updateDTL(Integer dtl, Integer maKH) {
+        String sql = "Update KHACHHANG set DiemTichLuy = DiemTichLuy + "+dtl+"  WHERE MaKH = "+maKH+"";
+        boolean status = false;
+        try {
             getConnection();
-            String strCall = "{call XOAHD(?)}";
-            CallableStatement caSt = cn.prepareCall(strCall);
-            caSt.setString(1,Integer.toString(hd.getMaHD()));
-            return true;
-        }
-        catch(Exception e){
+            int rs = cn.createStatement().executeUpdate(sql);
+            if (rs > 0) {
+                status = true;
+            }
+        } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            status = false;
         }
         
+        getClose();
+        return status;
     }
     
-        public ArrayList<HoaDonDTO> getHoaDon_MaHD(int mahd) {
-        ArrayList<HoaDonDTO> listHD = new ArrayList<>();
+    public Float getQD() {
+        String sql = "SELECT * FROM QUYDINH";
+        Float qd = 100f;
         try {
             getConnection();
-            String strCall = "{call TIMHD_MAHD(?)}";
-            CallableStatement caSt = cn.prepareCall(strCall);
-            caSt.setString(1,Integer.toString(mahd));
-            ResultSet rs = caSt.executeQuery();
-            while (rs.next()) {
-                HoaDonDTO hd = new HoaDonDTO();
-                hd.setMaHD(rs.getInt("MaHD"));
-                hd.setMaNv(rs.getInt("MaNV"));
-                hd.setMaKH(rs.getInt("MaKH"));
-                hd.setNgHD(rs.getString("NgHD"));
-                hd.setTienDiemTichLuy(rs.getInt("TienDiemTichLuy"));
-                hd.setTriGia(rs.getInt("TriGia"));
-                
-                listHD.add(hd);
+            ResultSet rs = cn.createStatement().executeQuery(sql);
+            if (rs.next()) {
+                qd = rs.getFloat("GiaTriDiemTichLuy");
             }
-            getClose();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return listHD;
-    }
-    public ArrayList<HoaDonDTO> getHoaDon_MaNV(int manv) {
-        ArrayList<HoaDonDTO> listHD = new ArrayList<>();
-        try {
-            getConnection();
-            String strCall = "{call TIMHD_MANV(?)}";
-            CallableStatement caSt = cn.prepareCall(strCall);
-            caSt.setString(1,Integer.toString(manv));
-            ResultSet rs = caSt.executeQuery();
-            while (rs.next()) {
-                HoaDonDTO hd = new HoaDonDTO();
-                hd.setMaHD(rs.getInt("MaHD"));
-                hd.setMaNv(rs.getInt("MaNV"));
-                hd.setMaKH(rs.getInt("MaKH"));
-                hd.setNgHD(rs.getString("NgHD"));
-                hd.setTienDiemTichLuy(rs.getInt("TienDiemTichLuy"));
-                hd.setTriGia(rs.getInt("TriGia"));
-                
-                listHD.add(hd);
-            }
-            getClose();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return listHD;
-    }
-    public ArrayList<HoaDonDTO> getHoaDon_MaKH(int makh) {
-        ArrayList<HoaDonDTO> listHD = new ArrayList<>();
-        try {
-            getConnection();
-            String strCall = "{call TIMHD_MAKH(?)}";
-            CallableStatement caSt = cn.prepareCall(strCall);
-            caSt.setString(1,Integer.toString(makh));
-            ResultSet rs = caSt.executeQuery();
-            while (rs.next()) {
-                HoaDonDTO hd = new HoaDonDTO();
-                hd.setMaHD(rs.getInt("MaHD"));
-                hd.setMaNv(rs.getInt("MaNV"));
-                hd.setMaKH(rs.getInt("MaKH"));
-                hd.setNgHD(rs.getString("NgHD"));
-                hd.setTienDiemTichLuy(rs.getInt("TienDiemTichLuy"));
-                hd.setTriGia(rs.getInt("TriGia"));
-                
-                listHD.add(hd);
-            }
-            getClose();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return listHD;
-    }    
-        public ArrayList<HoaDonDTO> getHoaDon_NgHD(String nghd) {
-        ArrayList<HoaDonDTO> listHD = new ArrayList<>();
-        try {
-            getConnection();
-            String strCall = "{call TIMHD_NGLAP(?)}";
-            CallableStatement caSt = cn.prepareCall(strCall);
-            caSt.setString(1,nghd);
-            ResultSet rs = caSt.executeQuery();
-            while (rs.next()) {
-                HoaDonDTO hd = new HoaDonDTO();
-                hd.setMaHD(rs.getInt("MaHD"));
-                hd.setMaNv(rs.getInt("MaNV"));
-                hd.setMaKH(rs.getInt("MaKH"));
-                hd.setNgHD(rs.getString("NgHD"));
-                hd.setTienDiemTichLuy(rs.getInt("TienDiemTichLuy"));
-                hd.setTriGia(rs.getInt("TriGia"));
-                
-                listHD.add(hd);
-            }
-            getClose();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return listHD;
-    }
-    public ArrayList<HoaDonDTO> getHoaDon_LonHon(int trigia) {
-        ArrayList<HoaDonDTO> listHD = new ArrayList<>();
-        try {
-            getConnection();
-            String strCall = "{call TIMHD_TRIGIALON(?)}";
-            CallableStatement caSt = cn.prepareCall(strCall);
-            caSt.setString(1,Integer.toString(trigia));
-            ResultSet rs = caSt.executeQuery();
-            while (rs.next()) {
-                HoaDonDTO hd = new HoaDonDTO();
-                hd.setMaHD(rs.getInt("MaHD"));
-                hd.setMaNv(rs.getInt("MaNV"));
-                hd.setMaKH(rs.getInt("MaKH"));
-                hd.setNgHD(rs.getString("NgHD"));
-                hd.setTienDiemTichLuy(rs.getInt("TienDiemTichLuy"));
-                hd.setTriGia(rs.getInt("TriGia"));
-                
-                listHD.add(hd);
-            }
-            getClose();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return listHD;
-    }
-    public ArrayList<HoaDonDTO> getHoaDon_NhoHon(int trigia) {
-        ArrayList<HoaDonDTO> listHD = new ArrayList<>();
-        try {
-            getConnection();
-            String strCall = "{call TIMHD_TRIGIANHO(?)}";
-            CallableStatement caSt = cn.prepareCall(strCall);
-            caSt.setString(1,Integer.toString(trigia));
-            ResultSet rs = caSt.executeQuery();
-            while (rs.next()) {
-                HoaDonDTO hd = new HoaDonDTO();
-                hd.setMaHD(rs.getInt("MaHD"));
-                hd.setMaNv(rs.getInt("MaNV"));
-                hd.setMaKH(rs.getInt("MaKH"));
-                hd.setNgHD(rs.getString("NgHD"));
-                hd.setTienDiemTichLuy(rs.getInt("TienDiemTichLuy"));
-                hd.setTriGia(rs.getInt("TriGia"));
-                
-                listHD.add(hd);
-            }
-            getClose();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return listHD;
-    }
-    public ArrayList<HoaDonDTO> getHoaDon_Bang(int trigia) {
-        ArrayList<HoaDonDTO> listHD = new ArrayList<>();
-        try {
-            getConnection();
-            String strCall = "{call TIMHD_TRIGIABANG(?)}";
-            CallableStatement caSt = cn.prepareCall(strCall);
-            caSt.setString(1,Integer.toString(trigia));
-            ResultSet rs = caSt.executeQuery();
-            while (rs.next()) {
-                HoaDonDTO hd = new HoaDonDTO();
-                hd.setMaHD(rs.getInt("MaHD"));
-                hd.setMaNv(rs.getInt("MaNV"));
-                hd.setMaKH(rs.getInt("MaKH"));
-                hd.setNgHD(rs.getString("NgHD"));
-                hd.setTienDiemTichLuy(rs.getInt("TienDiemTichLuy"));
-                hd.setTriGia(rs.getInt("TriGia"));
-                
-                listHD.add(hd);
-            }
-            getClose();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return listHD;
+        
+        getClose();
+        return qd;
     }
 }

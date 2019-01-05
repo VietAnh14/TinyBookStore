@@ -11,6 +11,7 @@ import BLL.NXBBLL;
 import DTO.BookDTO;
 import DTO.LoaiSachDTO;
 import DTO.NXBDTO;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
@@ -112,5 +113,9 @@ public class BindingTableFormQLSach {
         };
         
         table.setModel(dfModelNXB);
+    }
+        
+        public static void main(String[] args) {
+            System.out.println(LocalDate.now().toString());
     }
 }

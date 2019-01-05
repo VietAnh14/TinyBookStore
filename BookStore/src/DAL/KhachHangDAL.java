@@ -5,7 +5,6 @@
  */
 package DAL;
 
-
 import DTO.KhachHangDTO;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
@@ -14,48 +13,47 @@ import java.sql.SQLException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
 /**
  *
  * @author HUY
  */
 public class KhachHangDAL extends ConnectDB {
+
     private final String GET_ALL = "SELECT  * FROM KHACHHANG";
-/**
- *
- * @author QuyNam
-*/
+
+    /**
+     *
+     * @author QuyNam
+     */
     //  getInfoKH form 
-    public boolean GetInfoKH(KhachHangDTO a){
+    public boolean GetInfoKH(KhachHangDTO a) {
         boolean check = false;
-        try{
+        try {
             getConnection();
-            String strCall = "{call Info_KhachHang(?)}"; 
-            CallableStatement caSt = cn.prepareCall(strCall); 
-            caSt.setString(1, Integer.toString(a.GetMaKH())); 
+            String strCall = "{call Info_KhachHang(?)}";
+            CallableStatement caSt = cn.prepareCall(strCall);
+            caSt.setString(1, Integer.toString(a.GetMaKH()));
             ResultSet rs = caSt.executeQuery();
 
-            while (rs.next()){
+            while (rs.next()) {
 
                 a.SetHoten(rs.getString("HoTen"));
                 a.SetSDT(rs.getString("SDT"));
                 a.SetDiemTichLuy(rs.getInt("DiemTichLuy"));
 
-                
- 
-                
                 check = true;
                 return check;
             }
             getClose();
-        }
-        catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return check;
     }
 
-    public boolean getById(KhachHangDTO KhachHang,int Id) {
+    public boolean getById(KhachHangDTO KhachHang, int Id) {
         String sql = "SELECT * FROM KHACHHANG WHERE MaKH = ?";
         try {
             getConnection();
@@ -71,13 +69,13 @@ public class KhachHangDAL extends ConnectDB {
                 KhachHang.SetDiemTichLuy(rs.getInt("DiemTichLuy"));
                 KhachHang.SetCMND(rs.getString("CMND"));
                 closeCn(cn, ps, rs);
-                return true;
             }
-            return false;
-         } catch (SQLException e) {
+            return true;
+
+        } catch (SQLException e) {
             getClose();
             return false;
-         }  
+        }
     }
 
     public ArrayList<KhachHangDTO> getAll() {
@@ -124,17 +122,17 @@ public class KhachHangDAL extends ConnectDB {
     public Integer generateId() {
         String sql = "SELECT MAX(MaKH) AS MaxId FROM KHACHHANG";
         int id = 0;
-       try {
-          getConnection();
-          PreparedStatement ps = cn.prepareStatement(sql);
-          ResultSet rs = ps.executeQuery();
-          if (rs.next()) {
-              id = rs.getInt("MaxId") + 1;
-              closeCn(cn, ps, rs);
-           }
-       } catch (SQLException e) {
-       }
-       return id;
+        try {
+            getConnection();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt("MaxId") + 1;
+                closeCn(cn, ps, rs);
+            }
+        } catch (SQLException e) {
+        }
+        return id;
     }
 
     public boolean insertKH(KhachHangDTO KhachHang) {
@@ -165,19 +163,16 @@ public class KhachHangDAL extends ConnectDB {
             getConnection();
             PreparedStatement ps = cn.prepareStatement(sql);
             ps.setString(1, KhachHang.GetHoten());
-            
+
             ps.setString(2, KhachHang.GetSDT());
             ps.setString(3, KhachHang.GetEmail());
             ps.setString(4, KhachHang.GetCMND());
             Format formatter = new SimpleDateFormat("MM-dd-yyyy");
             String s = formatter.format(KhachHang.GetNgaySinh());
             ps.setString(5, s);
-            
-            
-            
-            
+
             ps.setInt(6, KhachHang.GetMaKH());
-            
+
             int rs = ps.executeUpdate();
             if (rs != 0) {
                 return true;
@@ -188,14 +183,15 @@ public class KhachHangDAL extends ConnectDB {
 
         return false;
     }
-    public boolean updatetDTL(Integer a,KhachHangDTO KH) {
+
+    public boolean updatetDTL(Integer a, KhachHangDTO KH) {
         String sql = "UPDATE KHACHHANG SET DiemTichLuy = ? WHERE MaKH = ?";
         try {
             getConnection();
             PreparedStatement ps = cn.prepareStatement(sql);
-            ps.setInt(1, a);                       
+            ps.setInt(1, a);
             ps.setInt(2, KH.GetMaKH());
-            
+
             int rs = ps.executeUpdate();
             if (rs != 0) {
                 return true;
@@ -206,12 +202,13 @@ public class KhachHangDAL extends ConnectDB {
 
         return false;
     }
+
     public ArrayList<KhachHangDTO> searchByName(String name) {
-        String sql = "SELECT * FROM KHACHHANG WHERE HoTen LIKE N'%"+name+"%'";
+        String sql = "SELECT * FROM KHACHHANG WHERE HoTen LIKE N'%" + name + "%'";
         ArrayList<KhachHangDTO> listKhachHang = new ArrayList<>();
         try {
             getConnection();
-            PreparedStatement ps = cn.prepareStatement(sql);    
+            PreparedStatement ps = cn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 KhachHangDTO KH = new KhachHangDTO();
@@ -230,5 +227,5 @@ public class KhachHangDAL extends ConnectDB {
         }
         return listKhachHang;
     }
-    
+
 }

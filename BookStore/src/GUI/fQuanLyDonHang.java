@@ -378,7 +378,6 @@ public class fQuanLyDonHang extends javax.swing.JPanel {
         HoaDonBLL hdBLL = new HoaDonBLL();
         BindingTableFormQLHD bindingtableQLDH = new BindingTableFormQLHD();
         ArrayList<HoaDonDTO> listHD = new ArrayList<HoaDonDTO>();
-        listHD = hdBLL.getHoaDon_MaHD(Integer.parseInt(txtMaHD.getText()));
         bindingtableQLDH.bindingtblHoaDon(tblHoaDon, listHD);
         }
     }//GEN-LAST:event_btnMaHDMouseClicked
@@ -397,7 +396,6 @@ public class fQuanLyDonHang extends javax.swing.JPanel {
         HoaDonBLL hdBLL = new HoaDonBLL();
         BindingTableFormQLHD bindingtableQLDH = new BindingTableFormQLHD();
         ArrayList<HoaDonDTO> listHD = new ArrayList<HoaDonDTO>();
-        listHD = hdBLL.getHoaDon_MaNV(Integer.parseInt(txtMaNV.getText()));
         bindingtableQLDH.bindingtblHoaDon(tblHoaDon, listHD);
         }
     }//GEN-LAST:event_jLabel8MouseClicked
@@ -416,7 +414,6 @@ public class fQuanLyDonHang extends javax.swing.JPanel {
         HoaDonBLL hdBLL = new HoaDonBLL();
         BindingTableFormQLHD bindingtableQLDH = new BindingTableFormQLHD();
         ArrayList<HoaDonDTO> listHD = new ArrayList<HoaDonDTO>();
-        listHD = hdBLL.getHoaDon_MaKH(Integer.parseInt(txtMaKH.getText()));
         bindingtableQLDH.bindingtblHoaDon(tblHoaDon, listHD);
         }
     }//GEN-LAST:event_jLabel10MouseClicked
@@ -429,7 +426,6 @@ public class fQuanLyDonHang extends javax.swing.JPanel {
         HoaDonBLL hdBLL = new HoaDonBLL();
         BindingTableFormQLHD bindingtableQLDH = new BindingTableFormQLHD();
         ArrayList<HoaDonDTO> listHD = new ArrayList<HoaDonDTO>();
-        listHD = hdBLL.getHoaDon_NgHD(txtNgHD.getText());
         bindingtableQLDH.bindingtblHoaDon(tblHoaDon, listHD);
     }//GEN-LAST:event_jLabel12MouseClicked
 
@@ -439,19 +435,16 @@ public class fQuanLyDonHang extends javax.swing.JPanel {
             HoaDonBLL hdBLL = new HoaDonBLL();
             BindingTableFormQLHD bindingtableQLDH = new BindingTableFormQLHD();
             ArrayList<HoaDonDTO> listHD = new ArrayList<>();
-            listHD = hdBLL.getHoaDon_LonHon(Integer.parseInt(txtTriGia.getText()));
             bindingtableQLDH.bindingtblHoaDon(tblHoaDon, listHD);
         } else if (rbtnBang.isSelected()) {
             HoaDonBLL hdBLL = new HoaDonBLL();
             BindingTableFormQLHD bindingtableQLDH = new BindingTableFormQLHD();
             ArrayList<HoaDonDTO> listHD = new ArrayList<>();
-            listHD = hdBLL.getHoaDon_Bang(Integer.parseInt(txtTriGia.getText()));
             bindingtableQLDH.bindingtblHoaDon(tblHoaDon, listHD);
         } else if (rbtnNhoHon.isSelected()) {
             HoaDonBLL hdBLL = new HoaDonBLL();
             BindingTableFormQLHD bindingtableQLDH = new BindingTableFormQLHD();
             ArrayList<HoaDonDTO> listHD = new ArrayList<>();
-            listHD = hdBLL.getHoaDon_NhoHon(Integer.parseInt(txtTriGia.getText()));
             bindingtableQLDH.bindingtblHoaDon(tblHoaDon, listHD);
         }
     }//GEN-LAST:event_jLabel14MouseClicked

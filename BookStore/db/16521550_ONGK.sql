@@ -116,7 +116,7 @@ CREATE TABLE HOADON(
 	MaKH INT NOT NULL,
 	NgHD DATE DEFAULT GETDATE() NOT NULL,
 	TriGia MONEY NOT NULL,
-	TienDiemTichLuy MONEY NOT NULL,
+	DiemTichLuy INT DEFAULT 0
 
 	FOREIGN KEY (MaNV) REFERENCES NHANVIEN(MaNV),
 	FOREIGN KEY (MaKH) REFERENCES KHACHHANG(MaKH)
@@ -165,8 +165,7 @@ CREATE TABLE BAOCAODOANHTHU
 CREATE TABLE QUYDINH
 (
 	ID INT IDENTITY(1,1) PRIMARY KEY,
-	GiaTriDiemTichLuy MONEY NOT NULL,
-	TienToDiemTichLuy MONEY NOT NULL
+	GiaTriDiemTichLuy MONEY NOT NULL
 )
 GO
 CREATE TABLE DOIQUA
@@ -182,7 +181,13 @@ GO
 INSERT INTO DOIQUA VALUES (50,N'Balo PUBG')
 INSERT INTO DOIQUA VALUES (100,N'Mũ bảo hiểm PUBG')
 INSERT INTO DOIQUA VALUES (500,N'Bếp từ')
-SELECT *FROM DOIQUA
+
+
+SET IDENTITY_INSERT dbo.KHACHHANG ON;  
+GO  
+INSERT INTO KHACHHANG
+                         (MaKH, HoTen, SDT, Email, CMND, DiemTichLuy, NgaySinh)
+VALUES        (1 ,N'KH mua lẻ', '0123456789', N'none', 'none', 0, '1/1/2015')
 
 INSERT INTO NXB
                          (MaNXB,TenNXB, DiaChi, SDT)
@@ -228,11 +233,10 @@ INSERT INTO NHANVIEN
                          (HoTen, SDT, CMND,NgaySinh, DiaChi)
 VALUES        (N'Ngyễn Văn A','012345678','123546465','15/6/1999','TP HCM')
 
-UPDATE KHACHHANG
-SET DiemTichLuy = 500 WHERE MaKH = 2                        
+                    
 INSERT INTO QUYDINH
-                         (GiaTriDiemTichLuy, TienToDiemTichLuy)
-VALUES        (1, 50)
+                         (GiaTriDiemTichLuy)
+VALUES        (50)
 
 
 INSERT INTO ACCOUNT
@@ -241,8 +245,6 @@ VALUES        ('admin','admin','admin',1)
 
 GO
 
-select *from ACCOUNT
-DROP TRIGGER UPDATE_SL_SACH_FOR_CTPN
 
 DROP TRIGGER IF EXISTS UPDATE_SL_SACH_FOR_CTPN
 
@@ -312,10 +314,6 @@ INSERT INTO CTPHIEUNHAP
                          (MaPN, MaSach, SoLuongNhap, ThanhTien, GiaNhap)
 VALUES        (1, 8, 250, 100, 1) */
 
-UPDATE CTPHIEUNHAP SET SoLuongNhap = 200, ThanhTien = 200 WHERE MaPN = 1 AND MaSach = 8
-
-DELETE CTPHIEUNHAP WHERE MaPN = 1 AND MaSach = 8
-
 go
 CREATE TRIGGER UPDATETTTON
 ON SACH
@@ -349,6 +347,8 @@ AS
 			VALUES        (@Thang,@Nam,@TonDau,@TonCuoi,@TonPhatSinh,@MaSach)
 			END
 	END
+
+
 UPDATE SACH SET SoLuong=10 WHERE MaSach=1
 INSERT INTO KHACHHANG(HoTen, SDT,Email, CMND,NgaySinh) VALUES('Huypro','2932321','asdasd@fasfasf','124124124214','1998-12-12') 
 SELECT MaSach,TonDau,TonPhatSinh,TonCuoi FROM BAOCAOTON WHERE Thang = 12 AND Nam = 2018
@@ -368,3 +368,9 @@ INSERT INTO BAOCAODOANHTHU (TuNgay,DenNgay,NgayLap,TongThu) VALUES ('11-12-2018'
 end
 
 SET DATEFORMAT DMY SELECT * FROM BAOCAODOANHTHU WHERE TuNgay = '1-12-2018' AND DenNgay = '26-12-2018'
+
+INSERT INTO HOADON
+                         (MaHD, MaNV, MaKH, NgHD, TriGia, DiemTichLuy)
+VALUES        (1,1,1,'1/1/2015',0,0)
+
+Update KHACHHANG set DiemTichLuy = DiemTichLuy + 1 WHERE MaKH = 1
