@@ -7,6 +7,8 @@ package GUI;
 
 import BLL.AccountBLL;
 import DTO.AccountDTO;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -24,13 +26,14 @@ public class fLogin extends javax.swing.JFrame {
      */
     public fLogin() {
         initComponents();
-                try {
+        try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 
             SwingUtilities.updateComponentTreeUI(this);
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException e) {
             JOptionPane.showMessageDialog(null, "Loi");
         }
+        centerForm();
     }
 
     /**
@@ -245,24 +248,25 @@ public class fLogin extends javax.swing.JFrame {
             account.setTenTaiKhoan(txbUsername.getText());
             Integer status = accountBLL.login(account);
             switch (status) {
-                case 1000 : {  // TRUE
+                case 1000: {  // TRUE
                     MaNV = account.getMaNV();
                     ChucVu = account.getChucVu();
                     fMain main = new fMain();
                     main.setVisible(true);
                     this.setVisible(false);
                     break;
-                } 
-                case 1001 : {  // WRONG USERNAME OR PASSWORD
+                }
+                case 1001: {  // WRONG USERNAME OR PASSWORD
                     JOptionPane.showMessageDialog(this, "Incorrect username or password");
                     break;
                 }
-                
-                case 1002 : { // DATABASE EXCEPTION
-                    JOptionPane.showMessageDialog(this,  "Unexpected error");
+
+                case 1002: { // DATABASE EXCEPTION
+                    JOptionPane.showMessageDialog(this, "Unexpected error");
                 }
-                
-                default: JOptionPane.showMessageDialog(this,  "Unexpected error"); // UNEXPECTED ERROR
+
+                default:
+                    JOptionPane.showMessageDialog(this, "Unexpected error"); // UNEXPECTED ERROR
             }
         }
     }//GEN-LAST:event_btnLoginActionPerformed
@@ -301,9 +305,14 @@ public class fLogin extends javax.swing.JFrame {
             }
         });
     }
-    
+
+    private void centerForm() {
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+    }
+
     final AccountBLL accountBLL = new AccountBLL();
-    static  Integer MaNV = 0;
+    static Integer MaNV = 0;
     static String ChucVu = "not assign";
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

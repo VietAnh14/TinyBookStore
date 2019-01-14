@@ -43,7 +43,7 @@ public class BindingTableFormQLPhieuNhap {
             row.add(phieuNhap.getMaNV().toString());
             row.add(getKeyByValue(mapCty, phieuNhap.getMaCty()));
             row.add(phieuNhap.getTongChi().toString());
-            row.add(new SimpleDateFormat("dd/MM/yyyy").format(phieuNhap.getNgayNhap()));
+            row.add(phieuNhap.getNgayNhap().toString());
             data.add(row);
         }
         DefaultTableModel dtm = new DefaultTableModel(data, header) {

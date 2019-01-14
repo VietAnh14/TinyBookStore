@@ -50,12 +50,13 @@ public class BaoCaoTonDAL extends ConnectDB {
             ps.setInt(1, BC.GetThang());
             ps.setInt(2, BC.GetNam());
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                BC.SetMaSach(rs.getInt("MaSach"));
-                BC.SetTonDau(rs.getInt("TonDau"));
-                BC.SetTonPhatSinh(rs.getInt("TonPhatSinh"));
-                BC.SetTonCuoi(rs.getInt("TonCuoi"));
-                listBaoCao.add(BC);
+            while (rs.next()) {
+                BaoCaoTonDTO bct = new BaoCaoTonDTO();
+                bct.SetMaSach(rs.getInt("MaSach"));
+                bct.SetTonDau(rs.getInt("TonDau"));
+                bct.SetTonPhatSinh(rs.getInt("TonPhatSinh"));
+                bct.SetTonCuoi(rs.getInt("TonCuoi"));
+                listBaoCao.add(bct);
             }
          } catch (SQLException e) {
             e.printStackTrace();

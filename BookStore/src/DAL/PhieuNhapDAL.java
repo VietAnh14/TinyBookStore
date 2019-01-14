@@ -9,7 +9,9 @@ import DTO.PhieuNhapDTO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -72,7 +74,8 @@ public class PhieuNhapDAL extends ConnectDB {
                 phieuNhap.setMaCty(rs.getInt("MaCty"));
                 phieuNhap.setMaNV(rs.getInt("MaNV"));
                 phieuNhap.setMaPN(rs.getInt("MaPN"));
-                phieuNhap.setNgayNhap(rs.getDate("NgayNhap"));
+                Date a = rs.getDate("NgayNhap");
+                phieuNhap.setNgayNhap(a);
                 phieuNhap.setTongChi(rs.getFloat("TongChi"));
                 listPhieuNhap.add(phieuNhap);
             }

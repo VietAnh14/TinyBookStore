@@ -16,7 +16,9 @@ import DTO.CongTyDTO;
 import DTO.PhieuNhapDTO;
 import java.awt.HeadlessException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import java.util.Date;
@@ -856,6 +858,10 @@ public class fQLPhieuNhap extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnThem_CTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem_CTActionPerformed
+        if (!checkQDEditPN()) {
+            JOptionPane.showMessageDialog(this, "Phiếu nhập chỉ có thể sửa trong ngày nhập");
+            return;
+        }
         controlTxbCTPN(true);
         clearTxbCTPN_QL();
         btnXoaCT.setEnabled(false);
@@ -871,12 +877,20 @@ public class fQLPhieuNhap extends javax.swing.JPanel {
     }//GEN-LAST:event_txbMaPn_CTMouseExited
 
     private void btnSua_CTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua_CTActionPerformed
+        if (!checkQDEditPN()) {
+            JOptionPane.showMessageDialog(this, "Phiếu nhập chỉ có thể sửa trong ngày nhập");
+            return;
+        }
         flag = 2;
         controlTxbCTPN(true);
         txbMaSach_CT.setEditable(false);
     }//GEN-LAST:event_btnSua_CTActionPerformed
 
     private void btnXoaCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaCTActionPerformed
+        if (!checkQDEditPN()) {
+            JOptionPane.showMessageDialog(this, "Phiếu nhập chỉ có thể sửa trong ngày nhập");
+            return;
+        }
         int result = JOptionPane.showConfirmDialog(this, "Xoa ctpn ?", "Confirm", JOptionPane.OK_CANCEL_OPTION);
         if (result == 0) {
             if (!ctpnbll.deleteCTPN(txbMaPn_CT.getText(), txbMaSach_CT.getText())) {
@@ -888,10 +902,15 @@ public class fQLPhieuNhap extends javax.swing.JPanel {
             Float tongTien = tongTienHienTai - Float.parseFloat(tblCTPN.getValueAt(tblCTPN.getSelectedRow(), 5).toString());
             DefaultTableModel dftPN = (DefaultTableModel) tblPN.getModel();
             dftPN.setValueAt(tongTien, tblPN.getSelectedRow(), 3);
+            JOptionPane.showMessageDialog(this, "Xóa thành công");
         }
     }//GEN-LAST:event_btnXoaCTActionPerformed
 
     private void btnLuu_CTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuu_CTActionPerformed
+        if (!checkQDEditPN()) {
+            JOptionPane.showMessageDialog(this, "Phiếu nhập chỉ có thể sửa trong ngày nhập");
+            return;
+        }
         try {
             Integer.parseInt(txbMaSach_CT.getText());
             Float gia = Float.parseFloat(txbGiaNhap_CT.getText());
@@ -1142,11 +1161,30 @@ public class fQLPhieuNhap extends javax.swing.JPanel {
         txbSoLgNhap_CT.setText("0");
         txbGiaNhap_CT.setText("0");
     }
-    
-    public void removeRow(JTable tbl){
+
+    public void removeRow(JTable tbl) {
         DefaultTableModel defaultTableModel = (DefaultTableModel) tbl.getModel();
-        for (int i = defaultTableModel.getRowCount() -1 ; i >= 0; i--) {
-           defaultTableModel.removeRow(i);
+        for (int i = defaultTableModel.getRowCount() - 1; i >= 0; i--) {
+            defaultTableModel.removeRow(i);
+        }
+    }
+
+    public boolean checkQDEditPN() {
+        int row = tblPN.getSelectedRow();
+        SimpleDateFormat fmymd = new SimpleDateFormat("yyyy-MM-dd");
+        String localdate = LocalDate.now().toString();
+        try {
+            Date now = fmymd.parse(localdate);
+            Date datePN = fmymd.parse(tblPN.getValueAt(row, 4).toString());
+            int a = now.compareTo(datePN);
+            if (now.compareTo(datePN) > 0) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
